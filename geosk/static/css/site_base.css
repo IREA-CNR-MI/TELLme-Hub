@@ -4,3 +4,7 @@
     background: transparent url("../img/logo1_200px.png") no-repeat scroll 10px 2px;
     background-size: contain;
  }
+
+ .home .jumbotron{
+     background: #2e89a6!important;
+ }
