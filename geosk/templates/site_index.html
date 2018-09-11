@@ -30,7 +30,7 @@ This is where you can override the hero area block. You can simply modify the co
     <div class="row">
       <div class="container text-center">
         <h2>Featured Datasets</h2>
-        <div class="row home-facets">
+        <div-- class="row home-facets">
         {% with facet_type='home' %}
          {% facets as facets %}
           <div class="col-md-6">
@@ -43,9 +43,10 @@ This is where you can override the hero area block. You can simply modify the co
             <p class="text-center"><a class="btn btn-default" href="{% url "layer_browse" %}" role="button">{% trans "Explore layers" %} &raquo;</a></p>
             {% endif %}
           </div>
-          <div class="col-md-6">
+          <!--div class="col-md-6">
             <p><a href="{% url "osk_browse" %}"><i class="fa fa-square-o fa-4x rotate-45"></i></a></p>
-            <!--<h2><a href="{% url "osk_browse" %}">{{ facets.layer|default:_("No") }} {% blocktrans count counter=facets.layer %}Sensor{% plural %}Sensors{% endblocktrans %}</a></h2>-->
+            <!--<h2><a href="{% url "osk_browse" %}">{{ facets.layer|default:_("No") }} {% blocktrans count counter=facets.layer %}Sensor{% plural %}Sensors{% endblocktrans %}</a></h2>
+            - ->
             <h2><a href="{% url "osk_browse" %}">{% trans 'Sensors'%}</a></h2>
             <p>{% trans "Registerd SOS (Sensor Observation Service). It aggregates observations from live in-situ sensors as well as historical data sets (time series data)" %}</p>
             {% if user.is_authenticated %}
@@ -53,7 +54,7 @@ This is where you can override the hero area block. You can simply modify the co
             {% else %}
             <p class="text-center"><a class="btn btn-default" href="{% url "osk_browse" %}" role="button">{% trans "Explore sensors" %} &raquo;</a></p>
             {% endif %}
-          </div>
+          </div-->
           <div class="col-md-6">
             <p><a href="{% url "maps_browse" %}"><i class="fa fa-map-marker fa-4x"></i></a></p>
             <h2><a href="{% url "maps_browse" %}">{{ facets.map|default:_("No") }} {% blocktrans count counter=facets.map %}Map{% plural %}Maps{% endblocktrans %}</a></h2>
