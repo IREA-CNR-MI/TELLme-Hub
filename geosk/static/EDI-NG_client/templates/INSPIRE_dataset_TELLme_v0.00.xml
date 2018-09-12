@@ -605,7 +605,7 @@
           <isFixed>false</isFixed>
           <hasDatatype>text</hasDatatype>
           <!--  <queryStringParameter>abstract</queryStringParameter> -->
-          <defaultValue>"Brief description of the data contents".This dataset was created in the framework of ERMES (an Earth obseRvation Model based ricE information Service), which is a FP7 Project co-funded by the European Commission with the objective of developing a prototype of downstream service dedicated to the rice sector to support authorities and farmers.</defaultValue>
+          <defaultValue>"Brief description of the data contents".This dataset was created in the framework of TELLme Erasmus+ Project.</defaultValue>
         </item>
       </produces>
     </element>
@@ -634,10 +634,10 @@
       <label xml:lang="en">Responsible party</label>
       <label xml:lang="it">Responsabile</label>
       <help xml:lang="en">Identification of, and means of communication with, person(s) and organization(s) associated with the resource(s).
-          Start typing at least the first 3 letters of your e-mail address and, if you are in the ERMES database of contacts, the fields will autocomplete.
+          Start typing at least the first 3 letters of your e-mail address and, if you are in the TELLme database of contacts, the fields will autocomplete.
           More than one contact can be added clicking the blue button.</help>
       <help xml:lang="it">Identificazione delle persone e organizzazioni associate alla risorsa, e mezzo di comunicazione con esse.
-          I campi sono ad autocompletamento per chi &#232; inserito nel database ERMES,
+          I campi sono ad autocompletamento per chi &#232; inserito nel database TELLme,
           &#232; sufficiente cominciare a digitare le prime 3 lettere dell'indirizzo email.</help>
       <isMandatory>forAll</isMandatory>
       <isMultiple>true</isMultiple>
@@ -773,8 +773,8 @@
     <!--Keyword attinente al progetto ERMES -->
     <element>
       <id>keyw_ermes</id>
-      <label xml:lang="en">Keyword related to project ERMES</label>
-      <label xml:lang="it">Keyword attinente al progetto ERMES</label>
+      <label xml:lang="en">Keyword related to project TELLme</label>
+      <label xml:lang="it">Keyword attinente al progetto TELLme</label>
       <isMandatory>NA</isMandatory>
       <isMultiple>false</isMultiple>
       <hasRoot>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification</hasRoot>
@@ -933,7 +933,7 @@
           <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString</hasPath>
           <isFixed>true</isFixed>
           <hasDatatype>string</hasDatatype>
-          <defaultValue>ERMES</defaultValue>
+          <defaultValue>TELLme</defaultValue>
         </item>
       </produces>
     </element>
@@ -978,10 +978,10 @@
       <id>vinc_acc</id>
         <label xml:lang="en">Limitations on public access</label>
         <label xml:lang="it">Limitazioni all'accesso pubblico</label>
-        <help xml:lang="en">Limitations on the access and use of a resource or metadata. The default values are the ones suggested for ERMES,
+        <help xml:lang="en">Limitations on the access and use of a resource or metadata. The default values are the ones suggested for TELLme,
             i.e. Open Data for non commercial use</help>
         <help xml:lang="it">Restrizioni sull'accesso e utilizzo di una risorsa o metadato. I valori di deafult sono quelli consigliati
-            da ERMES, ovvero Open Data per uso non commerciale.</help>
+            da TELLme, ovvero Open Data per uso non commerciale.</help>
       <isMandatory>forAll</isMandatory>
       <isMultiple>true</isMultiple>
       <hasRoot>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification</hasRoot>
