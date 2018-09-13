@@ -201,7 +201,7 @@
     </datasource>
 
     <datasource>
-      <id>ERMESproducts</id>
+      <id>TELLmeProducts</id>
       <singleton>false</singleton>
       <query>
         <![CDATA[
@@ -221,7 +221,7 @@
       <type> sparql </type>
     </datasource>
     <datasource>
-      <id>ERMESproducts_2</id>
+      <id>TELLmeProducts_2</id>
       <singleton>true</singleton>
       <query>
         <![CDATA[
@@ -317,8 +317,8 @@
       <id>ling_md</id>
       <label xml:lang="en">Metadata language</label>
       <label xml:lang="it">Lingua dei metadati</label>
-      <help xml:lang="en">Language used for documenting metadata. The default language in ERMES is English </help>
-      <help xml:lang="it"> La lingua utilizzata nella compilazione dei metadati. La lingua di default in ERMES &#232; l'inglese</help>
+      <help xml:lang="en">Language used for documenting metadata. The default language in TELLme is English </help>
+      <help xml:lang="it"> La lingua utilizzata nella compilazione dei metadati. La lingua di default in TELLme &#232; l'inglese</help>
       <isMandatory>forAll</isMandatory>
       <isMultiple>false</isMultiple>
       <hasRoot>/gmd:MD_Metadata/gmd:language</hasRoot>
@@ -390,10 +390,10 @@
       <id>md_resp</id>
       <label xml:lang="en">Metadata point of contact.</label>
       <label xml:lang="it">Punto di contatto dei metadati</label>
-      <help xml:lang="en">Party responsible for the metadata information. Start typing at least the first 3 letters of your e-mail address and, if you are in the ERMES database of contacts,
+      <help xml:lang="en">Party responsible for the metadata information. Start typing at least the first 3 letters of your e-mail address and, if you are in the TELLme database of contacts,
           the fields will autocomplete.
           More than one contact can be added clicking the blue button.</help>
-      <help xml:lang="it">Parte responsabile delle informazioni contenute nei metadati. I campi sono ad autocompletamento per chi &#232; inserito nel database ERMES,
+      <help xml:lang="it">Parte responsabile delle informazioni contenute nei metadati. I campi sono ad autocompletamento per chi &#232; inserito nel database TELLme,
           &#232; sufficiente cominciare a digitare le prime 3 lettere dell'indirizzo email. </help>
       <isMandatory>forAll</isMandatory>
       <isMultiple>true</isMultiple>
@@ -526,8 +526,8 @@
       <id>sist_rif_spa</id>
       <label xml:lang="en">Spatial reference system. </label>
       <label xml:lang="it">Sistema di riferimento spaziale. </label>
-      <help xml:lang="en">Describes the coordinate reference system that is associated with the resource.The default value is the projection adopted by ERMES.</help>
-      <help xml:lang="it">Esprime il sistema di riferimento in cui &#232; inquadrata la risorsa georiferita. Il valore di default &#232; la proiezione adottata da ERMES</help>
+      <help xml:lang="en">Describes the coordinate reference system that is associated with the resource.The default value is the projection adopted by TELLme.</help>
+      <help xml:lang="it">Esprime il sistema di riferimento in cui &#232; inquadrata la risorsa georiferita. Il valore di default &#232; la proiezione adottata da TELLme</help>
       <isMandatory>forData</isMandatory>
       <isMultiple>false</isMultiple>
       <hasRoot>/gmd:MD_Metadata</hasRoot>
@@ -558,9 +558,9 @@
       <label xml:lang="en">Resource title</label>
       <label xml:lang="it">Titolo della risorsa</label>
       <help xml:lang="en">Name by which the cited resource is known. Start typing at least 3 letters of the product
-          name following the ERMES naming convention, and a product list will appear.</help>
+          name following the TELLme naming convention, and a product list will appear.</help>
       <help xml:lang="it">Il nome con il quale la risorsa &#232; conosciuta. Digitare 3 lettere del nome del prodotto
-      secondo la convenzione ERMES e apparira' una lista </help>
+      secondo la convenzione TELLme e apparira' una lista </help>
       <isMandatory>forAll</isMandatory>
       <isMultiple>false</isMultiple>
       <hasRoot>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title</hasRoot>
@@ -571,14 +571,14 @@
           <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString</hasPath>
           <isFixed>false</isFixed>
           <hasDatatype>string</hasDatatype>
-          <defaultValue>ERMES Product "Ex_L/Rx"</defaultValue>
+          <defaultValue>TELLme Product "Ex_L/Rx"</defaultValue>
         </item>
         -->
         <item>
           <hasIndex>1</hasIndex>
           <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString</hasPath>
           <isFixed>false</isFixed>
-          <datasource>ERMESproducts</datasource>
+          <datasource>TELLmeProducts</datasource>
           <!-- <show>combobox</show> -->
           <hasDatatype>autoCompletion</hasDatatype>
           <!-- <hasDatatype>codelist</hasDatatype> -->
@@ -591,9 +591,9 @@
       <id>desc</id>
       <label xml:lang="en">Resource abstract</label>
       <label xml:lang="it">Descrizione della risorsa</label>
-      <help xml:lang="en">Brief narrative summary of the content of the resource(s). There is already a text with the ERMES short description, add the information
+      <help xml:lang="en">Brief narrative summary of the content of the resource(s). There is already a text with the TELLme short description, add the information
       regarding the data contents before.</help>
-      <help xml:lang="it">Breve sommario discorsivo del contenuto della/e risorsa/e. E' gia' contenuta una breve descrizione del progetto ERMES,
+      <help xml:lang="it">Breve sommario discorsivo del contenuto della/e risorsa/e. E' gia' contenuta una breve descrizione del progetto TELLme,
       si devono aggiungere prima le informazioni relative ai contenuti della risorsa</help>
       <isMandatory>forAll</isMandatory>
       <isMultiple>false</isMultiple>
@@ -623,7 +623,7 @@
           <hasPath>/gmd:MD_Metadata/gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL</hasPath>
           <isFixed>false</isFixed>
           <hasDatatype>URI</hasDatatype>
-            <defaultValue>http://get-it.ermes-fp7space.eu/geoserver/wms?</defaultValue>
+            <defaultValue>http://tellme.get-it.it/geoserver/wms?</defaultValue>
           <queryStringParameter>resource</queryStringParameter>
         </item>
       </produces>
@@ -770,9 +770,9 @@
       </produces>
     </element>
     
-    <!--Keyword attinente al progetto ERMES -->
+    <!--Keyword attinente al progetto TELLme -->
     <element>
-      <id>keyw_ermes</id>
+      <id>keyw_TELLme</id>
       <label xml:lang="en">Keyword related to project TELLme</label>
       <label xml:lang="it">Keyword attinente al progetto TELLme</label>
       <isMandatory>NA</isMandatory>
@@ -786,7 +786,7 @@
           <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString</hasPath>
           <isFixed>false</isFixed>
           <hasDatatype>select</hasDatatype>
-          <datasource>ERMESproducts_2</datasource>
+          <datasource>TELLmeProducts_2</datasource>
           <field>a</field>
         </item>
         <item>
@@ -796,7 +796,7 @@
           <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString</hasPath>
           <isFixed>false</isFixed>
           <hasDatatype>select</hasDatatype>
-          <datasource>ERMESproducts_2</datasource>
+          <datasource>TELLmeProducts_2</datasource>
           <field>l</field>
         </item>
         <item>
@@ -806,7 +806,7 @@
           <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date</hasPath>
           <isFixed>false</isFixed>
           <hasDatatype>select</hasDatatype>
-          <datasource>ERMESproducts_2</datasource>
+          <datasource>TELLmeProducts_2</datasource>
           <field>date</field>
         </item>
         <item>
@@ -913,7 +913,7 @@
           <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString</hasPath>
           <isFixed>false</isFixed>
           <hasDatatype>string</hasDatatype>
-<!--          <defaultValue>ERMES</defaultValue>-->
+<!--          <defaultValue>TELLme</defaultValue>-->
         </item>
       </produces>
     </element>
