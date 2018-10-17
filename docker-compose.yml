@@ -144,6 +144,24 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     env_file:
       - ./scripts/docker/env/production/sos.env
+  
+  taverna:
+    image: taverna/taverna-server
+    restart: unless-stopped
+    container_name: taverna
+    stdin_open: true
+#    ports:
+#      - "8080/8080"
+
+  taverna-portal:
+    image: fbacall/taverna-player-portal
+    restart: unless-stopped
+    container_name: taverna-portal
+    stdin_open: true
+    depends_on:
+      - taverna
+#    ports:
+#      - "3000:3000" 
 
   geonode:
     image: geobeyond/nginx:sos
@@ -158,6 +176,8 @@ services:
       - django
       - geoserver
       - sos
+    volumes:
+      - nginx-dir:/etc/nginx/
     ports:
       - "80:80"
 
@@ -182,3 +202,5 @@ volumes:
     name: ${COMPOSE_PROJECT_NAME}-dbsosdata
   dbbackups:
     name: ${COMPOSE_PROJECT_NAME}-dbbackups
+  nginx-dir:
+    name: ${COMPOSE_PROJECT_NAME}-nginxdir
