@@ -8,3 +8,4 @@ The suite is the first open-source collaborative effort toward the integration o
 Please visit [GET-IT](http://www.get-it.it) for more information.
 
 If you just want to install GET-IT, it is recommended to use Ubuntu 16.04. Please read this page :ref:`scratch`.
+
