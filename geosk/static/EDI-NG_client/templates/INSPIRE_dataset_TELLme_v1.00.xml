@@ -356,16 +356,16 @@
                <label xml:lang="it">Email</label>
                <hasPath>/gmd:MD_Metadata/gmd:contact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString</hasPath>
             </item>
-            <item hasIndex="2" xml:id="md_resp_2" outIndex="1" field="inst" isFixed="false" hasDatatype="select" datasource="personS">
+            <item hasIndex="2" xml:id="md_resp_2" outIndex="1" field="l" isFixed="false" hasDatatype="select" datasource="personS">
                <label xml:lang="en">Institute</label>
                <label xml:lang="it">Ente</label>
                <hasPath>/gmd:MD_Metadata/gmd:contact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString</hasPath>
             </item>
-            <item hasIndex="3" xml:id="md_resp_3" outIndex="2" field="phone" isFixed="false" hasDatatype="select" datasource="personS">
+            <!--item hasIndex="3" xml:id="md_resp_3" outIndex="2" field="phone" isFixed="false" hasDatatype="select" datasource="personS">
                <label xml:lang="en">Telephone number</label>
                <label xml:lang="it">Telefono</label>
                <hasPath>/gmd:MD_Metadata/gmd:contact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:phone/gmd:CI_Telephone/gmd:voice/gco:CharacterString</hasPath>
-            </item>
+            </item-->
             <item hasIndex="4" xml:id="md_resp_4" isFixed="true" hasDatatype="URI">
                <hasPath>/gmd:MD_Metadata/gmd:contact/gmd:CI_ResponsibleParty/gmd:role/gmd:CI_RoleCode/@codeList</hasPath>
                <hasValue>http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#CI_RoleCode</hasValue>
@@ -491,16 +491,16 @@
                <label xml:lang="it">Email</label>
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString</hasPath>
             </item>
-            <item hasIndex="2" xml:id="resp_2" outIndex="1" field="inst" isFixed="false" hasDatatype="select" datasource="personS_2">
+            <item hasIndex="2" xml:id="resp_2" outIndex="1" field="l" isFixed="false" hasDatatype="select" datasource="personS_2">
                <label xml:lang="en">Institute</label>
                <label xml:lang="it">Ente</label>
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString</hasPath>
             </item>
-            <item hasIndex="3" xml:id="resp_3" outIndex="2" field="phone" isFixed="false" hasDatatype="select" datasource="personS_2">
+            <!--item hasIndex="3" xml:id="resp_3" outIndex="2" field="phone" isFixed="false" hasDatatype="select" datasource="personS_2">
                <label xml:lang="en">Telephone number</label>
                <label xml:lang="it">Telefono</label>
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:phone/gmd:CI_Telephone/gmd:voice/gco:CharacterString</hasPath>
-            </item>
+            </item-->
             <item hasIndex="4" xml:id="resp_4" isFixed="true" hasDatatype="URI">
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:pointOfContact/gmd:CI_ResponsibleParty/gmd:role/gmd:CI_RoleCode/@codeList</hasPath>
                <hasValue>http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#CI_RoleCode</hasValue>
