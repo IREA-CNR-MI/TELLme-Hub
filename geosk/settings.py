@@ -387,6 +387,19 @@ MAP_BASELAYERS = [{
     "fixed": True,
     "group":"background"
 }, {
+    "source": {"ptype": "gxp_osmsource"},
+    "type": "OpenLayers.Layer.OSM",
+    "title": "OpenStreetMap",
+    "name": "mapnik",
+    "attribution": "&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors",
+    "visibility": True,
+    "wrapDateLine": True,
+    "fixed": True,
+    "group": "background"
+}]
+
+'''
+{
     "source": {"ptype": "gxp_olsource"},
     "type": "OpenLayers.Layer.XYZ",
     "title": "UNESCO",
@@ -396,7 +409,7 @@ MAP_BASELAYERS = [{
     "attribution": "&copy; UNESCO",
     "visibility": False,
     "fixed": True,
-    "group":"background"
+    "group": "background"
 }, {
     "source": {"ptype": "gxp_olsource"},
     "type": "OpenLayers.Layer.XYZ",
@@ -407,7 +420,7 @@ MAP_BASELAYERS = [{
     "visibility": False,
     "wrapDateLine": True,
     "fixed": True,
-    "group":"background"
+    "group": "background"
 }, {
     "source": {"ptype": "gxp_olsource"},
     "type": "OpenLayers.Layer.XYZ",
@@ -418,7 +431,7 @@ MAP_BASELAYERS = [{
     "visibility": False,
     "wrapDateLine": True,
     "fixed": True,
-    "group":"background"
+    "group": "background"
     # }, {
     #     "source": {"ptype": "gxp_olsource"},
     #     "type": "OpenLayers.Layer.XYZ",
@@ -441,17 +454,8 @@ MAP_BASELAYERS = [{
     #     "wrapDateLine": True,
     #     "fixed": True,
     #     "group":"background"
-}, {
-    "source": {"ptype": "gxp_osmsource"},
-    "type": "OpenLayers.Layer.OSM",
-    "title": "OpenStreetMap",
-    "name": "mapnik",
-    "attribution": "&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors",
-    "visibility": True,
-    "wrapDateLine": True,
-    "fixed": True,
-    "group": "background"
-}]
+},
+'''
 
 if BING_API_KEY:
     BASEMAP = {
@@ -497,15 +501,17 @@ NOTIFICATIONS_MODULE = 'pinax.notifications'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-MONITORING_ENABLED = False
+MONITORING_ENABLED = True
 # add following lines to your local settings to enable monitoring
 if MONITORING_ENABLED:
     INSTALLED_APPS += ('geonode.contrib.monitoring',)
     MIDDLEWARE_CLASSES += ('geonode.contrib.monitoring.middleware.MonitoringMiddleware',)
     MONITORING_CONFIG = None
-    MONITORING_HOST_NAME = 'localhost'
+    if os.getenv('DOCKER_ENV'):
+        MONITORING_HOST_NAME = 'geonode'
+    else:
+        MONITORING_HOST_NAME = 'localhost'
     MONITORING_SERVICE_NAME = 'local-geonode'
-
 
 INSTALLED_APPS += ('geonode.contrib.ows_api',)
 
@@ -588,9 +594,12 @@ TEMPLATES[0]['OPTIONS']['context_processors'].append('geosk.skregistration.conte
 
 # PYCSW override from env file
 if os.getenv('DOCKER_ENV', ""):
-    PYCSW = ast.literal_eval(
-        os.getenv("PYCSW")
-    )
+    try:
+        PYCSW = ast.literal_eval(
+            os.getenv("PYCSW")
+        )
+    except ValueError as e:
+        pass
 
 # RITMARE services
 RITMARE = {
