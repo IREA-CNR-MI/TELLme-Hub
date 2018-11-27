@@ -70,5 +70,8 @@ local_settings.py
 
 \.pytest_cache/
 
+\.idea/*
+
+*.dat
 #IDE stuff
 \.idea/
