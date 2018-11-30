@@ -440,10 +440,8 @@
       <element xml:id="tit" isMandatory="true" isMultiple="false">
          <label xml:lang="en">Resource title</label>
          <label xml:lang="it">Titolo della risorsa</label>
-         <help xml:lang="en">Name by which the cited resource is known. Start typing at least 3 letters of the product
-          name following the TELLme naming convention, and a product list will appear.</help>
-         <help xml:lang="it">Il nome con il quale la risorsa è conosciuta. Digitare 3 lettere del nome del prodotto
-      secondo la convenzione TELLme e apparira' una lista </help>
+         <help xml:lang="en">Name by which the cited resource is known.</help>
+         <help xml:lang="it">Il nome con il quale la risorsa è conosciua.</help>
          <hasRoot>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title</hasRoot>
          <produces>
             <item hasIndex="1" xml:id="tit_1" isFixed="false" hasDatatype="string"><!-- datasource="TELLmeProducts"-->
