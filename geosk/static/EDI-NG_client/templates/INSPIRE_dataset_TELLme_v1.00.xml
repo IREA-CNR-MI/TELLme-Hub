@@ -222,6 +222,7 @@
         
       ]]></query>
       </sparql>
+<!--
       <sparql xml:id="TELLmeProducts" endpointType="fuseki1">
          <query><![CDATA[
         
@@ -257,6 +258,7 @@
         
       ]]></query>
       </singleton>
+-->
       <singleton xml:id="contrVocSpecs" endpointType="virtuoso" triggerItem="keyw_voc_contr_1_uri">
          <query><![CDATA[
         
@@ -444,7 +446,7 @@
       secondo la convenzione TELLme e apparira' una lista </help>
          <hasRoot>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title</hasRoot>
          <produces>
-            <item hasIndex="1" xml:id="tit_1" isFixed="false" hasDatatype="autoCompletion" datasource="TELLmeProducts">
+            <item hasIndex="1" xml:id="tit_1" isFixed="false" hasDatatype="string"><!-- datasource="TELLmeProducts"-->
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString</hasPath>
             </item>
          </produces>
@@ -556,6 +558,7 @@
             </item>
          </produces>
       </element>
+<!--
       <element xml:id="keyw_TELLme" isMandatory="false" isMultiple="false">
          <label xml:lang="en">Keyword related to project TELLme</label>
          <label xml:lang="it">Keyword attinente al progetto TELLme</label>
@@ -590,6 +593,7 @@
             </item>
          </produces>
       </element>
+-->
       <element xml:id="keyw_voc_contr" isMandatory="false" isMultiple="true">
          <label xml:lang="en">Keyword from controlled vocabularies</label>
          <label xml:lang="it">Keyword da vocabolari controllati</label>
