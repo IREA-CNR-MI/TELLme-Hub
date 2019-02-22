@@ -1,0 +1,11 @@
+# Execute the following statement to extract the current nginx config from the docker container
+docker cp nginx4starterkit:/etc/nginx/nginx.conf scripts/docker/nginxconfig/nginx.conf
+
+# Modify the conf file according to your needs.
+vim scripts/docker/nginxconfig/nginx.conf
+
+# Execute the following statement to put the modified version into the container again.
+docker cp scripts/docker/nginxconfig/nginx.conf nginx4starterkit:/etc/nginx/nginx.conf
+ 
+# reload the nginx container
+docker-compose stop geonode && docker-compose start geonode
