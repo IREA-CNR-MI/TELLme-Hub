@@ -569,6 +569,7 @@ LOGGING = {
 LANGUAGES = (
     ('en', 'English'),
     ('it', 'Italiano'),
+    ('es', 'Español')
 )
 
 METADATA_DEFAULT_VALUES = {
