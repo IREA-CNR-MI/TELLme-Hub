@@ -71,6 +71,7 @@ services:
     env_file:
       - ./scripts/docker/env/production/django.env
       - ./scripts/docker/env/production/sos.env
+      - ./scripts/docker/env/production/tellme.env
 
   celery:
     image: geobeyond/starterkit:2.7.x
