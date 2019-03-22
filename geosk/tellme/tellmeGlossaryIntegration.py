@@ -5,6 +5,7 @@ from jsonpath_ng.ext import parse
 import datetime
 
 
+
 # alla fine richiamare con
 # > for line in dumpToSkos(downloadFromTellMeGlossary()): print line
 class TellMeKeyword(object):
@@ -12,7 +13,7 @@ class TellMeKeyword(object):
 
     def __init__(self, dictionary):
         self.id=dictionary["id"].__str__()
-        self.title=TellMeKeyword.remove_tags(dictionary["title"])
+        self.title=TellMeKeyword.remove_tags(dictionary["title"]).replace(" ", "_")
         self.meaning=TellMeKeyword.remove_tags(dictionary["meaning"])
         self.context=TellMeKeyword.remove_tags(dictionary["context"])
         self.comment=TellMeKeyword.remove_tags(dictionary["comment"])
@@ -25,6 +26,7 @@ class TellMeKeyword(object):
     @staticmethod
     def remove_tags(text):
         if(text):
+            text=text.replace('"',"'")
             TAG_RE = re.compile(r'<[^>]+>')
             #return(text)
             return TAG_RE.sub('', text)
@@ -36,7 +38,7 @@ tellme:keyword_{0.id}
         a                skos:Concept ;
         a                tellme:{0.entryType} ;
         dc:creator       {creator} ;
-        dc:date          "{date}"@en ;
+        dc:date          "{date}" ;
         owl:deprecated   "false"@en ;
         owl:versionInfo  "1"@en ;
         skos:altLabel    "{0.title}"@en , "{0.title}"@it , "{0.title}"@es ;
@@ -53,7 +55,7 @@ tellme:keyword_{0.id}
         #ttl = self.id.__str__() + "\t" + self.title
         date=datetime.datetime.utcnow().isoformat()
         creator="<http://tellmehub.get-it.it>"
-        inScheme="<http://rdfdata.get-it.it/TELLmeGlossary> "
+        inScheme="<http://rdfdata.get-it.it/TELLmeGlossary>"
         ttl=self.skosSnippet.format(self,date=date,creator=creator, inScheme=inScheme)
         return ttl
 
@@ -64,7 +66,7 @@ class TellMeConcept(TellMeKeyword):
         self.scales=dictionary["scales"]
         #
         self.glossary=dictionary["glossary"].__str__()
-        self.scalesAsText=TellMeKeyword.remove_tags(dictionary["scalesAsText"])
+        self.scalesAsText=TellMeKeyword.remove_tags(dictionary["scalesAsText"].replace(',', ' '))
         self.keywordId=dictionary["keywordId"]
 
     skosSnippet = u'''
@@ -146,9 +148,20 @@ PREFIX tellme: <http://rdfdata.get-it.it/TELLmeGlossary/>
             #print(output)
     return output
 
+def dumpTreeString(jj):
+    from jsonpath_ng.ext import parse
+
+    for k in jj["keywords"]:
+        keyword_id = k["id"]
+        keyword_title = k["title"]
+        print(keyword_id.__str__() + "\t" + keyword_title) #debug
+        for c in [m.value for m in parse('$.concepts[?keywordId=' + keyword_id.__str__() + ']').find(jj)]:
+            print("\t"+c["id"].__str__()+"\t"+c["title"])
+
+
 if __name__ == "__main__":
     jj=downloadFromTellMeGlossary()
-    skos=""
+    skos=[]
     try:
         skos=dumpToSkos(jj)
     except Exception as e:
@@ -156,7 +169,12 @@ if __name__ == "__main__":
         pass
     with open('dump2skos.ttl', 'w') as ttl:
         for line in skos:
-            ttl.write(line)
+            try:
+                ttl.write(line.encode('utf-8'))
+            except Exception as e:
+                print(e)
+                pass
+
     #stringa=jj["keywords"][0]["meaning"]
     #nuovaStringa=TellMeKeyword.remove_tags(stringa)
     #print(nuovaStringa)

@@ -200,32 +200,50 @@
       <codelist xml:id="inspireTheme" endpointType="virtuoso">
          <uri>http://inspire-registry.jrc.ec.europa.eu/registers/Themes/items</uri>
       </codelist>
-      <sparql xml:id="keywordFromContrVoc" endpointType="virtuoso">
+      <sparql xml:id="keywordFromContrVoc" endpointType="fuseki1">
          <query><![CDATA[
         
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-        SELECT ?c ?l ?a
-        FROM <http://ritmare.it/rdfdata/reference>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX tellme: <http://rdfdata.get-it.it/TELLmeGlossary/>
+        SELECT ?c ?a ?l ?userLabel ?keyword ?relatedConcept ?voc
         WHERE {
-          ?c rdf:type skos:Concept .
+          ?c rdf:type skos:Concept ,tellme:relatedConcept ;
+    		 skos:broader/skos:prefLabel ?keyword ;
+    		 skos:inScheme <http://rdfdata.get-it.it/TELLmeGlossary> .
+    	  FILTER (LANG(?keyword)="en")
+
+
+    	  <http://rdfdata.get-it.it/TELLmeGlossary> skos:prefLabel ?schemeLabel
+    	  FILTER(LANG(?schemeLabel)="en")
+
+
           OPTIONAL {
-            ?c skos:prefLabel ?l .
-            FILTER( LANG(?l) = "en")
+            ?c skos:prefLabel ?relatedConcept .
+            FILTER( LANG(?relatedConcept) = "en")
           }
           OPTIONAL {
-            ?c skos:prefLabel ?a .
-            FILTER( LANG(?a) = "it")
+            ?c skos:prefLabel ?trad .
+            FILTER( LANG(?trad) = "it")
           }
-          FILTER( REGEX( STR(?l), "$search_param", "i") || REGEX( STR(?a), "$search_param", "i") )
+          BIND(CONCAT(UCASE(?keyword),' - ',?relatedConcept) AS ?userLabel)
+          BIND(CONCAT(UCASE(?keyword),' - ',?relatedConcept) AS ?a)
+          BIND(?relatedConcept AS ?lOLD)
+BIND(?userLabel AS ?l)
+
+          BIND('http://rdfdata.get-it.it/TELLmeGlossary/' AS ?voc)
+
+          FILTER( REGEX( STR(?a), "$search_param", "i") )
         }
-        ORDER BY ASC(?l) ASC(?a)
-        
+        ORDER BY ASC(?userLabel)
+
       ]]></query>
+         <url>http://fuseki1.get-it.it/TELLmeGlossary/sparql</url>
       </sparql>
 <!--
       <sparql xml:id="TELLmeProducts" endpointType="fuseki1">
          <query><![CDATA[
-        
+
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         SELECT ?c ?l
         WHERE {
@@ -234,12 +252,12 @@
           FILTER( REGEX( STR(?l), "$search_param", "i") )
         }
         ORDER BY ASC(?l)
-        
+
       ]]></query>
       </sparql>
       <singleton xml:id="TELLmeProducts_2" endpointType="fuseki1" triggerItem="tit_1_uri">
          <query><![CDATA[
-        
+
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         SELECT ?c ?a ?l ?date
         WHERE {
@@ -255,24 +273,53 @@
           ?c dct:issued ?date .
           FILTER( LANG(?l) = "en" && LANG(?a) = "en")
         } LIMIT 1
-        
+
       ]]></query>
       </singleton>
 -->
       <singleton xml:id="contrVocSpecs" endpointType="virtuoso" triggerItem="keyw_voc_contr_1_uri">
          <query><![CDATA[
-        
+
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-        SELECT ?c ?l ?date
-        FROM <http://ritmare.it/rdfdata/reference>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX tellme: <http://rdfdata.get-it.it/TELLmeGlossary/>
+        PREFIX dc: <http://purl.org/dc/elements/1.1/>
+        SELECT ?c ?a ?l ?userLabel ?keyword ?relatedConcept ?voc ?date ?tokenizedscale
         WHERE {
-          <$search_param> skos:inScheme ?c .
-          ?c skos:prefLabel ?l .
-          ?c dct:issued ?date .
-          FILTER( LANG(?l) = "en")
+          BIND(<$search_param>  AS ?c)
+
+          ?c rdf:type skos:Concept ,tellme:relatedConcept ;
+          dc:date ?date;
+          tellme:scales ?scales;
+    		 skos:broader/skos:prefLabel ?keyword ;
+    		 skos:inScheme <http://rdfdata.get-it.it/TELLmeGlossary> .
+    	  FILTER (LANG(?keyword)="en")
+
+
+    	  <http://rdfdata.get-it.it/TELLmeGlossary> skos:prefLabel ?schemeLabel
+    	  FILTER(LANG(?schemeLabel)="en")
+
+
+          OPTIONAL {
+            ?c skos:prefLabel ?relatedConcept .
+            FILTER( LANG(?relatedConcept) = "en")
+          }
+          OPTIONAL {
+            ?c skos:prefLabel ?trad .
+            FILTER( LANG(?trad) = "it")
+          }
+          BIND(CONCAT(UCASE(?keyword),' - ',?relatedConcept) AS ?userLabel)
+          BIND(CONCAT(UCASE(?keyword),' - ',?relatedConcept) AS ?a)
+          BIND(?relatedConcept AS ?l)
+
+          BIND(REPLACE(?scales,',',' ','i') as ?tokenizedscale)
+
+          BIND('http://rdfdata.get-it.it/TELLmeGlossary/' AS ?voc)
         }
-        
+        ORDER BY ASC(?userLabel)
+
       ]]></query>
+         <url>http://fuseki1.get-it.it/TELLmeGlossary/sparql</url>
       </singleton>
       <codelist xml:id="restrictionCode" endpointType="virtuoso">
          <uri>http://www.rndt.gov.it/codelists/MD_RestrictionCode/items</uri>
@@ -292,7 +339,7 @@
          <label xml:lang="it">Identificatore del file</label>
          <help xml:lang="en">This metadata item is not required by INSPIRE but is useful to draw the correspondence between the metadata record and the resource itself.
         It is therefore suggested that the workflow invoking EDI provides this piece of information as a request parameter.</help>
-         <help xml:lang="it">Questo metadato non è richiesto da INSPIRE ma è utile per tracciare la corrispondenza tra il metadato e la risorsa corrispondente. 
+         <help xml:lang="it">Questo metadato non è richiesto da INSPIRE ma è utile per tracciare la corrispondenza tra il metadato e la risorsa corrispondente.
         É quindi consigliato che EDI riceva questa informazione come parametro della richiesta.</help>
          <hasRoot>/gmd:MD_Metadata/gmd:fileIdentifier</hasRoot>
          <produces>
@@ -598,39 +645,7 @@
             </item>
          </produces>
       </element>
-      <element xml:id="keyw_tellmescale" isMandatory="false" isMultiple="false">
-         <!--
-            TODO: collegare a fornte RDF se e quando disponibile
-            TODO: valutare come estendere md get-it per reperire info in eventuale visualizzazione o chiamata WMS o filtro stili
-            TODO: valutare se possa influire su scala nominale ed essere usato per autocompilarlo (penso però di no)
-            -->
-         <label xml:lang="en">TELLme scale (XXL, XL, L, M, S)</label>
-         <label xml:lang="it">Scala TELLme (XXL, XL, L, M, S)</label>
-         <help xml:lang="en">Scale according to project TELLme theoretical and practical framework</help>
-         <help xml:lang="it">Scala, secondo il quadro teorico e pratico del progetto TELLme</help>
-         <hasRoot>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification</hasRoot>
-         <produces>
-            <item hasIndex="1" xml:id="keyw_tellmescale_1" isFixed="false" hasDatatype="string">
-               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString</hasPath>
-            </item>
-            <item hasIndex="2" xml:id="keyw_tellmescale_2" isFixed="true" hasDatatype="URI">
-               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type/gmd:MD_KeywordTypeCode/@codeList</hasPath>
-               <hasValue>http://rdfdata.get-it.it/tellme</hasValue>
-            </item>
-            <item hasIndex="3" xml:id="keyw_tellmescale_3" isFixed="true" hasDatatype="string">
-               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type/gmd:MD_KeywordTypeCode/@codeListValue</hasPath>
-               <hasValue>metropolitanscale</hasValue>
-            </item>
-            <item hasIndex="4" xml:id="keyw_tellmescale_4" isFixed="true" hasDatatype="string">
-               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type/gmd:MD_KeywordTypeCode/@codeSpace</hasPath>
-               <hasValue>TELLme</hasValue>
-            </item>
-            <item hasIndex="5" xml:id="keyw_tellmescale_5" isFixed="true" hasDatatype="string">
-               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type</hasPath>
-               <hasValue>metropolitanscale</hasValue>
-            </item>
-         </produces>
-      </element>
+
 
 
 <!--
@@ -669,44 +684,88 @@
          </produces>
       </element>
 -->
-      <element xml:id="keyw_voc_contr" isMandatory="false" isMultiple="true">
-         <label xml:lang="en">Keyword from controlled vocabularies</label>
-         <label xml:lang="it">Keyword da vocabolari controllati</label>
-         <help xml:lang="en">Keyword drawn from the controlled vocabularies that are supported.</help>
-         <help xml:lang="it">Keyword proveniente dai vocabolari controllati supportati.</help>
+      <element xml:id="keyw_voc_contr" isMandatory="true" isMultiple="false">
+         <label xml:lang="en">Keyword/Related Concept from TELLme Glossary</label>
+         <label xml:lang="it">Keyword/Related Concept dal glossario TELLme</label>
+         <help xml:lang="en">Keyword/Related Concept drawn from the glossary of TELLme Project.</help>
+         <help xml:lang="it">Keyword/Related Concept tratta dal glossario del Progetto TELLme.</help>
          <hasRoot>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification</hasRoot>
          <produces>
             <item hasIndex="1" xml:id="keyw_voc_contr_1" isFixed="false" hasDatatype="autoCompletion" datasource="keywordFromContrVoc">
-               <label xml:lang="it">Keyword</label>
-               <label xml:lang="en">Keyword</label>
+               <!--label xml:lang="it">Keyword</label>
+               <label xml:lang="en">Keyword</label-->
+               <hasPath>deleteme</hasPath>
+            </item>
+             <item hasIndex="2" xml:id="keyw_voc_contr_2" isFixed="true" hasDatatype="select" field="c" datasource="contrVocSpecs">
+               <!--label xml:lang="it">Keyword</label>
+               <label xml:lang="en">Keyword</label-->
+               <hasPath>deleteme/@xlink:href</hasPath>
+            </item>
+            <item hasIndex="3" xml:id="keyw_voc_contr_3" field="relatedConcept" isFixed="true" hasDatatype="select" datasource="contrVocSpecs">
+               <!--label xml:lang="it">Keyword</label>
+               <label xml:lang="en">Keyword</label-->
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString</hasPath>
             </item>
-            <item hasIndex="2" xml:id="keyw_voc_contr_2" field="l" isFixed="false" hasDatatype="select" datasource="contrVocSpecs">
+            <item hasIndex="4" xml:id="keyw_voc_contr_4" field="voc" isFixed="false" hasDatatype="select" datasource="contrVocSpecs">
                <label xml:lang="it">Vocabolario controllato di provenienza</label>
                <label xml:lang="en">Originating controlled vocabulary</label>
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString</hasPath>
             </item>
-            <item hasIndex="3" xml:id="keyw_voc_contr_3" field="date" isFixed="false" hasDatatype="select" datasource="contrVocSpecs">
+            <item hasIndex="5" xml:id="keyw_voc_contr_5" field="date" isFixed="false" hasDatatype="select" datasource="contrVocSpecs">
                <label xml:lang="it">Data di pubblicazione (aaaa-mm-gg)</label>
                <label xml:lang="en">Publication date (yyyy-mm-dd)</label>
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date</hasPath>
             </item>
-            <item hasIndex="4" xml:id="keyw_voc_contr_4" isFixed="true" hasDatatype="string">
+            <item hasIndex="6" xml:id="keyw_voc_contr_6" isFixed="true" hasDatatype="string">
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:dateType/gmd:CI_DateTypeCode</hasPath>
                <hasValue>publication</hasValue>
             </item>
-            <item hasIndex="5" xml:id="keyw_voc_contr_5" isFixed="true" hasDatatype="URI">
+            <item hasIndex="7" xml:id="keyw_voc_contr_7" isFixed="true" hasDatatype="URI">
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:dateType/gmd:CI_DateTypeCode/@codeList</hasPath>
                <hasValue>http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#CI_DateTypeCode</hasValue>
             </item>
-            <item hasIndex="6" xml:id="keyw_voc_contr_6" isFixed="true" hasDatatype="string">
+            <item hasIndex="8" xml:id="keyw_voc_contr_8" isFixed="true" hasDatatype="string">
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:thesaurusName/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:dateType/gmd:CI_DateTypeCode/@codeListValue</hasPath>
                <hasValue>publication</hasValue>
             </item>
          </produces>
       </element>
 
-      <element xml:id="keyw" isMandatory="false" isMultiple="true">
+      <element xml:id="keyw_tellmescale" isMandatory="false" isMultiple="false">
+         <!--
+            TODO: collegare a fornte RDF se e quando disponibile
+            TODO: valutare come estendere md get-it per reperire info in eventuale visualizzazione o chiamata WMS o filtro stili
+            TODO: valutare se possa influire su scala nominale ed essere usato per autocompilarlo (penso però di no)
+            -->
+         <label xml:lang="en">TELLme scale (XXL, XL, L, M, S)</label>
+         <label xml:lang="it">Scala TELLme (XXL, XL, L, M, S)</label>
+         <help xml:lang="en">Scale according to project TELLme theoretical and practical framework</help>
+         <help xml:lang="it">Scala, secondo il quadro teorico e pratico del progetto TELLme</help>
+         <hasRoot>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification</hasRoot>
+         <produces>
+            <item hasIndex="1" xml:id="keyw_tellmescale_1" isFixed="false" field="tokenizedscale" hasDatatype="select" datasource="contrVocSpecs">
+               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString</hasPath>
+            </item>
+            <item hasIndex="2" xml:id="keyw_tellmescale_2" isFixed="true" hasDatatype="URI">
+               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type/gmd:MD_KeywordTypeCode/@codeList</hasPath>
+               <hasValue>http://rdfdata.get-it.it/tellme</hasValue>
+            </item>
+            <item hasIndex="3" xml:id="keyw_tellmescale_3" isFixed="true" hasDatatype="string">
+               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type/gmd:MD_KeywordTypeCode/@codeListValue</hasPath>
+               <hasValue>metropolitanscale</hasValue>
+            </item>
+            <item hasIndex="4" xml:id="keyw_tellmescale_4" isFixed="true" hasDatatype="string">
+               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type/gmd:MD_KeywordTypeCode/@codeSpace</hasPath>
+               <hasValue>TELLme</hasValue>
+            </item>
+            <item hasIndex="5" xml:id="keyw_tellmescale_5" isFixed="true" hasDatatype="string">
+               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type</hasPath>
+               <hasValue>metropolitanscale</hasValue>
+            </item>
+         </produces>
+      </element>
+
+      <!--element xml:id="keyw" isMandatory="false" isMultiple="true">
          <label xml:lang="en">Free-text keyword</label>
          <label xml:lang="it">Keyword a testo libero</label>
          <help xml:lang="en">Keyword not coming from the supported controlled vocabularies.</help>
@@ -733,6 +792,7 @@
             </item>
          </produces>
       </element>
+      -->
 
    </group>
    <group xml:id="constraints">
