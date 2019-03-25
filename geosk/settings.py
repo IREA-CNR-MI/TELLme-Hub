@@ -573,9 +573,11 @@ LANGUAGES = (
 )
 
 METADATA_DEFAULT_VALUES = {
-    'category': 'environment',
+    'category': 'environment'
+    ''',
     'language': 'ita',
     'regions': ['ITA']
+    '''
 }
 
 
