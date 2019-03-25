@@ -1,0 +1,2115 @@
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix tellme: <http://rdfdata.get-it.it/TELLmeGlossary/> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
+
+{ tellme:relatedConcept_18
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.583994"@en ;
+          tellme:scales       "XL"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Power_plant"@en , "Power_plant"@es , "Power_plant"@it ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Power_plant"@en , "Power_plant"@es , "Power_plant"@it ;
+          skos:scopeNote      ""@en .
+  
+  <http://rdfdata.get-it.it/TELLmeGlossary>
+          a               skos:ConceptScheme ;
+          dc:issues       "2019-03-22T15:53:58.280258"@en ;
+          dc:title        "TELLme Glossary"@it , "TELLme"@en ;
+          skos:prefLabel  "TELLme Glossary"@it , "TELLme"@en .
+  
+  tellme:keyword_4  a       skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:58.519952" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Grey_Infrastructure"@es , "Grey_Infrastructure"@it , "Grey_Infrastructure"@en ;
+          skos:definition   "In urban planning, grey infrastructure can have the three following meanings:it is a place of specialisation, a man-made structure that fulfils precise functions (i.e. circulation) and obvious roles (i.e. connection);it is a public space, a succession of places where different practices take place, a place of social interaction. It carries out implicit roles among which the redistribution of wealth and real estate values;it is a tool for reconstructing territories through integrated territorial projects. (Pucci, n.d.)"@es , "In urban planning, grey infrastructure can have the three following meanings:it is a place of specialisation, a man-made structure that fulfils precise functions (i.e. circulation) and obvious roles (i.e. connection);it is a public space, a succession of places where different practices take place, a place of social interaction. It carries out implicit roles among which the redistribution of wealth and real estate values;it is a tool for reconstructing territories through integrated territorial projects. (Pucci, n.d.)"@it , "In urban planning, grey infrastructure can have the three following meanings:it is a place of specialisation, a man-made structure that fulfils precise functions (i.e. circulation) and obvious roles (i.e. connection);it is a public space, a succession of places where different practices take place, a place of social interaction. It carries out implicit roles among which the redistribution of wealth and real estate values;it is a tool for reconstructing territories through integrated territorial projects. (Pucci, n.d.)"@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Grey_Infrastructure"@es , "Grey_Infrastructure"@it , "Grey_Infrastructure"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_87
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.452793"@en ;
+          tellme:scales       "M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Self-managed_communities"@es , "Self-managed_communities"@it , "Self-managed_communities"@en ;
+          skos:broader        tellme:keyword_2 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Self-managed_communities"@es , "Self-managed_communities"@it , "Self-managed_communities"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_2  a       skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:58.379411" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Community"@es , "Community"@it , "Community"@en ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Community"@es , "Community"@it , "Community"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_59
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.452405"@en ;
+          tellme:scales       "XL L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Religious_Groups"@es , "Religious_Groups"@it , "Religious_Groups"@en ;
+          skos:broader        tellme:keyword_2 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Religious_Groups"@es , "Religious_Groups"@it , "Religious_Groups"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_3  a       skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:58.453236" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Duty"@es , "Duty"@it , "Duty"@en ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Duty"@es , "Duty"@it , "Duty"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_40
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.585452"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Collective_transportation"@es , "Collective_transportation"@it , "Collective_transportation"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Collective_transportation"@es , "Collective_transportation"@it , "Collective_transportation"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_12
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.378584"@en ;
+          tellme:scales       "XXL XL L M S XS XXS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Streams"@es , "Streams"@it , "Streams"@en ;
+          skos:broader        tellme:keyword_1 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Streams"@es , "Streams"@it , "Streams"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_1  a       skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:58.280995" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Blue_infrastructure"@es , "Blue_infrastructure"@it , "Blue_infrastructure"@en ;
+          skos:definition   "In the context of an urbanised environment, green and blue infrastructure is to be understood as all natural and semi-natural landscape elements that (could) form a green-blue network. It can refer to landscape elements on various spatial scale levels: from individual rows of trees to complete valley systems. Examples of green landscape elements are hedgerows, copses, bushes, orchards, woodlands, natural grasslands and ecological parks. Blue landscape elements are linked to water. They can be pools, ponds and pond systems, wadis, artificial buffer basins or watercourses. Together they form the green-blue infrastructure. (Life+, n.d.)"@es , "In the context of an urbanised environment, green and blue infrastructure is to be understood as all natural and semi-natural landscape elements that (could) form a green-blue network. It can refer to landscape elements on various spatial scale levels: from individual rows of trees to complete valley systems. Examples of green landscape elements are hedgerows, copses, bushes, orchards, woodlands, natural grasslands and ecological parks. Blue landscape elements are linked to water. They can be pools, ponds and pond systems, wadis, artificial buffer basins or watercourses. Together they form the green-blue infrastructure. (Life+, n.d.)"@it , "In the context of an urbanised environment, green and blue infrastructure is to be understood as all natural and semi-natural landscape elements that (could) form a green-blue network. It can refer to landscape elements on various spatial scale levels: from individual rows of trees to complete valley systems. Examples of green landscape elements are hedgerows, copses, bushes, orchards, woodlands, natural grasslands and ecological parks. Blue landscape elements are linked to water. They can be pools, ponds and pond systems, wadis, artificial buffer basins or watercourses. Together they form the green-blue infrastructure. (Life+, n.d.)"@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Blue_infrastructure"@es , "Blue_infrastructure"@it , "Blue_infrastructure"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_8
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.657535"@en ;
+          tellme:scales       "XL"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Earthquakes"@en , "Earthquakes"@es , "Earthquakes"@it ;
+          skos:broader        tellme:keyword_5 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Earthquakes"@en , "Earthquakes"@es , "Earthquakes"@it ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_5  a       skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:58.586591" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Physiography"@es , "Physiography"@it , "Physiography"@en ;
+          skos:definition   "Physiography refers to the exterior physical features and changes of the earth."@es , "Physiography refers to the exterior physical features and changes of the earth."@it , "Physiography refers to the exterior physical features and changes of the earth."@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Physiography"@es , "Physiography"@it , "Physiography"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_53
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.452004"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Marginalisation"@es , "Marginalisation"@it , "Marginalisation"@en ;
+          skos:broader        tellme:keyword_2 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Marginalisation"@es , "Marginalisation"@it , "Marginalisation"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_25
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.584220"@en ;
+          tellme:scales       "L M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Building_footprint"@es , "Building_footprint"@it , "Building_footprint"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Building_footprint"@es , "Building_footprint"@it , "Building_footprint"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_66
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.379050"@en ;
+          tellme:scales       "XXL XL L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Water_body_(t)"@es , "Water_body_(t)"@it , "Water_body_(t)"@en ;
+          skos:broader        tellme:keyword_1 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Water_body_(t)"@es , "Water_body_(t)"@it , "Water_body_(t)"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_38
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.585229"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Recycle_spot"@es , "Recycle_spot"@it , "Recycle_spot"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Recycle_spot"@es , "Recycle_spot"@it , "Recycle_spot"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_2
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.583316"@en ;
+          tellme:scales       "XL L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Urban_area"@es , "Urban_area"@it , "Urban_area"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Urban_area"@es , "Urban_area"@it , "Urban_area"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_60
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.585577"@en ;
+          tellme:scales       "M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Factories_Animal_Husbandry_Production"@es , "Factories_Animal_Husbandry_Production"@it , "Factories_Animal_Husbandry_Production"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Factories_Animal_Husbandry_Production"@es , "Factories_Animal_Husbandry_Production"@it , "Factories_Animal_Husbandry_Production"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_32
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.584641"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Electricity_grid"@es , "Electricity_grid"@it , "Electricity_grid"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Electricity_grid"@es , "Electricity_grid"@it , "Electricity_grid"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_17
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.583895"@en ;
+          tellme:scales       "XL"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Energy_pipeline"@es , "Energy_pipeline"@it , "Energy_pipeline"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Energy_pipeline"@es , "Energy_pipeline"@it , "Energy_pipeline"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_86
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.452665"@en ;
+          tellme:scales       "M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Gate_communities"@es , "Gate_communities"@it , "Gate_communities"@en ;
+          skos:broader        tellme:keyword_2 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Gate_communities"@es , "Gate_communities"@it , "Gate_communities"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_58
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.452275"@en ;
+          tellme:scales       "XL L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Language_groups"@es , "Language_groups"@it , "Language_groups"@en ;
+          skos:broader        tellme:keyword_2 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Language_groups"@es , "Language_groups"@it , "Language_groups"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_11
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.378436"@en ;
+          tellme:scales       "L S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Body_of_water_"@es , "Body_of_water_"@it , "Body_of_water_"@en ;
+          skos:broader        tellme:keyword_1 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Body_of_water_"@es , "Body_of_water_"@it , "Body_of_water_"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_7
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.657420"@en ;
+          tellme:scales       "XL L M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Morphology"@es , "Morphology"@it , "Morphology"@en ;
+          skos:broader        tellme:keyword_5 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Morphology"@es , "Morphology"@it , "Morphology"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_24
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.584121"@en ;
+          tellme:scales       "XXL XL L M S XS XXS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Railway"@es , "Railway"@it , "Railway"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Railway"@es , "Railway"@it , "Railway"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_105
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.453020"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Cosmogonia"@es , "Cosmogonia"@it , "Cosmogonia"@en ;
+          skos:broader        tellme:keyword_2 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Cosmogonia"@es , "Cosmogonia"@it , "Cosmogonia"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_65
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.586197"@en ;
+          tellme:scales       "L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Market_National"@es , "Market_National"@it , "Market_National"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Market_National"@es , "Market_National"@it , "Market_National"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_37
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.585131"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Social_facility"@es , "Social_facility"@it , "Social_facility"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Social_facility"@es , "Social_facility"@it , "Social_facility"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_1
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.583174"@en ;
+          tellme:scales       "XL L M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Road_network"@es , "Road_network"@it , "Road_network"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Road_network"@es , "Road_network"@it , "Road_network"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_112
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.453123"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Memoria_historica_del_territorio"@es , "Memoria_historica_del_territorio"@it , "Memoria_historica_del_territorio"@en ;
+          skos:broader        tellme:keyword_2 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Memoria_historica_del_territorio"@es , "Memoria_historica_del_territorio"@it , "Memoria_historica_del_territorio"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_16
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.519308"@en ;
+          tellme:scales       "XL"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Income_distribution"@es , "Income_distribution"@it , "Income_distribution"@en ;
+          skos:broader        tellme:keyword_3 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Income_distribution"@es , "Income_distribution"@it , "Income_distribution"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_85
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.452535"@en ;
+          tellme:scales       "L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Feeling_of_belonging"@es , "Feeling_of_belonging"@it , "Feeling_of_belonging"@en ;
+          skos:broader        tellme:keyword_2 ;
+          skos:definition     "Sentido de pertinencia, festival"@es , "Sentido de pertinencia, festival"@it , "Sentido de pertinencia, festival"@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Feeling_of_belonging"@es , "Feeling_of_belonging"@it , "Feeling_of_belonging"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_57
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.452146"@en ;
+          tellme:scales       "XL S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Ethnic_Groups"@es , "Ethnic_Groups"@it , "Ethnic_Groups"@en ;
+          skos:broader        tellme:keyword_2 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Ethnic_Groups"@es , "Ethnic_Groups"@it , "Ethnic_Groups"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_6
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.583796"@en ;
+          tellme:scales       "XL"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Telecommunication_tower"@es , "Telecommunication_tower"@it , "Telecommunication_tower"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Telecommunication_tower"@es , "Telecommunication_tower"@it , "Telecommunication_tower"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_64
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.586073"@en ;
+          tellme:scales       "L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Market_Global"@es , "Market_Global"@it , "Market_Global"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Market_Global"@es , "Market_Global"@it , "Market_Global"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_36
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.585033"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Basement_for_parking"@es , "Basement_for_parking"@it , "Basement_for_parking"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Basement_for_parking"@es , "Basement_for_parking"@it , "Basement_for_parking"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_111
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.586400"@en ;
+          tellme:scales       "XL L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Reciclaje"@es , "Reciclaje"@it , "Reciclaje"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Reciclaje"@es , "Reciclaje"@it , "Reciclaje"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_15
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.451864"@en ;
+          tellme:scales       "XL M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Migrant_flux"@es , "Migrant_flux"@it , "Migrant_flux"@en ;
+          skos:broader        tellme:keyword_2 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Migrant_flux"@es , "Migrant_flux"@it , "Migrant_flux"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_28
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.584543"@en ;
+          tellme:scales       "L"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Waste_treatment_area"@es , "Waste_treatment_area"@it , "Waste_treatment_area"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Waste_treatment_area"@es , "Waste_treatment_area"@it , "Waste_treatment_area"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_5
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.583694"@en ;
+          tellme:scales       "XL L"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Logistic_centers"@es , "Logistic_centers"@it , "Logistic_centers"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Logistic_centers"@es , "Logistic_centers"@it , "Logistic_centers"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_22
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.378820"@en ;
+          tellme:scales       "XL L"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Flood_areas"@es , "Flood_areas"@it , "Flood_areas"@en ;
+          skos:broader        tellme:keyword_1 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Flood_areas"@es , "Flood_areas"@it , "Flood_areas"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_63
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.585949"@en ;
+          tellme:scales       "L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Market_Local"@es , "Market_Local"@it , "Market_Local"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Market_Local"@es , "Market_Local"@it , "Market_Local"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_35
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.584935"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Access_gate"@es , "Access_gate"@it , "Access_gate"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Access_gate"@es , "Access_gate"@it , "Access_gate"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_76
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.519728"@en ;
+          tellme:scales       "M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Labour_Social_Division_Sectors"@es , "Labour_Social_Division_Sectors"@it , "Labour_Social_Division_Sectors"@en ;
+          skos:broader        tellme:keyword_3 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Labour_Social_Division_Sectors"@es , "Labour_Social_Division_Sectors"@it , "Labour_Social_Division_Sectors"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_89
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.658150"@en ;
+          tellme:scales       "L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Litography_Underground_Ownership"@es , "Litography_Underground_Ownership"@it , "Litography_Underground_Ownership"@en ;
+          skos:broader        tellme:keyword_5 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Litography_Underground_Ownership"@es , "Litography_Underground_Ownership"@it , "Litography_Underground_Ownership"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_110
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.586301"@en ;
+          tellme:scales       "XL L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Residuos"@es , "Residuos"@it , "Residuos"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Residuos"@es , "Residuos"@it , "Residuos"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_14
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.451710"@en ;
+          tellme:scales       "XL"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Tribal_territory"@es , "Tribal_territory"@it , "Tribal_territory"@en ;
+          skos:broader        tellme:keyword_2 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Tribal_territory"@es , "Tribal_territory"@it , "Tribal_territory"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_55
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.658024"@en ;
+          tellme:scales       "L M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Litography_Soil_Degradation"@es , "Litography_Soil_Degradation"@it , "Litography_Soil_Degradation"@en ;
+          skos:broader        tellme:keyword_5 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Litography_Soil_Degradation"@es , "Litography_Soil_Degradation"@it , "Litography_Soil_Degradation"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_27
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.584445"@en ;
+          tellme:scales       "XL L"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Factories"@es , "Factories"@it , "Factories"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Factories"@es , "Factories"@it , "Factories"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_68
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.379302"@en ;
+          tellme:scales       "M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Ground_Water_Wheels"@es , "Ground_Water_Wheels"@it , "Ground_Water_Wheels"@en ;
+          skos:broader        tellme:keyword_1 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Ground_Water_Wheels"@es , "Ground_Water_Wheels"@it , "Ground_Water_Wheels"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_4
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.583566"@en ;
+          tellme:scales       "XL L"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Airport"@es , "Airport"@it , "Airport"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Airport"@es , "Airport"@it , "Airport"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_102
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.452919"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Toponimia"@es , "Toponimia"@it , "Toponimia"@en ;
+          skos:broader        tellme:keyword_2 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Toponimia"@es , "Toponimia"@it , "Toponimia"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_90
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.519833"@en ;
+          tellme:scales       "M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Land_price"@es , "Land_price"@it , "Land_price"@en ;
+          skos:broader        tellme:keyword_3 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Land_price"@es , "Land_price"@it , "Land_price"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_62
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.585825"@en ;
+          tellme:scales       "L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Factories_Processing"@es , "Factories_Processing"@it , "Factories_Processing"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Factories_Processing"@es , "Factories_Processing"@it , "Factories_Processing"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_34
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.584837"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Parking_area"@es , "Parking_area"@it , "Parking_area"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Parking_area"@es , "Parking_area"@it , "Parking_area"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_115
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.586502"@en ;
+          tellme:scales       "M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Water_catchment"@it , "Water_catchment"@en , "Water_catchment"@es ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Water_catchment"@it , "Water_catchment"@en , "Water_catchment"@es ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_75
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.519595"@en ;
+          tellme:scales       "M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Labour_Social_Division_Income"@es , "Labour_Social_Division_Income"@it , "Labour_Social_Division_Income"@en ;
+          skos:broader        tellme:keyword_3 ;
+          skos:definition     "Social division of labour is related to social control."@es , "Social division of labour is related to social control."@it , "Social division of labour is related to social control."@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Labour_Social_Division_Income"@es , "Labour_Social_Division_Income"@it , "Labour_Social_Division_Income"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_19
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.657668"@en ;
+          tellme:scales       "XL"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Litography"@es , "Litography"@it , "Litography"@en ;
+          skos:broader        tellme:keyword_5 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Litography"@es , "Litography"@it , "Litography"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_13
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.378716"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Ground_water"@es , "Ground_water"@it , "Ground_water"@en ;
+          skos:broader        tellme:keyword_1 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Ground_water"@es , "Ground_water"@it , "Ground_water"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_54
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.657897"@en ;
+          tellme:scales       "L"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Morphology_Elevation"@es , "Morphology_Elevation"@it , "Morphology_Elevation"@en ;
+          skos:broader        tellme:keyword_5 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Morphology_Elevation"@es , "Morphology_Elevation"@it , "Morphology_Elevation"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_26
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.584319"@en ;
+          tellme:scales       "L M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Land_use"@es , "Land_use"@it , "Land_use"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Land_use"@es , "Land_use"@it , "Land_use"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_67
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.379177"@en ;
+          tellme:scales       "M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Ground_Water_Spring"@es , "Ground_Water_Spring"@it , "Ground_Water_Spring"@en ;
+          skos:broader        tellme:keyword_1 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Ground_Water_Spring"@es , "Ground_Water_Spring"@it , "Ground_Water_Spring"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_39
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.585327"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Landmark_and_monuments"@es , "Landmark_and_monuments"@it , "Landmark_and_monuments"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Landmark_and_monuments"@es , "Landmark_and_monuments"@it , "Landmark_and_monuments"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_3
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.583420"@en ;
+          tellme:scales       "XL L"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Docks"@es , "Docks"@it , "Docks"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Docks"@es , "Docks"@it , "Docks"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_20
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.657769"@en ;
+          tellme:scales       "XL L"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Porosity"@es , "Porosity"@it , "Porosity"@en ;
+          skos:broader        tellme:keyword_5 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Porosity"@es , "Porosity"@it , "Porosity"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_61
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.585701"@en ;
+          tellme:scales       "L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Factories_Farms"@es , "Factories_Farms"@it , "Factories_Farms"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Factories_Farms"@es , "Factories_Farms"@it , "Factories_Farms"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_33
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.584740"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Light_system"@es , "Light_system"@it , "Light_system"@en ;
+          skos:broader        tellme:keyword_4 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Light_system"@es , "Light_system"@it , "Light_system"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_74
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.519459"@en ;
+          tellme:scales       "M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Taxation"@en , "Taxation"@es , "Taxation"@it ;
+          skos:broader        tellme:keyword_3 ;
+          skos:definition     "Taxation is related to urban control"@es , "Taxation is related to urban control"@it , "Taxation is related to urban control"@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Taxation"@en , "Taxation"@es , "Taxation"@it ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_46
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.378921"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Water_system"@es , "Water_system"@it , "Water_system"@en ;
+          skos:broader        tellme:keyword_1 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Water_system"@es , "Water_system"@it , "Water_system"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_13  a      skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:59.061471" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Homogeneous_areas"@es , "Homogeneous_areas"@it , "Homogeneous_areas"@en ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Homogeneous_areas"@es , "Homogeneous_areas"@it , "Homogeneous_areas"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_81
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.930520"@en ;
+          tellme:scales       "XXL XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Practises_of_citizenship"@en , "Practises_of_citizenship"@es , "Practises_of_citizenship"@it ;
+          skos:broader        tellme:keyword_9 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Practises_of_citizenship"@en , "Practises_of_citizenship"@es , "Practises_of_citizenship"@it ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_9  a       skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:58.864779" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Borders_Communication"@es , "Borders_Communication"@it , "Borders_Communication"@en ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Borders_Communication"@es , "Borders_Communication"@it , "Borders_Communication"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_106
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.537089"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Heliofania"@es , "Heliofania"@it , "Heliofania"@en ;
+          skos:broader        tellme:keyword_19 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Heliofania"@es , "Heliofania"@it , "Heliofania"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_19  a      skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:59.473665" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Clima"@es , "Clima"@it , "Clima"@en ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Clima"@es , "Clima"@it , "Clima"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_94
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.864090"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Archeological_sites"@es , "Archeological_sites"@it , "Archeological_sites"@en ;
+          skos:broader        tellme:keyword_8 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Archeological_sites"@es , "Archeological_sites"@it , "Archeological_sites"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_8  a       skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:58.796031" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Heritage"@it , "Heritage"@en , "Heritage"@es ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Heritage"@it , "Heritage"@en , "Heritage"@es ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_79
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.930228"@en ;
+          tellme:scales       "XXL XL L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Transitions_Zone_Dimensions"@es , "Transitions_Zone_Dimensions"@it , "Transitions_Zone_Dimensions"@en ;
+          skos:broader        tellme:keyword_9 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Transitions_Zone_Dimensions"@es , "Transitions_Zone_Dimensions"@it , "Transitions_Zone_Dimensions"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_18  a      skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:59.410518" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Tejidos/Pattern"@es , "Tejidos/Pattern"@it , "Tejidos/Pattern"@en ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Tejidos/Pattern"@es , "Tejidos/Pattern"@it , "Tejidos/Pattern"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_100
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.410226"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Regulacion"@es , "Regulacion"@it , "Regulacion"@en ;
+          skos:broader        tellme:keyword_17 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Regulacion"@es , "Regulacion"@it , "Regulacion"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_17  a      skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:59.331033" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Servicios_Ecosistemicos"@es , "Servicios_Ecosistemicos"@it , "Servicios_Ecosistemicos"@en ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Servicios_Ecosistemicos"@es , "Servicios_Ecosistemicos"@it , "Servicios_Ecosistemicos"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_113
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.726237"@en ;
+          tellme:scales       "XL L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Fauna"@es , "Fauna"@it , "Fauna"@en ;
+          skos:broader        tellme:keyword_6 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Fauna"@es , "Fauna"@it , "Fauna"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_6  a       skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:58.658292" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Green_Infrastructure"@es , "Green_Infrastructure"@it , "Green_Infrastructure"@en ;
+          skos:definition   "In urban planning and policies, green infrastructure is a strategically planned network of natural and semi-natural areas with other environmental features designed and managed to deliver a wide range of ecosystem services such as water purification, air quality, space for recreation and climate mitigation and adaptation. This network of green (land) and blue (water) spaces can improve environmental conditions and therefore citizens' health and quality of life. It also supports a green economy, creates job opportunities and enhances biodiversity. (EC, 2016)In urban planning and policies, green infrastructure is a network of parks, green spaces, gardens, woodlands, rivers and wetlands, as well as urban greening features such as street trees and green roofs, that is planned, designed and managed to:&nbsp;promote healthier living, providing spaces for physical activity and relaxation; cool the city and absorb stormwater to lessen the impacts of climate change; filter pollutants to improve air and water quality; make streets clean, comfortable and more attractive to encourage walking and cycling; store carbon in soils and woodlands; create better quality and better-connected habitats to improve biodiversity and ecological resilience. (LCH-GLA, n.d.)"@es , "In urban planning and policies, green infrastructure is a strategically planned network of natural and semi-natural areas with other environmental features designed and managed to deliver a wide range of ecosystem services such as water purification, air quality, space for recreation and climate mitigation and adaptation. This network of green (land) and blue (water) spaces can improve environmental conditions and therefore citizens' health and quality of life. It also supports a green economy, creates job opportunities and enhances biodiversity. (EC, 2016)In urban planning and policies, green infrastructure is a network of parks, green spaces, gardens, woodlands, rivers and wetlands, as well as urban greening features such as street trees and green roofs, that is planned, designed and managed to:&nbsp;promote healthier living, providing spaces for physical activity and relaxation; cool the city and absorb stormwater to lessen the impacts of climate change; filter pollutants to improve air and water quality; make streets clean, comfortable and more attractive to encourage walking and cycling; store carbon in soils and woodlands; create better quality and better-connected habitats to improve biodiversity and ecological resilience. (LCH-GLA, n.d.)"@it , "In urban planning and policies, green infrastructure is a strategically planned network of natural and semi-natural areas with other environmental features designed and managed to deliver a wide range of ecosystem services such as water purification, air quality, space for recreation and climate mitigation and adaptation. This network of green (land) and blue (water) spaces can improve environmental conditions and therefore citizens' health and quality of life. It also supports a green economy, creates job opportunities and enhances biodiversity. (EC, 2016)In urban planning and policies, green infrastructure is a network of parks, green spaces, gardens, woodlands, rivers and wetlands, as well as urban greening features such as street trees and green roofs, that is planned, designed and managed to:&nbsp;promote healthier living, providing spaces for physical activity and relaxation; cool the city and absorb stormwater to lessen the impacts of climate change; filter pollutants to improve air and water quality; make streets clean, comfortable and more attractive to encourage walking and cycling; store carbon in soils and woodlands; create better quality and better-connected habitats to improve biodiversity and ecological resilience. (LCH-GLA, n.d.)"@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         "Starting from Forman’s thought, we can define the green infrastructure as an ecological corridor. This is not just a biological or an ecological continuum, but it refers to a functional zone of passage between several natural areas for a group of species dependent on a single environment. Therefore, this corridor connects different populations and favors the spread and migrations of species, as well as the recolonization of environments that have been disturbed.For example, a footbridge that crosses over a motorway and links two forest areas is an ecological corridor. It enables the circulation of the flora and fauna between the two zones despite the almost impermeable obstacle of the motorway. For this reason, this kind of footbridge is also called a wildlife corridor. Ecological corridors are an essential element in preserving the biodiversity and proper functioning of ecosystems. Without these connections, a very large number of species would not have access to all of the habitats needed for their life cycles (birth, growth, reproduction, etc.) and they would be doomed to disappear in the near future.According to EU, green infrastructure is a strategically planned network of natural and semi-natural areas with other environmental features designed and managed to deliver a wide range of ecosystem services such as water purification, air quality, space for recreation and climate mitigation and adaptation.However, from a design point of view, the best strategies to deal with informal settlements and the growing populations of urban poor are retroactive strategies that upgrade existing conditions with “small-scale urban acupuncture” interventions. Landscape Urbanism as an urban strategy advocates for flexibility, continual rearrangements, and flux. So it has a strong potential for improving the lives of the urban poor through a nuanced understanding of how informal areas can adapt and grow.Expanding on this subject, David Gouverneur from Penn University developed the notion of “informal armatures”. The informal armatures promote an ecology of natural and social relations which make the system resilient by focusing on those aspects that the community cannot address on its own. They can act as preemptive design solutions for growing informal cities. The London City Hall considers green infrastructure just as important to the city as its grey infrastructure of rail, roads, pipes, and cables. It is a network of parks, green spaces, gardens, woodlands, rivers and wetlands, as well as urban greening features such as street trees and green roofs, that is planned, designed and managed to: promote healthier living, providing spaces for physical activity and relaxation; cool the city and absorb stormwater to lessen the impacts of climate change; filter pollutants to improve air and water quality; make streets clean, comfortable and more attractive to encourage walking and cycling; store carbon in soils and woodlands; create better quality and better-connected habitats to improve biodiversity and ecological resilience.Finally, for the classical typomorphological tradition, the forms of continuity between architecture and landscape are defined as the scenic view of the landscape and transforming it into an active element in the architectural design processes, and on the ways of an architectural design able to characterize spaceits own spatiality through the dialogue with landscape structures. The fragmentary character of urban extensions in the metropolitan territory is superseded by structural reading of the landscape system, characterized by forms of continuity with which architecture cooperates to define unitary interventions intending to give shape and meaning to places. Architecture and landscape participate in the definition of a unitary intervention which is characterized by a structured and organized form. The interaction between the architecture and naturalistic dimensions rises in a gradual process of transformation of the existing forest from which emerges a landscape defined by relational forms that architecture establishes with the landscape system. The landscape becomes a built form; structures and punctual elements specify its structure &nbsp;into an overall vocation of the unitary system that is recognizable in the natural landscape and in the ways in which the individual architectures interpret the essence of the whole system. A composite path in which elements belonging to the naturalistic vocabulary are modelled through the definition of urban-oriented spatiality and are organized into an articulation of voids and masses that resembles the construction of urban spaces. The focal elements complete the landscape system as in the case of the “primary elements” in The Architecture of the City (Rossi, 1966). Landscape and architecture clarify each other, in a diversification of the hierarchies that address the relational possibilities between architectural artifice and naturalistic elements."@en ;
+          skos:prefLabel    "Green_Infrastructure"@es , "Green_Infrastructure"@it , "Green_Infrastructure"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_73
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.795946"@en ;
+          tellme:scales       "L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Pollution_Light"@es , "Pollution_Light"@it , "Pollution_Light"@en ;
+          skos:broader        tellme:keyword_7 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Pollution_Light"@es , "Pollution_Light"@it , "Pollution_Light"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_7  a       skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:58.726327" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Shock"@es , "Shock"@it , "Shock"@en ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Shock"@es , "Shock"@it , "Shock"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_45
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.725993"@en ;
+          tellme:scales       "XL L S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Plot_size"@es , "Plot_size"@it , "Plot_size"@en ;
+          skos:broader        tellme:keyword_6 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Plot_size"@es , "Plot_size"@it , "Plot_size"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_12  a      skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:58.993708" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Borders_Categorisation"@es , "Borders_Categorisation"@it , "Borders_Categorisation"@en ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Borders_Categorisation"@es , "Borders_Categorisation"@it , "Borders_Categorisation"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_99
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.410120"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Apoyo"@es , "Apoyo"@it , "Apoyo"@en ;
+          skos:broader        tellme:keyword_17 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Apoyo"@es , "Apoyo"@it , "Apoyo"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_80
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.930377"@en ;
+          tellme:scales       "XXL XL L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Fields_of_action"@es , "Fields_of_action"@it , "Fields_of_action"@en ;
+          skos:broader        tellme:keyword_9 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Fields_of_action"@es , "Fields_of_action"@it , "Fields_of_action"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_93
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.330932"@en ;
+          tellme:scales       "S XS XXS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Path"@es , "Path"@it , "Path"@en ;
+          skos:broader        tellme:keyword_16 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Path"@es , "Path"@it , "Path"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_16  a      skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:59.261963" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Brown_Infrastructure"@es , "Brown_Infrastructure"@it , "Brown_Infrastructure"@en ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Brown_Infrastructure"@es , "Brown_Infrastructure"@it , "Brown_Infrastructure"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_78
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.061355"@en ;
+          tellme:scales       "XL L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Water_Authority"@es , "Water_Authority"@it , "Water_Authority"@en ;
+          skos:broader        tellme:keyword_12 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Water_Authority"@es , "Water_Authority"@it , "Water_Authority"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_72
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.795817"@en ;
+          tellme:scales       "L M S XS XXS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Pollution_Noise"@es , "Pollution_Noise"@it , "Pollution_Noise"@en ;
+          skos:broader        tellme:keyword_7 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Pollution_Noise"@es , "Pollution_Noise"@it , "Pollution_Noise"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_44
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.725886"@en ;
+          tellme:scales       "XL L M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Agricultural_type"@en , "Agricultural_type"@es , "Agricultural_type"@it ;
+          skos:broader        tellme:keyword_6 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Agricultural_type"@en , "Agricultural_type"@es , "Agricultural_type"@it ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_29
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.863840"@en ;
+          tellme:scales       "L M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Belvedere"@es , "Belvedere"@it , "Belvedere"@en ;
+          skos:broader        tellme:keyword_8 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Belvedere"@es , "Belvedere"@it , "Belvedere"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_98
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.409998"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Abastecimiento"@es , "Abastecimiento"@it , "Abastecimiento"@en ;
+          skos:broader        tellme:keyword_17 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Abastecimiento"@es , "Abastecimiento"@it , "Abastecimiento"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_10
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.725506"@en ;
+          tellme:scales       "XL"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Vegetation_coverage"@es , "Vegetation_coverage"@it , "Vegetation_coverage"@en ;
+          skos:broader        tellme:keyword_6 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Vegetation_coverage"@es , "Vegetation_coverage"@it , "Vegetation_coverage"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_51
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.795285"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Disease"@es , "Disease"@it , "Disease"@en ;
+          skos:broader        tellme:keyword_7 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Disease"@es , "Disease"@it , "Disease"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_23
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.795144"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Air_quality"@es , "Air_quality"@it , "Air_quality"@en ;
+          skos:broader        tellme:keyword_7 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Air_quality"@es , "Air_quality"@it , "Air_quality"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_104
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.473453"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Libres"@es , "Libres"@it , "Libres"@en ;
+          skos:broader        tellme:keyword_18 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Libres"@es , "Libres"@it , "Libres"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_92
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.261819"@en ;
+          tellme:scales       "L M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Distribution_of_goods"@en , "Distribution_of_goods"@es , "Distribution_of_goods"@it ;
+          skos:broader        tellme:keyword_15 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Distribution_of_goods"@en , "Distribution_of_goods"@es , "Distribution_of_goods"@it ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_15  a      skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:59.194486" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Production_cycle"@es , "Production_cycle"@it , "Production_cycle"@en ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Production_cycle"@es , "Production_cycle"@it , "Production_cycle"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_77
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.061211"@en ;
+          tellme:scales       "XXL XL L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Administrative_boundaries"@es , "Administrative_boundaries"@it , "Administrative_boundaries"@en ;
+          skos:broader        tellme:keyword_12 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Administrative_boundaries"@es , "Administrative_boundaries"@it , "Administrative_boundaries"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_30
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.863972"@en ;
+          tellme:scales       "L M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Historical_groves"@es , "Historical_groves"@it , "Historical_groves"@en ;
+          skos:broader        tellme:keyword_8 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Historical_groves"@es , "Historical_groves"@it , "Historical_groves"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_71
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.795686"@en ;
+          tellme:scales       "XL L M S XS XXS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Pollution_Soil"@es , "Pollution_Soil"@it , "Pollution_Soil"@en ;
+          skos:broader        tellme:keyword_7 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Pollution_Soil"@es , "Pollution_Soil"@it , "Pollution_Soil"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_43
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.725746"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Vegetation_type"@it , "Vegetation_type"@en , "Vegetation_type"@es ;
+          skos:broader        tellme:keyword_6 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Vegetation_type"@it , "Vegetation_type"@en , "Vegetation_type"@es ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_10  a      skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:58.930613" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Public_realm"@es , "Public_realm"@it , "Public_realm"@en ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Public_realm"@es , "Public_realm"@it , "Public_realm"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_84
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.127467"@en ;
+          tellme:scales       "L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "'Fondo'/Plot_of_land_Ownership"@es , "'Fondo'/Plot_of_land_Ownership"@it , "'Fondo'/Plot_of_land_Ownership"@en ;
+          skos:broader        tellme:keyword_13 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "'Fondo'/Plot_of_land_Ownership"@es , "'Fondo'/Plot_of_land_Ownership"@it , "'Fondo'/Plot_of_land_Ownership"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_56
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.726131"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Distribution_of_Plant_Species"@es , "Distribution_of_Plant_Species"@it , "Distribution_of_Plant_Species"@en ;
+          skos:broader        tellme:keyword_6 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Distribution_of_Plant_Species"@es , "Distribution_of_Plant_Species"@it , "Distribution_of_Plant_Species"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_109
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.864656"@en ;
+          tellme:scales       "L M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Fondos_escenicos"@es , "Fondos_escenicos"@it , "Fondos_escenicos"@en ;
+          skos:broader        tellme:keyword_8 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Fondos_escenicos"@es , "Fondos_escenicos"@it , "Fondos_escenicos"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_97
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.864424"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Caminos_historicos"@es , "Caminos_historicos"@it , "Caminos_historicos"@en ;
+          skos:broader        tellme:keyword_8 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Caminos_historicos"@es , "Caminos_historicos"@it , "Caminos_historicos"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_69
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.795422"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Pollution_Air"@es , "Pollution_Air"@it , "Pollution_Air"@en ;
+          skos:broader        tellme:keyword_7 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Pollution_Air"@es , "Pollution_Air"@it , "Pollution_Air"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_50
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.930069"@en ;
+          tellme:scales       "L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Enclosures"@en , "Enclosures"@es , "Enclosures"@it ;
+          skos:broader        tellme:keyword_9 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Enclosures"@en , "Enclosures"@es , "Enclosures"@it ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_103
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.473331"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "LLenos"@es , "LLenos"@it , "LLenos"@en ;
+          skos:broader        tellme:keyword_18 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "LLenos"@es , "LLenos"@it , "LLenos"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_91
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.261696"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Raw_material_supply"@es , "Raw_material_supply"@it , "Raw_material_supply"@en ;
+          skos:broader        tellme:keyword_15 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Raw_material_supply"@es , "Raw_material_supply"@it , "Raw_material_supply"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_70
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.795555"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Pollution_Water"@it , "Pollution_Water"@en , "Pollution_Water"@es ;
+          skos:broader        tellme:keyword_7 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Pollution_Water"@it , "Pollution_Water"@en , "Pollution_Water"@es ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_42
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.993593"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Common_space"@es , "Common_space"@it , "Common_space"@en ;
+          skos:broader        tellme:keyword_10 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Common_space"@es , "Common_space"@it , "Common_space"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_83
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.127336"@en ;
+          tellme:scales       "L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "'Fondo'/Plot_of_land_Measurement"@es , "'Fondo'/Plot_of_land_Measurement"@it , "'Fondo'/Plot_of_land_Measurement"@en ;
+          skos:broader        tellme:keyword_13 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "'Fondo'/Plot_of_land_Measurement"@es , "'Fondo'/Plot_of_land_Measurement"@it , "'Fondo'/Plot_of_land_Measurement"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_108
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.864545"@en ;
+          tellme:scales       "L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Expresiones_artiticas_de_paisajes_culturales"@es , "Expresiones_artiticas_de_paisajes_culturales"@it , "Expresiones_artiticas_de_paisajes_culturales"@en ;
+          skos:broader        tellme:keyword_8 ;
+          skos:definition     "Poemas, peliculas, relatos de viajeros, fotografias, pinturas, cartografia historica"@es , "Poemas, peliculas, relatos de viajeros, fotografias, pinturas, cartografia historica"@it , "Poemas, peliculas, relatos de viajeros, fotografias, pinturas, cartografia historica"@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Expresiones_artiticas_de_paisajes_culturales"@es , "Expresiones_artiticas_de_paisajes_culturales"@it , "Expresiones_artiticas_de_paisajes_culturales"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_96
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.864314"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Fiestas_y_Rituales"@es , "Fiestas_y_Rituales"@it , "Fiestas_y_Rituales"@en ;
+          skos:broader        tellme:keyword_8 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Fiestas_y_Rituales"@es , "Fiestas_y_Rituales"@it , "Fiestas_y_Rituales"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_21
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.725623"@en ;
+          tellme:scales       "XL"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Ecoregion"@es , "Ecoregion"@it , "Ecoregion"@en ;
+          skos:broader        tellme:keyword_6 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Ecoregion"@es , "Ecoregion"@it , "Ecoregion"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:keyword_14  a      skos:Concept , tellme:keyword ;
+          dc:creator        <http://tellmehub.get-it.it> ;
+          dc:date           "2019-03-22T15:53:59.127576" ;
+          owl:deprecated    "false"@en ;
+          owl:versionInfo   "1"@en ;
+          skos:altLabel     "Strategy_of_Borders_Control"@es , "Strategy_of_Borders_Control"@it , "Strategy_of_Borders_Control"@en ;
+          skos:definition   ""@es , ""@it , ""@en ;
+          skos:historyNote  <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme     <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note         ""@en ;
+          skos:prefLabel    "Strategy_of_Borders_Control"@es , "Strategy_of_Borders_Control"@it , "Strategy_of_Borders_Control"@en ;
+          skos:scopeNote    ""@en .
+  
+  tellme:relatedConcept_88
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.194386"@en ;
+          tellme:scales       "L M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Service_boundaries_and_catchment_areas"@es , "Service_boundaries_and_catchment_areas"@it , "Service_boundaries_and_catchment_areas"@en ;
+          skos:broader        tellme:keyword_14 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Service_boundaries_and_catchment_areas"@es , "Service_boundaries_and_catchment_areas"@it , "Service_boundaries_and_catchment_areas"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_41
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.993477"@en ;
+          tellme:scales       "M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Public_space"@es , "Public_space"@it , "Public_space"@en ;
+          skos:broader        tellme:keyword_10 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Public_space"@es , "Public_space"@it , "Public_space"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_82
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.127191"@en ;
+          tellme:scales       "M S"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Rules_of_access_to_private_properties"@es , "Rules_of_access_to_private_properties"@it , "Rules_of_access_to_private_properties"@en ;
+          skos:broader        tellme:keyword_13 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Rules_of_access_to_private_properties"@es , "Rules_of_access_to_private_properties"@it , "Rules_of_access_to_private_properties"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_9
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.725371"@en ;
+          tellme:scales       "XL M"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Protected_areas"@es , "Protected_areas"@it , "Protected_areas"@en ;
+          skos:broader        tellme:keyword_6 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Protected_areas"@es , "Protected_areas"@it , "Protected_areas"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_107
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.410433"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Culturales_Perception_Estaciones_en_Paisaje"@it , "Culturales_Perception_Estaciones_en_Paisaje"@en , "Culturales_Perception_Estaciones_en_Paisaje"@es ;
+          skos:broader        tellme:keyword_17 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Culturales_Perception_Estaciones_en_Paisaje"@it , "Culturales_Perception_Estaciones_en_Paisaje"@en , "Culturales_Perception_Estaciones_en_Paisaje"@es ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_95
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:58.864203"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Holy_places"@es , "Holy_places"@it , "Holy_places"@en ;
+          skos:broader        tellme:keyword_8 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Holy_places"@es , "Holy_places"@it , "Holy_places"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_101
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.410331"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Culturales"@es , "Culturales"@it , "Culturales"@en ;
+          skos:broader        tellme:keyword_17 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Culturales"@es , "Culturales"@it , "Culturales"@en ;
+          skos:scopeNote      ""@en .
+  
+  tellme:relatedConcept_114
+          a                   tellme:relatedConcept , skos:Concept ;
+          dc:creator          <http://tellmehub.get-it.it> ;
+          dc:date             "2019-03-22T15:53:59.473566"@en ;
+          tellme:scales       "XL L M S XS"@en ;
+          owl:deprecated      "false"@en ;
+          owl:versionInfo     "1"@en ;
+          skos:altLabel       "Plot_shape"@es , "Plot_shape"@it , "Plot_shape"@en ;
+          skos:broader        tellme:keyword_18 ;
+          skos:definition     ""@es , ""@it , ""@en ;
+          skos:editorialNote  "glossaryFlag:True"@en ;
+          skos:historyNote    <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+          skos:inScheme       <http://rdfdata.get-it.it/TELLmeGlossary> ;
+          skos:note           ""@en ;
+          skos:prefLabel      "Plot_shape"@es , "Plot_shape"@it , "Plot_shape"@en ;
+          skos:scopeNote      ""@en .
+}
