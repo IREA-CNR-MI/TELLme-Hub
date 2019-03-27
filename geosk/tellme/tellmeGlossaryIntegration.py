@@ -7,10 +7,140 @@ from jsonpath_ng.ext import parse
 import datetime
 
 
-# alla fine richiamare con
-# > for line in dumpToSkos(downloadFromTellMeGlossary()): print line
-class TellMeKeyword(object):
-    import re
+'''
+TELLME_GLOSSARY_PASSWORD='<password>'
+TELLME_GLOSSARY_USER='<user>'
+TELLME_GLOSSARY_URL="http://tellme.test.polimi.it/tellme_apps/tellme/export"
+'''
+TELLME_GLOSSARY_PASSWORD = '889GT3[]!1'
+TELLME_GLOSSARY_USER = 'CNR'
+TELLME_GLOSSARY_URL = "http://tellme.test.polimi.it/tellme_apps/tellme/export"
+
+
+class TellMeGlossary(object):
+
+    tellmescheme = "http://rdfdata.get-it.it/TELLmeGlossary"
+
+    def __init__(self):
+        self.jj = self.downloadFromTellMeGlossary()
+        # dict id:keyword
+        self.keywords = {k["id"]: TellMeKeyword(k) for k in self.jj["keywords"]}
+        self.concepts = {k["id"]: TellMeConcept(k) for k in self.jj["concepts"]}
+
+    @staticmethod
+    def downloadFromTellMeGlossary():
+        # import requests
+        # import os
+        # url = "http://tellme.test.polimi.it/tellme_apps/tellme/export"
+        url = os.getenv("TELLME_GLOSSARY_URL", TELLME_GLOSSARY_URL)
+        user = os.getenv("TELLME_GLOSSARY_USER", TELLME_GLOSSARY_USER)
+        passwd = os.getenv("TELLME_GLOSSARY_PASSWORD", TELLME_GLOSSARY_PASSWORD)
+        auth_values = (user, passwd)
+        response = requests.get(url, auth=auth_values)
+        jj = response.json()
+        return (jj)
+
+    def listConceptsByKeyword(self, keyword):
+        return [self.concepts[m.value["id"]] for m in parse('$.concepts[?keywordId=' + keyword.id + ']').find(self.jj)]
+
+    # returns a list of turtle strings. serialize with "for line in dumpToSkosTTL: print line"
+    def dumpToSkos(self,mode="ttl"):
+        # as jj we expect a dictionary whose source is json document
+        # downloaded from http://tellme.test.polimi.it/tellme_apps/tellme/export
+        # from jsonpath_ng.ext import parse
+        date = datetime.datetime.utcnow().replace(microsecond=0).isoformat()
+        skosPreamble={
+            "ttl": u'''PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX tellme: <{tellmescheme}/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+<{tellmescheme}>
+    a               skos:ConceptScheme ;
+    dc:issues       "{date}"@en ;
+    dc:description "TELLme Glossary. Developed in the context of TELLme Erasmus plus project"@en ;
+    dcterms:issued "{date}" ;
+    dc:title        "TELLme"@en , "TELLme Glossary"@it ;
+    skos:prefLabel  "TELLme"@en , "TELLme Glossary"@it .
+''',
+            "xml": u'''<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:tellme="{tellmescheme}/">
+        <skos:ConceptScheme rdf:about="{tellmescheme}">
+            <skos:prefLabel xml:lang="it">TELLme Glossary</skos:prefLabel>
+            <skos:prefLabel xml:lang="en">TELLme</skos:prefLabel>
+            <dc:title xml:lang="it">TELLme Glossary</dc:title>
+            <dc:title xml:lang="en">TELLme</dc:title>
+            <dc:issues xml:lang="en">{date}</dc:issues>
+            <dc:description xml:lang="en">TELLme Glossary. Developed in the context of TELLme Erasmus plus project</dc:description>
+            <dcterms:issued>{date}</dcterms:issued>
+        </skos:ConceptScheme>
+''',
+            "txt":"dump of {tellmescheme} - {date}\n"
+        }
+
+        skosFooter={"ttl": u"",
+                    "xml": u"</rdf:RDF>",
+                    "txt": ""}
+
+        output = []
+        output.append(skosPreamble[mode].format(date=date, tellmescheme=self.tellmescheme))
+        for kw in self.keywords.values():
+            output.append(kw.dump2Skos(mode=mode))
+            for rc in self.listConceptsByKeyword(kw):
+                output.append(rc.dump2Skos(mode=mode))
+        output.append(skosFooter[mode])
+        return output
+
+
+class TellMeEntry(object):
+    skosSnippet = {
+        "ttl": u'''
+tellme:{0.entryType}_{0.id}
+        a                skos:Concept ;
+        a                tellme:{0.entryType} ;
+        dc:creator       <{creator}> ;
+        dc:date          "{date}" ;
+        owl:deprecated   "false"@en ;
+        owl:versionInfo  "1"@en ;
+        skos:altLabel    "{0.title}"@en , "{0.title}"@it , "{0.title}"@es ;
+        skos:definition  "{0.meaning}"@en , "{0.meaning}"@it , "{0.meaning}"@es ;
+        skos:inScheme    <{tellmescheme}> ;
+        skos:note        "{0.comment}"@en ;
+        skos:prefLabel   "{0.title}"@en , "{0.title}"@it , "{0.title}"@es ;
+        skos:scopeNote   "{0.context}"@en ;
+        skos:historyNote     <http://tellme.test.polimi.it/tellme_apps/tellme> .
+    ''',
+        "xml": u'''
+    <skos:Concept rdf:about="{tellmescheme}/{0.entryType}_{0.id}">
+        <owl:versionInfo xml:lang="en">1</owl:versionInfo>
+        <skos:historyNote rdf:resource="http://tellme.test.polimi.it/tellme_apps/tellme"/>
+        <skos:prefLabel xml:lang="es">{0.title255}</skos:prefLabel>
+        <skos:prefLabel xml:lang="it">{0.title255}</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">{0.title255}</skos:prefLabel>
+        <skos:note xml:lang="en">{0.comment255}</skos:note>
+        <skos:inScheme rdf:resource="{tellmescheme}"/>
+        <skos:scopeNote xml:lang="en">{0.context255}</skos:scopeNote>
+        <owl:deprecated xml:lang="en">false</owl:deprecated>
+        <dc:date>{date}</dc:date>
+        <rdf:type rdf:resource="{tellmescheme}/{0.entryType}"/>
+        <dc:creator rdf:resource="{creator}"/>
+        <skos:definition xml:lang="es">{0.meaning255}</skos:definition>
+        <skos:definition xml:lang="it">{0.meaning255}</skos:definition>
+        <skos:definition xml:lang="en">{0.meaning255}</skos:definition>
+        <skos:altLabel xml:lang="es">{0.title255}</skos:altLabel>
+        <skos:altLabel xml:lang="it">{0.title255}</skos:altLabel>
+        <skos:altLabel xml:lang="en">{0.title255}</skos:altLabel>
+    </skos:Concept>
+    ''',
+        "txt":u"{0.entryType}_{0.id}\t{0.title}"
+    }
 
     def __init__(self, dictionary):
         self.id = dictionary["id"].__str__()
@@ -30,7 +160,6 @@ class TellMeKeyword(object):
         self.reference255 = TellMeKeyword.remove_tags255(dictionary["reference"])
         self.entryType255 = TellMeKeyword.remove_tags255(dictionary["entryType"])
 
-    # TAG_RE = re.compile(r'<[^>]+>')
     @staticmethod
     def remove_tags(text):
         if (text):
@@ -42,7 +171,6 @@ class TellMeKeyword(object):
         else:
             return ""
 
-    # TAG_RE = re.compile(r'<[^>]+>')
     @staticmethod
     def remove_tags255(text):
         if (text):
@@ -54,66 +182,67 @@ class TellMeKeyword(object):
         else:
             return ""
 
-    skosSnippet = u'''
-tellme:keyword_{0.id}
-        a                skos:Concept ;
-        a                tellme:{0.entryType} ;
-        dc:creator       {creator} ;
-        dc:date          "{date}" ;
-        owl:deprecated   "false"@en ;
-        owl:versionInfo  "1"@en ;
-        skos:altLabel    "{0.title}"@en , "{0.title}"@it , "{0.title}"@es ;
-        skos:definition  "{0.meaning}"@en , "{0.meaning}"@it , "{0.meaning}"@es ;
-        skos:inScheme    {inScheme} ;
-        skos:note        "{0.comment}"@en ;
-        skos:prefLabel   "{0.title}"@en , "{0.title}"@it , "{0.title}"@es ;
-        skos:scopeNote   "{0.context}"@en ;
-        skos:historyNote     <http://tellme.test.polimi.it/tellme_apps/tellme> .
-    '''
-
-    rdfxmlSnippet = u'''
-    <skos:Concept rdf:about="http://rdfdata.get-it.it/TELLmeGlossary/keyword_{0.id}">
-        <owl:versionInfo xml:lang="en">1</owl:versionInfo>
-        <skos:historyNote rdf:resource="http://tellme.test.polimi.it/tellme_apps/tellme"/>
-        <skos:prefLabel xml:lang="es">{0.title255}</skos:prefLabel>
-        <skos:prefLabel xml:lang="it">{0.title255}</skos:prefLabel>
-        <skos:prefLabel xml:lang="en">{0.title255}</skos:prefLabel>
-        <skos:note xml:lang="en">{0.comment255}</skos:note>
-        <skos:inScheme rdf:resource="{inScheme}"/>
-        <skos:scopeNote xml:lang="en">{0.context255}</skos:scopeNote>
-        <owl:deprecated xml:lang="en">false</owl:deprecated>
-        <dc:date>{date}</dc:date>
-        <rdf:type rdf:resource="http://rdfdata.get-it.it/TELLmeGlossary/{0.entryType}"/>
-        <dc:creator rdf:resource="{creator}"/>
-        <skos:definition xml:lang="es">{0.meaning255}</skos:definition>
-        <skos:definition xml:lang="it">{0.meaning255}</skos:definition>
-        <skos:definition xml:lang="en">{0.meaning255}</skos:definition>
-        <skos:altLabel xml:lang="es">{0.title255}</skos:altLabel>
-        <skos:altLabel xml:lang="it">{0.title255}</skos:altLabel>
-        <skos:altLabel xml:lang="en">{0.title255}</skos:altLabel>
-      </skos:Concept>
-    '''
-
-    def dump2SkosTTL(self):
+    def dump2Skos(self,mode):
         import datetime
-        # ttl = self.id.__str__() + "\t" + self.title
-        date = datetime.datetime.utcnow().replace(microsecond=0).isoformat()
-        creator = "<http://tellmehub.get-it.it>"
-        inScheme = "<http://rdfdata.get-it.it/TELLmeGlossary>"
-        ttl = self.skosSnippet.format(self, date=date, creator=creator, inScheme=inScheme)
-        return ttl
-
-    def dump2SkosRDF(self):
-        import datetime
-        # ttl = self.id.__str__() + "\t" + self.title
         date = datetime.datetime.utcnow().replace(microsecond=0).isoformat()
         creator = "http://tellmehub.get-it.it"
-        inScheme = "http://rdfdata.get-it.it/TELLmeGlossary"
-        ttl = self.rdfxmlSnippet.format(self, date=date, creator=creator, inScheme=inScheme)
-        return ttl
+        tellmescheme = "http://rdfdata.get-it.it/TELLmeGlossary"
+        rdf = self.skosSnippet[mode].format(self, date=date, creator=creator, tellmescheme=tellmescheme)
+        return rdf
+
+    def slug(self):
+        return self.glos2slug(self.id, self.entryType)
+
+    # def get_parent_hk(self):
+    #     pass
+
+    # get or create a HierarchicalKeyword under the given parent.
+    # The method instantiates the HierarchicalKeyword and returns it.
+    def toHierarchicalKeywordChildOf(self, hk_parent):
+        from geonode.base.models import HierarchicalKeyword
+        if HierarchicalKeyword.objects.filter(slug=self.slug()).exists():
+            hk = HierarchicalKeyword.objects.get(slug=self.slug())
+            setAsChild(hk, hk_parent)
+            return hk
+        elif HierarchicalKeyword.objects.filter(name=self.title).exists():
+            hk = HierarchicalKeyword.objects.get(name=self.title)
+            hk.slug = self.slug()
+            setAsChild(hk, hk_parent)
+            return hk
+        else:
+            hk = HierarchicalKeyword(slug=self.slug(), name=self.title)
+            hk_parent.add_child(instance=hk)
+            return hk
+
+    @staticmethod
+    def glos2slug(id,type):
+        if type not in {"keyword","concept"}:
+            raise ValueError(type)
+        return u"{type}_{id}".format(type=type ,id=id.__str__())
+
+    @staticmethod
+    def slug2glosId(slug):
+        return slug[8:]
+
+    @staticmethod
+    def slug2type(slug):
+        return slug[:7]
 
 
-class TellMeConcept(TellMeKeyword):
+class TellMeKeyword(TellMeEntry):
+
+    # def get_parent_hk(self):
+    #     from geonode.base.models import HierarchicalKeyword
+    #     self.getHKroot()
+
+    import re
+
+    # TAG_RE = re.compile(r'<[^>]+>')
+
+    # TAG_RE = re.compile(r'<[^>]+>')
+
+
+class TellMeConcept(TellMeEntry):
     def __init__(self, dictionary):
         super(TellMeConcept, self).__init__(dictionary)
         # scales is a list
@@ -124,38 +253,30 @@ class TellMeConcept(TellMeKeyword):
         self.scalesAsText = TellMeKeyword.remove_tags(dictionary["scalesAsText"].replace(',', ' '))
         self.keywordId = dictionary["keywordId"]
 
-    skosSnippet = u'''
-tellme:relatedConcept_{0.id}
-        a                skos:Concept ;
-        a                tellme:relatedConcept;
-        dc:creator       {creator} ;
-        dc:date          "{date}"@en ;
-        owl:deprecated   "false"@en ;
-        owl:versionInfo  "1"@en ;
-        skos:altLabel    "{0.title}"@en , "{0.title}"@it , "{0.title}"@es ;
-        skos:broader     tellme:keyword_{0.keywordId} ;
-        skos:definition  "{0.meaning}"@en , "{0.meaning}"@it , "{0.meaning}"@es ;
-        skos:inScheme    {inScheme} ;
-        skos:note        "{0.comment}"@en ;
-        skos:prefLabel   "{0.title}"@en , "{0.title}"@it , "{0.title}"@es ;
-        skos:scopeNote   "{0.context}"@en ;
-        skos:historyNote     <http://tellme.test.polimi.it/tellme_apps/tellme> ;
+    # def get_parent_hk(self):
+    #     from geonode.base.models import HierarchicalKeyword
+    #
+    # def get_parentKeyword(self):
+    #
+
+    skosSnippet = {"ttl": TellMeEntry.skosSnippet["ttl"]+
+                   u'''        skos:broader     tellme:keyword_{0.keywordId} ;
         skos:editorialNote "glossaryFlag:{0.glossary}"@en ;
         tellme:scales   "{0.scalesAsText}"@en .
-    '''
-    rdfxmlSnippet = u'''
-    <skos:Concept rdf:about="http://rdfdata.get-it.it/TELLmeGlossary/relatedConcept_{0.id}">
+    ''',
+                   "xml": u'''
+    <skos:Concept rdf:about="{tellmescheme}/{0.entryType}_{0.id}">
         <owl:versionInfo xml:lang="en">1</owl:versionInfo>
         <skos:historyNote rdf:resource="http://tellme.test.polimi.it/tellme_apps/tellme"/>
         <skos:prefLabel xml:lang="es">{0.title255}</skos:prefLabel>
         <skos:prefLabel xml:lang="it">{0.title255}</skos:prefLabel>
         <skos:prefLabel xml:lang="en">{0.title255}</skos:prefLabel>
         <skos:note xml:lang="en">{0.comment255}</skos:note>
-        <skos:inScheme rdf:resource="{inScheme}"/>
+        <skos:inScheme rdf:resource="{tellmescheme}"/>
         <skos:scopeNote xml:lang="en">{0.context255}</skos:scopeNote>
         <owl:deprecated xml:lang="en">false</owl:deprecated>
         <dc:date>{date}</dc:date>
-        <rdf:type rdf:resource="http://rdfdata.get-it.it/TELLmeGlossary/{0.entryType}"/>
+        <rdf:type rdf:resource="{tellmescheme}/{0.entryType}"/>
         <dc:creator rdf:resource="{creator}"/>
         <skos:definition xml:lang="es">{0.meaning255}</skos:definition>
         <skos:definition xml:lang="it">{0.meaning255}</skos:definition>
@@ -167,143 +288,27 @@ tellme:relatedConcept_{0.id}
         <skos:editorialNote xml:lang="en">glossaryFlag:True</skos:editorialNote>
         <skos:broader rdf:resource="http://rdfdata.get-it.it/TELLmeGlossary/keyword_{0.keywordId}"/>
       </skos:Concept>
-      '''
+      ''',
+                   "txt": u"\n\t {txt}".format(txt=TellMeEntry.skosSnippet["txt"])
+                   }
 
 
-'''
-TELLME_GLOSSARY_PASSWORD='<password>'
-TELLME_GLOSSARY_USER='<user>'
-TELLME_GLOSSARY_URL="http://tellme.test.polimi.it/tellme_apps/tellme/export"
-'''
-TELLME_GLOSSARY_PASSWORD = '889GT3[]!1'
-TELLME_GLOSSARY_USER = 'CNR'
-TELLME_GLOSSARY_URL = "http://tellme.test.polimi.it/tellme_apps/tellme/export"
+# # prints the trees of Keywords and related concepts
+# def dumpTreeString(jj):
+#     from jsonpath_ng.ext import parse
+#
+#     for k in jj["keywords"]:
+#         keyword_id = k["id"]
+#         keyword_title = k["title"]
+#         print(keyword_id.__str__() + "\t" + keyword_title)  # debug
+#         for c in [m.value for m in parse('$.concepts[?keywordId=' + keyword_id.__str__() + ']').find(jj)]:
+#             print("\t" + c["id"].__str__() + "\t" + c["title"])
 
-
-def downloadFromTellMeGlossary():
-    # import requests
-    # import os
-    # url = "http://tellme.test.polimi.it/tellme_apps/tellme/export"
-    url = os.getenv("TELLME_GLOSSARY_URL", TELLME_GLOSSARY_URL)
-    user = os.getenv("TELLME_GLOSSARY_USER", TELLME_GLOSSARY_USER)
-    passwd = os.getenv("TELLME_GLOSSARY_PASSWORD", TELLME_GLOSSARY_PASSWORD)
-    auth_values = (user, passwd)
-    response = requests.get(url, auth=auth_values)
-    jj = response.json()
-    return (jj)
-
-
-# returns a list of strings. serialize with "for line in dumpToSkos: print line"
-def dumpToSkos(jj):
-    # as jj we expect a dictionary whose source is json document
-    # downloaded from http://tellme.test.polimi.it/tellme_apps/tellme/export
-    # from jsonpath_ng.ext import parse
-    date = datetime.datetime.utcnow().replace(microsecond=0).isoformat()
-
-    skosPreamble = u'''PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX dc: <http://purl.org/dc/elements/1.1/>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX tellme: <http://rdfdata.get-it.it/TELLmeGlossary/>
-PREFIX dcterms: <http://purl.org/dc/terms/>
-
-'''
-
-    output = []
-    output.append(skosPreamble)
-    output.append('''<http://rdfdata.get-it.it/TELLmeGlossary>
-        a               skos:ConceptScheme ;
-        dc:issues       "{date}"@en ;
-        dc:description "TELLme Glossary. Developed in the context of TELLme Erasmus plus project"@en
-        dcterms:issued "{date}"
-
-        dc:title        "TELLme"@en , "TELLme Glossary"@it ;
-        skos:prefLabel  "TELLme"@en , "TELLme Glossary"@it .
-    '''.format(date=date))
-    for k in jj["keywords"]:
-        kw = TellMeKeyword(k)
-        output.append(kw.dump2SkosTTL())
-        for c in [m.value for m in parse('$.concepts[?keywordId=' + kw.id + ']').find(jj)]:
-            # cs=concept2skos(c["id"],c["title"],kw.id,kw.title)
-            # try:
-            rc = TellMeConcept(c)
-            # except Exception as e:
-            #    print(e)
-            #    #rc = TellMeConcept(c)
-            #    pass
-            output.append(rc.dump2SkosTTL())
-            # print(output)
-    return output
-
-
-def dumpToSkosRDF(jj):
-    # as jj we expect a dictionary whose source is json document
-    # downloaded from http://tellme.test.polimi.it/tellme_apps/tellme/export
-    # from jsonpath_ng.ext import parse
-    date = datetime.datetime.utcnow().replace(microsecond=0).isoformat()
-
-    skosPreambleRDF = u'''<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF
-    xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:dcterms="http://purl.org/dc/terms/"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:owl="http://www.w3.org/2002/07/owl#"
-    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-    xmlns:tellme="http://rdfdata.get-it.it/TELLmeGlossary/">
-        <skos:ConceptScheme rdf:about="http://rdfdata.get-it.it/TELLmeGlossary">
-            <skos:prefLabel xml:lang="it">TELLme Glossary</skos:prefLabel>
-            <skos:prefLabel xml:lang="en">TELLme</skos:prefLabel>
-            <dc:title xml:lang="it">TELLme Glossary</dc:title>
-            <dc:title xml:lang="en">TELLme</dc:title>
-            <dc:issues xml:lang="en">{date}</dc:issues>
-            <dc:description xml:lang="en">TELLme Glossary. Developed in the context of TELLme Erasmus plus project</dc:description>
-            <dcterms:issued>{date}</dcterms:issued>
-        </skos:ConceptScheme>
-    '''.format(date=date)
-
-    output = []
-    output.append(skosPreambleRDF.format(date=date))
-
-    for k in jj["keywords"]:
-        kw = TellMeKeyword(k)
-        output.append(kw.dump2SkosRDF())
-        for c in [m.value for m in parse('$.concepts[?keywordId=' + kw.id + ']').find(jj)]:
-            # cs=concept2skos(c["id"],c["title"],kw.id,kw.title)
-            # try:
-            rc = TellMeConcept(c)
-            # except Exception as e:
-            #    print(e)
-            #    #rc = TellMeConcept(c)
-            #    pass
-            output.append(rc.dump2SkosRDF())
-            # print(output)
-    output.append(u"</rdf:RDF>")
-    return output
-
-
-def dumpTreeString(jj):
-    from jsonpath_ng.ext import parse
-
-    for k in jj["keywords"]:
-        keyword_id = k["id"]
-        keyword_title = k["title"]
-        print(keyword_id.__str__() + "\t" + keyword_title)  # debug
-        for c in [m.value for m in parse('$.concepts[?keywordId=' + keyword_id.__str__() + ']').find(jj)]:
-            print("\t" + c["id"].__str__() + "\t" + c["title"])
-
-
-def TellMeGlossary2Skos(type="ttl"):
-    jj = downloadFromTellMeGlossary()
-    # type = "rdf"  # "ttl"
-    skos = []
-    try:
-        if type == "rdf":
-            skos = dumpToSkosRDF(jj)
-        else:
-            skos = dumpToSkos(jj)
-    except Exception as e:
-        print(e)
-        pass
-    with open('TellMeGlossary.{type}'.format(type=type), 'w') as fileoutput:
+if __name__ == "__main__":
+    g = TellMeGlossary()
+    mode = "txt"
+    skos = g.dumpToSkos(mode=mode)
+    with open('TellMeGlossary.{mode}'.format(mode=mode), 'w') as fileoutput:
         for line in skos:
             try:
                 fileoutput.write(line.encode('utf-8'))
@@ -312,10 +317,63 @@ def TellMeGlossary2Skos(type="ttl"):
                 pass
 
 
-if __name__ == "__main__":
-    TellMeGlossary2Skos(type="ttl")
+# TODO: refactor creating a Binder class aware of both
+#  HierarchicalKeyword and TellMeEntries and remove references of HK from other classes
+def setAsChild(hk,targetHk):
+    # move any existing HierarchicalKeyword as child of a target
+    def setAsChildBySlug(hkSlug, hkTargetSlug):
+        from geonode.base.models import HierarchicalKeyword
+        HierarchicalKeyword.objects.get(slug=hkSlug).move(
+            HierarchicalKeyword.objects.get(slug=hkTargetSlug, pos="sorted-child"))
 
-    # stringa=jj["keywords"][0]["meaning"]
-    # nuovaStringa=TellMeKeyword.remove_tags(stringa)
-    # print(nuovaStringa)
+    return setAsChildBySlug(hk.slug, targetHk.slug)
+
+# def getKeywordGlossaryById(jj,id):
+#     return TellMeKeyword([k.value for k in parse('$.keywords[{id}]'.format(id=id)).find(jj)][0])
+
+
+# the returned HierarchicalKeyword will be instantiated in the DB
+def getOrCreateHierarchicalKeywordRootByName(root_name):
+    from geonode.base.models import HierarchicalKeyword
+    if HierarchicalKeyword.objects.filter(name=root_name).exists():
+        root = HierarchicalKeyword.objects.get(name=root_name)
+    else:
+        root = HierarchicalKeyword(name=root_name)
+        HierarchicalKeyword.add_root(instance=root)
+    return root
+
+
+def synchGlossaryWithHierarchicalKeywords(g):
+    from geonode.base.models import HierarchicalKeyword
+
+    root = getOrCreateHierarchicalKeywordRootByName("TELLme")
+    other_root = getOrCreateHierarchicalKeywordRootByName("z_otherKeywords")
+
+    # move all HK under other_root
+    for hk in HierarchicalKeyword.objects.exclude(id=root.id).exclude(id=other_root.id):
+        setAsChild(hk, other_root)
+
+    # move all tellme glossary kewyords under root node
+    for k in g.keywords.items():
+        gk = k[1]  # gk is a 2-ple (id,TELLmeKeyword)
+
+        # get the corresponding HierarchicalKeyword (existing or new) after
+        # having moved it under root node
+        hgk = gk.toHierarchicalKeywordChildOf(root)
+        for c in g.listConceptsByKeyword(gk):
+            c.toHierarchicalKeywordChildOf(hgk)  # c is already a TELLmeConcept
+
+    # 1. go through id of keywords in glossary.
+    #    a. does the corresponding slug exist?
+    #       - no: create a corresponding HK
+    #       - yes: check if it is synchronised with this version. If not, update the HK.
+    # 2. go through id of concepts in glossary
+    #    a. does the slug exist?
+    #       - no: create the HK
+    #       - yes: check if they are synched. If not, update the HK.
+    # 3. Go through all the keywords in "TELLme" branch (TELLme is the root of HK related to Tellme)
+    #    If a slug2glos id of type keyword is not present within the glossary, remove it from Tellme branch and put it under
+    #    the "_other" branch of HK
+    #from geonode.base.models import HierarchicalKeyword
+
 
