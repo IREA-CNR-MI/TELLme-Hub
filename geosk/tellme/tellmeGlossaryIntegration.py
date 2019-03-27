@@ -304,18 +304,6 @@ class TellMeConcept(TellMeEntry):
 #         for c in [m.value for m in parse('$.concepts[?keywordId=' + keyword_id.__str__() + ']').find(jj)]:
 #             print("\t" + c["id"].__str__() + "\t" + c["title"])
 
-if __name__ == "__main__":
-    g = TellMeGlossary()
-    mode = "txt"
-    skos = g.dumpToSkos(mode=mode)
-    with open('TellMeGlossary.{mode}'.format(mode=mode), 'w') as fileoutput:
-        for line in skos:
-            try:
-                fileoutput.write(line.encode('utf-8'))
-            except Exception as e:
-                print(e)
-                pass
-
 
 # TODO: refactor creating a Binder class aware of both
 #  HierarchicalKeyword and TellMeEntries and remove references of HK from other classes
@@ -324,7 +312,7 @@ def setAsChild(hk,targetHk):
     def setAsChildBySlug(hkSlug, hkTargetSlug):
         from geonode.base.models import HierarchicalKeyword
         HierarchicalKeyword.objects.get(slug=hkSlug).move(
-            HierarchicalKeyword.objects.get(slug=hkTargetSlug, pos="sorted-child"))
+            HierarchicalKeyword.objects.get(slug=hkTargetSlug), pos="sorted-child")
 
     return setAsChildBySlug(hk.slug, targetHk.slug)
 
@@ -377,3 +365,14 @@ def synchGlossaryWithHierarchicalKeywords(g):
     #from geonode.base.models import HierarchicalKeyword
 
 
+if __name__ == "__main__":
+    g = TellMeGlossary()
+    mode = "txt"
+    skos = g.dumpToSkos(mode=mode)
+    with open('TellMeGlossary.{mode}'.format(mode=mode), 'w') as fileoutput:
+        for line in skos:
+            try:
+                fileoutput.write(line.encode('utf-8'))
+            except Exception as e:
+                print(e)
+                pass
