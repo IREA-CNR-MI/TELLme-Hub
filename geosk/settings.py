@@ -101,6 +101,8 @@ INSTALLED_APPS = (
     'grappelli',
     'analytical',
     'taggit_templatetags',
+    #TELLme
+    'geosk.tellme',
 ) + INSTALLED_APPS
 
 # INSTALLED_APPS = (
