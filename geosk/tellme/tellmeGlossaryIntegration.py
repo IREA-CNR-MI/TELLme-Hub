@@ -358,7 +358,7 @@ def dumpTTLGlossaryToStaticDir():
     mode = "ttl"
     skos = g.dumpToSkos(mode=mode)
     outdir = os.path.dirname(geosk.__file__) + "/static/tellme/"
-    with open(outdir + 'TellMeGlossary.{mode}'.format(mode=mode), 'w') as fileoutput:
+    with open(outdir + 'TELLmeGlossary.{mode}'.format(mode=mode), 'w') as fileoutput:
         for line in skos:
             try:
                 fileoutput.write(line.encode('utf-8'))
