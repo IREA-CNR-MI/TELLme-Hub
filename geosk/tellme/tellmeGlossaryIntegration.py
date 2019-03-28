@@ -26,6 +26,7 @@ class TellMeGlossary(object):
         # dict id:keyword
         self.keywords = {k["id"]: TellMeKeyword(k) for k in self.jj["keywords"]}
         self.concepts = {k["id"]: TellMeConcept(k) for k in self.jj["concepts"]}
+        self.protocols = {k["id"]: TellMeProtocol(k) for k in self.jj["protocols"]}
 
     @staticmethod
     def downloadFromTellMeGlossary():
@@ -42,6 +43,12 @@ class TellMeGlossary(object):
 
     def listConceptsByKeyword(self, keyword):
         return [self.concepts[m.value["id"]] for m in parse('$.concepts[?keywordId=' + keyword.id + ']').find(self.jj)]
+
+    def getSetOfScales(self):
+        o=set()
+        for c in self.concepts.values():
+            for s in c.scales:
+                o.add(s["scale"])
 
     # returns a list of turtle strings. serialize with "for line in dumpToSkosTTL: print line"
     def dumpToSkos(self,mode="ttl"):
@@ -95,6 +102,23 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
             output.append(kw.dump2Skos(mode=mode))
             for rc in self.listConceptsByKeyword(kw):
                 output.append(rc.dump2Skos(mode=mode))
+        for protocol in self.protocols.values():
+            output.append(protocol.dump2Skos(mode=mode))
+        for scale in self.getSetOfScales():
+            output.append(u'''
+            tellme:scale_{scale}
+                    a                skos:Concept ;
+                    a                tellme:scale ;
+                    dc:creator       <{creator}> ;
+                    owl:deprecated   "false"@en ;                    
+                    skos:altLabel    "{scale}"@en , "{scale}"@it , "{scale}"@es ;
+                    skos:definition  "{scale}"@en , "{scale}"@it , "{scale}"@es ;
+                    skos:inScheme    <{tellmescheme}> ;
+                    skos:prefLabel   "{scale}"@en , "{scale}"@it , "{scale}"@es ;
+                    skos:historyNote     <http://tellme.test.polimi.it/tellme_apps/tellme> .
+                '''.format(scale=scale,
+                           creator="http://tellmehub.get-it.it",
+                           tellmescheme="http://rdfdata.get-it.it/TELLmeGlossary"))
         output.append(skosFooter[mode])
         return output
 
@@ -202,16 +226,16 @@ tellme:{0.entryType}_{0.id}
         from geonode.base.models import HierarchicalKeyword
         if HierarchicalKeyword.objects.filter(slug=self.slug()).exists():
             hk = HierarchicalKeyword.objects.get(slug=self.slug())
-            setAsChild(hk, hk_parent)
+            setAsChild(hk, HierarchicalKeyword.objects.get(id=hk_parent.id))
             return hk
         elif HierarchicalKeyword.objects.filter(name=self.title).exists():
             hk = HierarchicalKeyword.objects.get(name=self.title)
             hk.slug = self.slug()
-            setAsChild(hk, hk_parent)
+            setAsChild(hk, HierarchicalKeyword.objects.get(id=hk_parent.id))
             return hk
         else:
             hk = HierarchicalKeyword(slug=self.slug(), name=self.title)
-            hk_parent.add_child(instance=hk)
+            HierarchicalKeyword.objects.get(id=hk_parent.id).add_child(instance=hk)
             return hk
 
     @staticmethod
@@ -293,16 +317,52 @@ class TellMeConcept(TellMeEntry):
                    }
 
 
-# # prints the trees of Keywords and related concepts
-# def dumpTreeString(jj):
-#     from jsonpath_ng.ext import parse
-#
-#     for k in jj["keywords"]:
-#         keyword_id = k["id"]
-#         keyword_title = k["title"]
-#         print(keyword_id.__str__() + "\t" + keyword_title)  # debug
-#         for c in [m.value for m in parse('$.concepts[?keywordId=' + keyword_id.__str__() + ']').find(jj)]:
-#             print("\t" + c["id"].__str__() + "\t" + c["title"])
+class TellMeProtocol(TellMeEntry):
+    def __init__(self, dictionary):
+        super(TellMeProtocol, self).__init__(dictionary)
+        self.scales = dictionary["scales"]
+
+    scaleSnippet = {
+        "ttl": u"\ntellme:{0.entryType}_{0.id} tellme:containsAtScale_{scale} tellme:{entryType}_{id} ."
+    }
+
+    def getScaleSnippets(self):
+        output=[]
+        s=""
+        scalelist=self.scales
+        for scale in scalelist:
+            sscale = scale["scale"]
+            for c in scale["concepts"]:
+                sa = self.scaleSnippet["ttl"].format(self, entryType=c["entryType"], id=c["id"].__str__(), scale=sscale)
+                output.append(sa)
+        for so in output:
+            s += so
+        return s
+            # for o in [{"scale": scale["scale"], "concepts": scale["concepts"]} for scale in self.scales]:
+            # for cdict in o["concepts"]:
+            #     c = TellMeConcept(cdict)
+            #     print self.scaleSnippet["ttl"].format(self, c, scale=o["scale"])
+
+    def dump2Skos(self, mode):
+        s = super(TellMeProtocol, self).dump2Skos(mode)
+        if mode=="ttl":
+            s += self.getScaleSnippets()
+        return s
+
+
+def dumpTTLGlossaryToStaticDir():
+    g = TellMeGlossary()
+    jj = g.jj
+    mode = "ttl"
+    skos = g.dumpToSkos(mode=mode)
+    outdir = os.path.dirname(geosk.__file__) + "/static/tellme/"
+    with open(outdir + 'TellMeGlossary.{mode}'.format(mode=mode), 'w') as fileoutput:
+        for line in skos:
+            try:
+                fileoutput.write(line.encode('utf-8'))
+            except Exception as e:
+                print(e)
+                pass
 
 
 # TODO: refactor creating a Binder class aware of both
@@ -325,6 +385,9 @@ def getOrCreateHierarchicalKeywordRootByName(root_name):
     from geonode.base.models import HierarchicalKeyword
     if HierarchicalKeyword.objects.filter(name=root_name).exists():
         root = HierarchicalKeyword.objects.get(name=root_name)
+        if not root.is_root():
+            root.move(
+                HierarchicalKeyword.get_first_root_node(), pos="sorted-sibling")
     else:
         root = HierarchicalKeyword(name=root_name)
         HierarchicalKeyword.add_root(instance=root)
@@ -334,14 +397,44 @@ def getOrCreateHierarchicalKeywordRootByName(root_name):
 def synchGlossaryWithHierarchicalKeywords(g):
     from geonode.base.models import HierarchicalKeyword
 
-    root = getOrCreateHierarchicalKeywordRootByName("TELLme")
-    other_root = getOrCreateHierarchicalKeywordRootByName("z_otherKeywords")
+    # obtain root and other root. The getCreateHierarchicalKeywordRootByName
+    # grant existence and root-ness!
+    root = getOrCreateHierarchicalKeywordRootByName(u"TELLme")
+    other_root = getOrCreateHierarchicalKeywordRootByName(u"z_otherKeywords")
 
-    # move all HK under other_root
-    for hk in HierarchicalKeyword.objects.exclude(id=root.id).exclude(id=other_root.id):
-        setAsChild(hk, other_root)
+    # NOTE: Before each call of any processing of a HierarchicalKeyword previously obtained,
+    # we must refresh the HierarchicalKeyword from the db,
+    # otherwise the in-memory objects (called for instance by a "filter" or "get" statement
+    # that we assigned to variables, could not be in the current state, i.e. decoupled from the underlying db record.
+    # For example, if I obtain a list of HierarchicalKeyword, e.g. with HierarchicalKeyword.objects.filter(depth=1),
+    # and then (with a for loop or with a map) I process the first list element,
+    # the database record related to all the other elements in the list are updated too.
+    # At this point the python instances I collected within the list are not in a consistent state with respect
+    # to their db record counterparts, so, if I process them without refreshing from db, I get many troubles
+    # and an inconsistent HierarchicalKeyword tree.
+    # The following code should resolve this issue.
 
-    # move all tellme glossary kewyords under root node
+    # def maxdepth():
+    #     ''':returns: the HierarchicalKeyword tree height'''
+    #     from functools import reduce
+    #     if HierarchicalKeyword.objects.count() > 0:
+    #         return reduce((lambda x, y: max(x, y)), [node.depth for node in HierarchicalKeyword.objects.all()])
+    #     else:
+    #         return 0
+
+    # completely flatten the tree
+    # while maxdepth()>1:
+    #     map((lambda x: HierarchicalKeyword.objects.get(id=x).move(HierarchicalKeyword.get_last_root_node(), "sorted-sibling")),
+    #         [h.id for h in HierarchicalKeyword.objects.filter(depth=maxdepth())])
+
+    map((lambda x: HierarchicalKeyword.objects.get(id=x).move(HierarchicalKeyword.get_last_root_node(), "sorted-sibling")),
+        [h.id for h in HierarchicalKeyword.objects.exclude(id__in=[rid.id for rid in HierarchicalKeyword.get_root_nodes()])])
+
+    # put all HierarchicalKeyword tree nodes under other_root
+    map((lambda x: HierarchicalKeyword.objects.get(id=x).move(HierarchicalKeyword.objects.get(id=other_root.id), "sorted-child")),
+        HierarchicalKeyword.objects.filter(depth=1).exclude(id=root.id).exclude(id=other_root.id))
+
+    #move all tellme glossary kewyords under "root" node
     for k in g.keywords.items():
         gk = k[1]  # gk is a 2-ple (id,TELLmeKeyword)
 
@@ -351,7 +444,7 @@ def synchGlossaryWithHierarchicalKeywords(g):
         for c in g.listConceptsByKeyword(gk):
             c.toHierarchicalKeywordChildOf(hgk)  # c is already a TELLmeConcept
 
-    # 1. go through id of keywords in glossary.
+    # # 1. go through id of keywords in glossary.
     #    a. does the corresponding slug exist?
     #       - no: create a corresponding HK
     #       - yes: check if it is synchronised with this version. If not, update the HK.
@@ -362,17 +455,58 @@ def synchGlossaryWithHierarchicalKeywords(g):
     # 3. Go through all the keywords in "TELLme" branch (TELLme is the root of HK related to Tellme)
     #    If a slug2glos id of type keyword is not present within the glossary, remove it from Tellme branch and put it under
     #    the "_other" branch of HK
-    #from geonode.base.models import HierarchicalKeyword
 
 
 if __name__ == "__main__":
     g = TellMeGlossary()
-    mode = "txt"
-    skos = g.dumpToSkos(mode=mode)
-    with open('TellMeGlossary.{mode}'.format(mode=mode), 'w') as fileoutput:
-        for line in skos:
-            try:
-                fileoutput.write(line.encode('utf-8'))
-            except Exception as e:
-                print(e)
-                pass
+    jj=g.jj
+    mode="ttl"
+    if False:
+        with open('TellMeProtocols.{mode}'.format(mode=mode), 'w') as fileoutput:
+            for p in jj["protocols"]:
+                protocol=TellMeProtocol(p)
+                skos=protocol.dump2Skos(mode)
+                #protocol.scales
+
+                for line in skos:
+                    fileoutput.write(line.encode('utf-8'))
+                #print protocol.getScaleSnippets()
+
+    if True:
+        dumpTTLGlossaryToStaticDir()
+
+
+# #recover state in db.
+#
+# def _get_path(path, depth, newstep):
+#     """
+#     Builds a path given some values
+#     :param path: the base path
+#     :param depth: the depth of the  node
+#     :param newstep: the value (integer) of the new step
+#     """
+#
+#     alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+#     steplen = 4
+#
+#     parentpath = _get_basepath(path, depth - 1)
+#     key = _int2str(newstep)
+#     return '{0}{1}{2}'.format(
+#         parentpath,
+#         alphabet[0] * (steplen - len(key)),
+#         key
+#     )
+#
+# NumConv(len(cls.alphabet), cls.alphabet)
+#
+#
+# def _int2str(cls, num):
+#     return cls.numconv_obj().int2str(num)
+#
+#
+# def _get_basepath(cls, path, depth):
+#     """:returns: The base path of another path up to a given depth"""
+#     if path:
+#         return path[0:depth * cls.steplen]
+#     return ''
+#
