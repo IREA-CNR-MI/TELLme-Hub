@@ -285,7 +285,7 @@ class TellMeConcept(TellMeEntry):
     #
 
     skosSnippet = {"ttl": TellMeEntry.skosSnippet["ttl"]+
-                   u'''        skos:broader     tellme:keyword_{0.keywordId} ;
+                   u'''tellme:{0.entryType}_{0.id}       skos:broader     tellme:keyword_{0.keywordId} ;
         skos:editorialNote "glossaryFlag:{0.glossary}"@en ;
         tellme:scales   "{0.scalesAsText}"@en .
     ''',
