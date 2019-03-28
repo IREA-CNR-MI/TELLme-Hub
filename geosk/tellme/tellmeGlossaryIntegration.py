@@ -49,6 +49,7 @@ class TellMeGlossary(object):
         for c in self.concepts.values():
             for s in c.scales:
                 o.add(s["scale"])
+        return o
 
     # returns a list of turtle strings. serialize with "for line in dumpToSkosTTL: print line"
     def dumpToSkos(self,mode="ttl"):
@@ -458,9 +459,9 @@ def synchGlossaryWithHierarchicalKeywords(g):
 
 
 if __name__ == "__main__":
-    g = TellMeGlossary()
-    jj=g.jj
-    mode="ttl"
+    #g = TellMeGlossary()
+    #jj=g.jj
+    #mode="ttl"
     if False:
         with open('TellMeProtocols.{mode}'.format(mode=mode), 'w') as fileoutput:
             for p in jj["protocols"]:
