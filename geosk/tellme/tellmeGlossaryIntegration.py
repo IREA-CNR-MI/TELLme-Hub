@@ -5,6 +5,7 @@ import requests
 import os
 from jsonpath_ng.ext import parse
 import datetime
+from geonode.base.models import HierarchicalKeyword
 
 
 '''
@@ -351,10 +352,10 @@ class TellMeProtocol(TellMeEntry):
         return s
 
 
-def dumpTTLGlossaryToStaticDir():
+def dumpTTLGlossaryToStaticDir(g):
     import geosk
-    g = TellMeGlossary()
-    jj = g.jj
+    #g = TellMeGlossary()
+    #jj = g.jj
     mode = "ttl"
     skos = g.dumpToSkos(mode=mode)
     outdir = os.path.dirname(geosk.__file__) + "/static/tellme/"
@@ -462,6 +463,7 @@ def synchGlossaryWithHierarchicalKeywords(g):
 
 
 if __name__ == "__main__":
+    from geonode.base.models import HierarchicalKeyword
     g = TellMeGlossary()
     #jj=g.jj
     #mode="ttl"
@@ -477,14 +479,14 @@ if __name__ == "__main__":
                 #print protocol.getScaleSnippets()
 
     if True:
-        dumpTTLGlossaryToStaticDir()
-        synchSparqlEndpoint()
+        dumpTTLGlossaryToStaticDir(g)
+        #synchSparqlEndpoint()
         synchGlossaryWithHierarchicalKeywords(g)
 
 
 #TODO: implement the method.
-def synchSparqlEndpoint():
-    pass
+# def synchSparqlEndpoint():
+#     pass
 
 # #recover state in db.
 #
