@@ -352,6 +352,7 @@ class TellMeProtocol(TellMeEntry):
 
 
 def dumpTTLGlossaryToStaticDir():
+    import geosk
     g = TellMeGlossary()
     jj = g.jj
     mode = "ttl"
