@@ -432,8 +432,10 @@ def synchGlossaryWithHierarchicalKeywords(g):
     map((lambda x: HierarchicalKeyword.objects.get(id=x).move(HierarchicalKeyword.get_last_root_node(), "sorted-sibling")),
         [h.id for h in HierarchicalKeyword.objects.exclude(id__in=[rid.id for rid in HierarchicalKeyword.get_root_nodes()])])
 
+    HierarchicalKeyword.fix_tree()
+
     # put all HierarchicalKeyword tree nodes under other_root
-    map((lambda x: HierarchicalKeyword.objects.get(id=x).move(HierarchicalKeyword.objects.get(id=other_root.id), "sorted-child")),
+    map((lambda x: HierarchicalKeyword.objects.get(id=x.id).move(HierarchicalKeyword.objects.get(id=other_root.id), "sorted-child")),
         HierarchicalKeyword.objects.filter(depth=1).exclude(id=root.id).exclude(id=other_root.id))
 
     #move all tellme glossary kewyords under "root" node
@@ -460,7 +462,7 @@ def synchGlossaryWithHierarchicalKeywords(g):
 
 
 if __name__ == "__main__":
-    #g = TellMeGlossary()
+    g = TellMeGlossary()
     #jj=g.jj
     #mode="ttl"
     if False:
@@ -476,7 +478,13 @@ if __name__ == "__main__":
 
     if True:
         dumpTTLGlossaryToStaticDir()
+        synchSparqlEndpoint()
+        synchGlossaryWithHierarchicalKeywords(g)
 
+
+#TODO: implement the method.
+def synchSparqlEndpoint():
+    pass
 
 # #recover state in db.
 #
