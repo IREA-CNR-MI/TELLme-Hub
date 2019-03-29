@@ -208,7 +208,7 @@
         PREFIX tellme: <http://rdfdata.get-it.it/TELLmeGlossary/>
         SELECT ?c ?a ?l ?userLabel ?keyword ?relatedConcept ?voc
         WHERE {
-          ?c rdf:type skos:Concept ,tellme:relatedConcept ;
+          ?c rdf:type skos:Concept ,tellme:concept ;
     		 skos:broader/skos:prefLabel ?keyword ;
     		 skos:inScheme <http://rdfdata.get-it.it/TELLmeGlossary> .
     	  FILTER (LANG(?keyword)="en")
@@ -288,7 +288,7 @@ BIND(?userLabel AS ?l)
         WHERE {
           BIND(<$search_param>  AS ?c)
 
-          ?c rdf:type skos:Concept ,tellme:relatedConcept ;
+          ?c rdf:type skos:Concept ,tellme:concept ;
           dc:date ?date;
           tellme:scales ?scales;
     		 skos:broader/skos:prefLabel ?keyword ;
