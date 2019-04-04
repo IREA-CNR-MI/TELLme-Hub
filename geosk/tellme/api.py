@@ -77,6 +77,7 @@ def _savelayermd(layer, rndt, ediml, version='1'):
     layer.keywords.clear()
     layer.keywords.add(
         *keywords)  # change this in order to obtain 1-1 mapping between URI of tellme keywords (from sparql) and TELLme-HierarchicalKeywords
+    layer.keywords.add(*hkeywordsByURI)  # TODO: check this
 
     # set model properties
     for (key, value) in vals.items():
@@ -221,7 +222,7 @@ def resolveTellmeKeywords(exml):
     # they are supposed to have [""][""]
     #' returns a list of HierarchicalKeyword
     ns = namespaces
-    ns[None] = None
+    del(ns[None])
     keywords_resolved = []
     keywords_unresolved = []
     # TODO: check possible issues with non-unicode char
