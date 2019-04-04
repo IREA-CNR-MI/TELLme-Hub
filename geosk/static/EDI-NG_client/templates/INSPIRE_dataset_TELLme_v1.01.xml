@@ -5,7 +5,7 @@
       <metadataLanguage selectionItem="ling_md_1"/>
       <metadataEndpoint>http://edi.get-it.it/</metadataEndpoint>
       <sparqlEndpoint>http://sparql.get-it.it</sparqlEndpoint>
-      <requiresValidation>true</requiresValidation>
+      <requiresValidation>false</requiresValidation>
       <baseDocument><![CDATA[
       
         <gmd:MD_Metadata
@@ -643,6 +643,10 @@ BIND(?userLabel AS ?l)
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type/gmd:MD_KeywordTypeCode/@codeSpace</hasPath>
                <hasValue>ISOTC211/19115</hasValue>
             </item>
+            <item hasIndex="6" xml:id="keyw_cities_6" isFixed="true" hasDatatype="string">
+               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type</hasPath>
+               <hasValue>place</hasValue>
+            </item>
          </produces>
       </element>
 
@@ -691,6 +695,7 @@ BIND(?userLabel AS ?l)
          <help xml:lang="it">Keyword/Related Concept tratta dal glossario del Progetto TELLme.</help>
          <hasRoot>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification</hasRoot>
          <produces>
+            <!-- NOTE: the element "deleteme" must be deleted by a xslt stylesheet within xsltChain -->
             <item hasIndex="1" xml:id="keyw_voc_contr_1" isFixed="false" hasDatatype="autoCompletion" datasource="keywordFromContrVoc">
                <!--label xml:lang="it">Keyword</label>
                <label xml:lang="en">Keyword</label-->
@@ -701,10 +706,17 @@ BIND(?userLabel AS ?l)
                <label xml:lang="en">Keyword</label-->
                <hasPath>deleteme/@xlink:href</hasPath>
             </item>
+            <!-- NOTE (ptagliolato 20190404: The following two items are specific for TELLme project.
+            In the context of get-it calls to EDI, the resulting <gmx:Anchor>, even if standard ISO compliant,
+             will result in no HierarchicalKeyword within a generic GET-IT. At the moment of writing,
+             only the module "tellme" is able to manage the Anchor element properly -->
+            <item hasIndex="9" hasDatatype="select" isFixed="true" field="c" datasource="contrVocSpecs" xml:id="keyw_voc_contr_9">
+               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gmx:Anchor/@xlink:href</hasPath>
+            </item>
             <item hasIndex="3" xml:id="keyw_voc_contr_3" field="relatedConcept" isFixed="true" hasDatatype="select" datasource="contrVocSpecs">
                <!--label xml:lang="it">Keyword</label>
                <label xml:lang="en">Keyword</label-->
-               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gco:CharacterString</hasPath>
+               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:keyword/gmx:Anchor</hasPath>
             </item>
             <item hasIndex="4" xml:id="keyw_voc_contr_4" field="voc" isFixed="false" hasDatatype="select" datasource="contrVocSpecs">
                <label xml:lang="it">Vocabolario controllato di provenienza</label>
