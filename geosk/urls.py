@@ -23,6 +23,8 @@ geoskurlpatterns = patterns(
         name="layer_rndt"),
     url(r'^layers/(?P<layername>[^/]*)/postMetadata$',
         'geosk.mdtools.api.rndtproxy', name='rndtproxy'),
+
+
     # RDF extension
     # url(r'^layers/(?P<layername>[^/]+)/rdf$', 'geosk.mdtools.views_rdf.rdf_layer_detail', kwargs={'rdf_format':'xml'}, name='mdtools_rdf_metadata'),
     # url(r'^layers/(?P<layername>[^/]+)/n3$', 'geosk.mdtools.views_rdf.rdf_layer_detail', kwargs={'rdf_format':'n3'}, name='mdtools_n3_metadata'),
@@ -92,6 +94,15 @@ if 'rosetta' in settings.INSTALLED_APPS:
         '',
         url(r'^rosetta/', include('rosetta.urls')),
     )
+
+if 'tellme' in settings.INSTALLED_APPS:
+    geoskurlpatterns = patterns(
+        # TELLme - overwrite EDI api
+        # mdtools views
+        url(r'^mdtools/ediproxy/(?P<layername>[^/]*)/importmd$',
+            'geosk.tellme.api.ediproxy_importmd', name='ediproxy_importmd'),
+        url(r'^tellme/', include('tellme.urls')),
+    ) + geoskurlpatterns
 
 urlpatterns += geoskurlpatterns
 

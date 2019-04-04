@@ -275,14 +275,30 @@ def _savelayermd(layer, rndt, ediml, version='1'):
         layer.mdextension.fileid = fileid
 
     vals, keywords = rndt2dict(etree.fromstring(rndt))
+
     errors = _post_validate(vals)
     if len(errors) > 0:
         raise Exception(errors)
 
+    # TODO: (TELLme) we could change here the information flow in
+    #  order to query the xml (rndt) and match the TELLme
+    #  keywords by ID instead of string.
+    #  Example:
+    #  we can also inspect MD_Metadata parent class of EDI_Metadata
+    #  that already contains keywords2, a list of MD_keywords objects
+    #  with several elements parsed from XML.
+    #  In alternative we can directly filter the appropriate xml elements
+    #  with gmx:Anchor and xlink:href with URIs.
+    # from geosk.mdtools.api import EDI_Metadata
+    # metadataToExplore=etree.fromstring(rndt)
+    # mdata = EDI_Metadata(metadataToExplore)    #
+    # mdata.identification.keywords2
+
+
     # print >>sys.stderr, 'VALS', vals
     # set taggit keywords
     layer.keywords.clear()
-    layer.keywords.add(*keywords)
+    layer.keywords.add(*keywords) # change this in order to obtain 1-1 mapping between URI of tellme keywords (from sparql) and TELLme-HierarchicalKeywords
 
     # set model properties
     for (key, value) in vals.items():

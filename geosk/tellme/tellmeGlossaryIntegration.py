@@ -397,6 +397,10 @@ def getOrCreateHierarchicalKeywordRootByName(root_name):
     return root
 
 
+def getHierarchicalKeywordListBySlug(slug):
+    from geonode.base.models import HierarchicalKeyword
+    return HierarchicalKeyword.objects.filter(slug=slug)
+
 def synchGlossaryWithHierarchicalKeywords(g):
     from geonode.base.models import HierarchicalKeyword
 
