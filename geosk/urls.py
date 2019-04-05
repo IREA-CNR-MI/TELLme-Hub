@@ -101,7 +101,7 @@ if 'geosk.tellme' in settings.INSTALLED_APPS:
         # mdtools views
         url(r'^mdtools/ediproxy/(?P<layername>[^/]*)/importmd$',
             'geosk.tellme.api.ediproxy_importmd', name='ediproxy_importmd'),
-        url(r'^tellme/', include('tellme.urls')),
+        url(r'^tellme/', include('geosk.tellme.urls')),
     ) + geoskurlpatterns
 
 urlpatterns += geoskurlpatterns
