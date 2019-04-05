@@ -259,4 +259,4 @@ def ediproxy_importmd(request, layername):
         _savelayermd(layer, isoml, ediml, version='2')
     except Exception as e:
         return json_response(exception=e, status=500)
-    return json_response(body={'success':True})
+    return json_response(body={'success':True, 'answered_by':'tellme'})
