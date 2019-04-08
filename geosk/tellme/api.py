@@ -44,6 +44,10 @@ from geonode.layers.utils import resolve_regions
 
 from django.contrib.auth.decorators import user_passes_test
 
+from geosk.tellme.tellmeGlossaryIntegration import \
+    TellMeGlossary, dumpTTLGlossaryToStaticDir, synchGlossaryWithHierarchicalKeywords
+
+
 def _savelayermd(layer, rndt, ediml, version='1'):
     """
     Save layer metadata from ISO/XML file.
@@ -305,11 +309,18 @@ def ediproxy_importmd(request, layername):
 
 @user_passes_test(lambda u: u.is_superuser)
 def refresh_glossary_rdf(request):
-    from geosk.tellme.tellmeGlossaryIntegration import \
-        TellMeGlossary, dumpTTLGlossaryToStaticDir
     try:
         g = TellMeGlossary()
         dumpTTLGlossaryToStaticDir(g)
+    except Exception as e:
+        return json_response(exception=e, status=500)
+    return json_response(body={'success': True, 'answered_by': 'tellme'})
+
+@user_passes_test(lambda u: u.is_superuser)
+def synchronizeHierarchicalKeywords_glossary_rdf(request):
+    try:
+        g = TellMeGlossary()
+        synchGlossaryWithHierarchicalKeywords(g)
     except Exception as e:
         return json_response(exception=e, status=500)
     return json_response(body={'success': True, 'answered_by': 'tellme'})
