@@ -1,5 +1,11 @@
+from django.conf import settings
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
+
+ediproxy_importmd_handler =\
+    'geosk.tellme.api.ediproxy_importmd' \
+        if 'geosk.tellme' in settings.INSTALLED_APPS else \
+    'geosk.mdtools.api.ediproxy_importmd'
 
 urlpatterns = [
     url(r'^api/getdata$', 'geosk.mdtools.views.get_data_api', name='mdtools_getdata'),
@@ -14,5 +20,8 @@ urlpatterns = [
     url(r'^rndt-simple/$', TemplateView.as_view(template_name='mdtools/rndt-simple.html'), name="rndt_simple"),
     url(r'^rndt/(?P<layername>[^/]*)/postMetadata$', 'geosk.mdtools.api.rndtproxy', name='rndtproxy'),
     # new API EdiProxy
-    url(r'^ediproxy/(?P<layername>[^/]*)/importmd$', 'geosk.mdtools.api.ediproxy_importmd', name='ediproxy_importmd'),
+    url(r'^ediproxy/(?P<layername>[^/]*)/importmd$', ediproxy_importmd_handler, name='ediproxy_importmd'),
 ]
+
+
+
