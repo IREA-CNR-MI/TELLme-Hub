@@ -43,6 +43,17 @@ from geosk.mdtools.api import _post_validate, _get_fileid, \
 from geonode.layers.utils import resolve_regions
 
 def _savelayermd(layer, rndt, ediml, version='1'):
+    """
+    Save layer metadata from ISO/XML file.
+    Analogous to the geosk omonimuos version, this method receives a geonode layer class instance
+    and sets its attributes. In the TELLme case the method distinguish keywords by URIs of
+    TELLme glossary RDF thesaurus and possible keywords of type=places (exploiting gmx ISO XSD)
+    :param layer: (Layer)
+    :param rndt: (string) ISO/XML MD file
+    :param ediml: (string) EDI XML file
+    :param version: (string) Only version '2' is managed by this method. Default value '1' is maintained for retrocompatibility solely.
+    :return: (bool) True
+    """
     if ediml:
         fileid = _get_fileid(ediml)
         # new fileid must be equal to the old one
@@ -58,26 +69,36 @@ def _savelayermd(layer, rndt, ediml, version='1'):
     if len(errors) > 0:
         raise Exception(errors)
 
-    # TODO: (TELLme) we could change here the information flow in
+    ''' note: (TELLme) we change here the information flow in
     #  order to query the xml (rndt) and match the TELLme
     #  keywords by ID instead of string.
     #  Example:
-    #  we can also inspect MD_Metadata parent class of EDI_Metadata
-    #  that already contains keywords2, a list of MD_keywords objects
-    #  with several elements parsed from XML.
-    #  In alternative we can directly filter the appropriate xml elements
+    #    from geosk.mdtools.api import EDI_Metadata
+    #    metadataToExplore=etree.fromstring(rndt)
+    #    mdata = EDI_Metadata(metadataToExplore)    #
+    #    mdata.identification.keywords2   
+    #  it is not possibile to inspect any MD_Metadata parent class 
+    #  because, even if, there is information about originating thesaurus of the 
+    #  keyword in EDI_Metadata, in the owslib version of ISO metadata class 
+    #  the xlink:href in gmx:Anchor elements (substituting the literal strings) 
+    #  are not managed.
+    #  In alternative we directly filter the appropriate xml elements
     #  with gmx:Anchor and xlink:href with URIs.
-    # from geosk.mdtools.api import EDI_Metadata
-    # metadataToExplore=etree.fromstring(rndt)
-    # mdata = EDI_Metadata(metadataToExplore)    #
-    # mdata.identification.keywords2
+    '''
 
     # print >>sys.stderr, 'VALS', vals
     # set taggit keywords
     layer.keywords.clear()
+    ''' the first keywords are generic ones. In the case of TELLme profile 
+    they could not appear at all, but the call is maintained for possibile 
+    future updated of the profile and the EDI template'''
     layer.keywords.add(
         *keywords)  # change this in order to obtain 1-1 mapping between URI of tellme keywords (from sparql) and TELLme-HierarchicalKeywords
-    layer.keywords.add(*hkeywordsByURI)  # TODO: check this
+    layer.keywords.add(*hkeywordsByURI)  #
+    '''
+    NOTE: hkeywords can be HierarchicalKeyword instances or string. The invoked method add of the HierarchicalKeywordManager class
+    will take care to properly manage them.
+    '''
 
     # set model properties
     for (key, value) in vals.items():
@@ -109,7 +130,11 @@ def _savelayermd(layer, rndt, ediml, version='1'):
 
 
 def iso2dict(exml):
-    """generate dict of properties from EDI_Metadata (INSPIRE - RNDT)"""
+    """
+    generate dict of properties from EDI_Metadata (INSPIRE - RNDT)
+    :param exml:
+    :return:
+    """
 
     vals = {}
     regions = []
@@ -217,6 +242,12 @@ def iso2dict(exml):
 
 
 def resolveTellmeKeywords(exml):
+    """
+    we directly filter the appropriate xml elements
+    with gmx:Anchor and xlink:href with URIs.
+    :param exml:
+    :return:
+    """
     from tellmeGlossaryIntegration import getHierarchicalKeywordListBySlug
     # check the keywordsTellMe list of dict.
     # they are supposed to have [""][""]
@@ -251,6 +282,14 @@ def resolveTellmeKeywords(exml):
 
 @login_required
 def ediproxy_importmd(request, layername):
+    """
+    Override the omonimuos method in geosk in order to intercept TELLme Keywords from
+    the ISO-XML TELLme profile produced by EDI server and passed to this API by the
+    integration among get-it (geosk) and EDI.
+    :param request:
+    :param layername:
+    :return:
+    """
     layer = _resolve_layer(request, layername, 'base.change_resourcebase', _PERMISSION_MSG_METADATA)
     isoml = request.POST.get('generatedXml').encode('utf8')
     ediml = request.POST.get('ediml').encode('utf8')
