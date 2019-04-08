@@ -42,6 +42,8 @@ from geosk.mdtools.api import _post_validate, _get_fileid, \
     get_datetype
 from geonode.layers.utils import resolve_regions
 
+from django.contrib.auth.decorators import user_passes_test
+
 def _savelayermd(layer, rndt, ediml, version='1'):
     """
     Save layer metadata from ISO/XML file.
@@ -299,3 +301,11 @@ def ediproxy_importmd(request, layername):
     except Exception as e:
         return json_response(exception=e, status=500)
     return json_response(body={'success':True, 'answered_by':'tellme'})
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def refresh_glossary_rdf():
+    from geosk.tellme.tellmeGlossaryIntegration import \
+        TellMeGlossary, dumpTTLGlossaryToStaticDir
+    g = TellMeGlossary()
+    dumpTTLGlossaryToStaticDir(g)
