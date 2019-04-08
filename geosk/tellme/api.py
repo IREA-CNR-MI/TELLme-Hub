@@ -300,12 +300,16 @@ def ediproxy_importmd(request, layername):
         _savelayermd(layer, isoml, ediml, version='2')
     except Exception as e:
         return json_response(exception=e, status=500)
-    return json_response(body={'success':True, 'answered_by':'tellme'})
+    return json_response(body={'success': True, 'answered_by': 'tellme'})
 
 
 @user_passes_test(lambda u: u.is_superuser)
-def refresh_glossary_rdf():
+def refresh_glossary_rdf(request):
     from geosk.tellme.tellmeGlossaryIntegration import \
         TellMeGlossary, dumpTTLGlossaryToStaticDir
-    g = TellMeGlossary()
-    dumpTTLGlossaryToStaticDir(g)
+    try:
+        g = TellMeGlossary()
+        dumpTTLGlossaryToStaticDir(g)
+    except Exception as e:
+        return json_response(exception=e, status=500)
+    return json_response(body={'success': True, 'answered_by': 'tellme'})
