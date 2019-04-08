@@ -19,10 +19,17 @@ TELLME_GLOSSARY_URL = "http://tellme.test.polimi.it/tellme_apps/tellme/export"
 
 
 class TellMeGlossary(object):
+    '''
+    An object representing the contents of TELLme glossary with the structure
+    from the Polimi App.
+    '''
 
     tellmescheme = "http://rdfdata.get-it.it/TELLmeGlossary"
 
     def __init__(self):
+        '''
+        init a new instance of TellMeGlossary calling the remote TELLme glossary application API
+        '''
         self.jj = self.downloadFromTellMeGlossary()
         # dict id:keyword
         self.keywords = {k["id"]: TellMeKeyword(k) for k in self.jj["keywords"]}
@@ -31,6 +38,10 @@ class TellMeGlossary(object):
 
     @staticmethod
     def downloadFromTellMeGlossary():
+        '''
+        Downloads the TellMe Glossary from the API of the polimi TELLme glossary App
+        :return: a dictionary from the downloaded json
+        '''
         # import requests
         # import os
         # url = "http://tellme.test.polimi.it/tellme_apps/tellme/export"
@@ -52,8 +63,15 @@ class TellMeGlossary(object):
                 o.add(s["scale"])
         return o
 
-    # returns a list of turtle strings. serialize with "for line in dumpToSkosTTL: print line"
     def dumpToSkos(self,mode="ttl"):
+        '''
+        serialize the Glossary in RDF.
+        a list of turtle strings.
+        NOTE: for debug purposes the return value can be serialized with
+        "for line in <returnValue>: print line"
+        :param mode: (string) "ttl" | "xml" | "txt"
+        :return: RDF (or textual) serialization of the glossary. The return value is actually a list of strings
+        '''
         # as jj we expect a dictionary whose source is json document
         # downloaded from http://tellme.test.polimi.it/tellme_apps/tellme/export
         # from jsonpath_ng.ext import parse
@@ -217,14 +235,24 @@ tellme:{0.entryType}_{0.id}
         return rdf
 
     def slug(self):
+        '''
+        Return the slug of the represented entry.
+        It is intended to be the slug for the HierarchicalKeyword in get-it
+        :return:
+        '''
         return self.glos2slug(self.id, self.entryType)
 
     # def get_parent_hk(self):
     #     pass
 
-    # get or create a HierarchicalKeyword under the given parent.
-    # The method instantiates the HierarchicalKeyword and returns it.
     def toHierarchicalKeywordChildOf(self, hk_parent):
+        '''
+        get or create a HierarchicalKeyword under the given parent.
+        The method instantiates the HierarchicalKeyword and returns it.
+        :param hk_parent: (HierarchicalKeyword)
+        :return: (HierarchicalKeyword) the obtained HK
+        '''
+
         from geonode.base.models import HierarchicalKeyword
         if HierarchicalKeyword.objects.filter(slug=self.slug()).exists():
             hk = HierarchicalKeyword.objects.get(slug=self.slug())
@@ -242,17 +270,41 @@ tellme:{0.entryType}_{0.id}
 
     @staticmethod
     def glos2slug(id,type):
+        '''
+        Return the slug of the entry corresponding to given id and type.
+        It is intended to be the slug for the HierarchicalKeyword in get-it
+        :param id: (string or int)
+        :param type: (string) "keyword" | "concept"
+        :return:
+        '''
         if type not in {"keyword","concept"}:
             raise ValueError(type)
         return u"{type}_{id}".format(type=type ,id=id.__str__())
 
     @staticmethod
     def slug2glosId(slug):
-        return slug[8:]
+        '''
+        Return the id in the tellme glossary given the Entry slug
+        :param slug:
+        :return: (string)
+        '''
+        try:
+            return slug.split("_")[1]
+        except Exception as e:
+            pass
+
 
     @staticmethod
     def slug2type(slug):
-        return slug[:7]
+        '''
+        Return the type in the tellme glossary given the Entry slug
+        :param slug:
+        :return: (string)
+        '''
+        try:
+            return slug.split("_")[0]
+        except Exception as e:
+            pass
 
 
 class TellMeKeyword(TellMeEntry):
@@ -353,6 +405,12 @@ class TellMeProtocol(TellMeEntry):
 
 
 def dumpTTLGlossaryToStaticDir(g):
+    '''
+    Write the RDF ttl serialization in the tellme static directory of the get-it, reachable at the url
+    http://<get-it-URL>/static/tellme/TELLmeGlossary.ttl
+    :param g:
+    :return:
+    '''
     import geosk
     #g = TellMeGlossary()
     #jj = g.jj
@@ -371,7 +429,12 @@ def dumpTTLGlossaryToStaticDir(g):
 # TODO: refactor creating a Binder class aware of both
 #  HierarchicalKeyword and TellMeEntries and remove references of HK from other classes
 def setAsChild(hk,targetHk):
-    # move any existing HierarchicalKeyword as child of a target
+    '''
+    move any existing HierarchicalKeyword as child of a target
+    :param hk:
+    :param targetHk:
+    :return:
+    '''
     def setAsChildBySlug(hkSlug, hkTargetSlug):
         from geonode.base.models import HierarchicalKeyword
         HierarchicalKeyword.objects.get(slug=hkSlug).move(
@@ -402,6 +465,17 @@ def getHierarchicalKeywordListBySlug(slug):
     return HierarchicalKeyword.objects.filter(slug=slug)
 
 def synchGlossaryWithHierarchicalKeywords(g):
+    '''
+    Read the content of TELLme Glossary object, check the presence of corresponding
+    geonode HierarchicalKeywords (HK) in GET-IT instance.
+    New TellmeGlossary keywords and concepts are translated in HK and organized according the hierarchy
+    of the glossary under the HK root node "TELLme Keywords".
+    HK of other kind are organized as direct descendants of the "_zOtherKeywords" root HK
+    (the method creates it if this root node is not present).
+    [hint: Call the method with g = TellMeGlossary()]
+    :param g: TellmeGlossary object
+    :return: nothing
+    '''
     from geonode.base.models import HierarchicalKeyword
 
     # obtain root and other root. The getCreateHierarchicalKeywordRootByName
