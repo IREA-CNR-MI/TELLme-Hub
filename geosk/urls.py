@@ -97,13 +97,14 @@ if 'rosetta' in settings.INSTALLED_APPS:
 
 if 'geosk.tellme' in settings.INSTALLED_APPS:
     geoskurlpatterns += patterns(
+        '',
         # TELLme - overwrite EDI api
         # mdtools views
         # url(r'^mdtools/ediproxy/(?P<layername>[^/]*)/importmd$',
         #     'geosk.tellme.api.ediproxy_importmd', name='ediproxy_importmd'),
         # directly overridden in mdtools.urls
 
-        (r'^tellme/', include('geosk.tellme.urls')),
+        url(r'^tellme/', include('geosk.tellme.urls')),
     )
 
 urlpatterns += geoskurlpatterns
