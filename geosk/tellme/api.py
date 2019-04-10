@@ -244,6 +244,8 @@ def iso2dict(exml):
     # resolve TELLme keywords. keywordsByURI is a list of HierarchicalKeywords
     tellme_keywords_resolved, tellme_keywords_unresolved = resolveTellmeKeywords(exml)
 
+    tellme_keywords_unresolved.extend(keywords)
+
     return [vals, regions, tellme_keywords_resolved, tellme_keywords_unresolved]
 
 
