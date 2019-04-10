@@ -306,7 +306,12 @@ def ediproxy_importmd(request, layername):
     try:
         _savelayermd(layer, isoml, ediml, version='2')
     except BaseException as e:
-        return json_response(exception=e, status=500, body={'success': False,'answered_by': 'tellme', 'error': e})
+        return json_response(exception=e, status=500, body={'success': False,'answered_by': 'tellme', 'error': e, 'error raised by':'_savelayermd'})
+    try:
+        g = TellMeGlossary()
+        synchGlossaryWithHierarchicalKeywords(g)
+    except Exception as e:
+        return json_response(exception=e, status=500, body={'success': False,'answered_by': 'tellme', 'error': e, 'error raised by':'synchGlossaryWithHierarchicalKeywords'})
     return json_response(body={'success': True, 'answered_by': 'tellme'})
 
 
