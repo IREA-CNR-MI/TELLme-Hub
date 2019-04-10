@@ -259,7 +259,8 @@ def resolveTellmeKeywords(exml):
     # they are supposed to have [""][""]
     #' returns a list of HierarchicalKeyword
     ns = namespaces
-    del(ns[None])
+    if None in namespaces:
+        del(ns[None])
     keywords_resolved = []
     keywords_unresolved = []
     # TODO: check possible issues with non-unicode char
@@ -302,8 +303,8 @@ def ediproxy_importmd(request, layername):
     edimlid = request.POST.get('edimlid')
     try:
         _savelayermd(layer, isoml, ediml, version='2')
-    except Exception as e:
-        return json_response(exception=e, status=500)
+    except BaseException as e:
+        return json_response(exception=e, status=500, body={'success': False,'answered_by': 'tellme', 'error': e})
     return json_response(body={'success': True, 'answered_by': 'tellme'})
 
 
