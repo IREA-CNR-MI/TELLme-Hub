@@ -21,6 +21,7 @@ MAINTAINER Starterkit development team
 #     && pip install git+https://github.com/celery/billiard.git#egg=billiard \
 #     && pip uninstall --yes kombu \
 #     && pip install git+https://github.com/celery/kombu.git#egg=kombu
+RUN echo "deb [check-valid-until=no] http://archive.debian.org/debian jessie-backports main" >> /etc/apt/sources.list
 RUN apt-get update \
     && apt-get install -y geoip-bin
 
