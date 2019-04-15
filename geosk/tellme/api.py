@@ -185,6 +185,12 @@ def iso2dict(exml):
                 if None not in k['keywords']:
                     if k['type'] == "place":
                         regions.extend(k['keywords'])
+                    elif k['type'] == 'metropolitanscale':
+                        try:
+                            for scale in k['keywords']:
+                                keywords.extend(scale.split(" "))
+                        except:
+                            keywords.extend(k['keywords'].split(" "))
                     elif k['thesaurus']['title'] == "http://rdfdata.get-it.it/TELLmeGlossary/":
                         pass # NOTE: current implementation of EDIMetadata does not read gmx:Anchor!!!
                         #keywordsTellMe.extend(k['keywords'])
