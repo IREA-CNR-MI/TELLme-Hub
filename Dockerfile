@@ -1,5 +1,5 @@
-#FROM geobeyond/geonode:2.7.x
-FROM ptagliolato/starterkit:tellme2019
+FROM geobeyond/geonode:2.7.x
+#FROM ptagliolato/starterkit:tellme2019
 MAINTAINER Starterkit development team
 
 # WORKDIR /usr/src/
@@ -25,8 +25,8 @@ MAINTAINER Starterkit development team
 
 #RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" >> /etc/apt/sources.list \
 #    && \
-#    apt-get update \
-#    && apt-get install -y geoip-bin
+apt-get update \
+    && apt-get install -y geoip-bin
 
 #RUN echo "deb http://archive.debian.org/debian/ jessie main" >> /etc/apt/sources.list && \
 #    echo "deb-src http://archive.debian.org/debian/ jessie main" >> /etc/apt/sources.list && \
