@@ -262,6 +262,7 @@ tellme:{0.entryType}_{0.id}
         elif HierarchicalKeyword.objects.filter(name=self.title).exists():
             hk = HierarchicalKeyword.objects.get(name=self.title)
             hk.slug = self.slug()
+            hk.save()
             setAsChild(hk, HierarchicalKeyword.objects.get(id=hk_parent.id))
             return hk
         else:
@@ -442,6 +443,7 @@ def dumpTTLGlossaryToStaticDir(g):
 def setAsChild(hk,targetHk):
     """
     move any existing HierarchicalKeyword as child of a target
+    NOTE: the passed HierarchicalKeywords slugs must be consistent with their database versions. Save them before calling this method.
     :param hk:
     :param targetHk:
     :return:
