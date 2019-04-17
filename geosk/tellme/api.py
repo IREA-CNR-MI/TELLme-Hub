@@ -69,7 +69,9 @@ def _savelayermd(layer, rndt, ediml, version='1'):
                     'New fileid (%s) is different from the old one (%s)' % (fileid, layer.mdextension.fileid))
         layer.mdextension.fileid = fileid
 
-    vals, regions, hkeywordsByURI, keywords = iso2dict(etree.fromstring(rndt))
+    vals, regions, hkeywordsByURI, keywords, tellme_scales = iso2dict(etree.fromstring(rndt))
+
+
 
     errors = _post_validate(vals)
     if len(errors) > 0:
@@ -181,10 +183,16 @@ def iso2dict(exml):
 
         if (hasattr(mdata.identification, 'keywords') and
                 len(mdata.identification.keywords) > 0):
+
+            tellme_scales = \
+                [kl.split() for kl in k['keywords'] for k in mdata.identification.keywords if k['type'] == 'metropolitanscale'][0]
+
             for k in mdata.identification.keywords:
                 if None not in k['keywords']:
                     if k['type'] == "place":
                         regions.extend(k['keywords'])
+                    elif k['type'] == "metropolitanscale":
+                        pass #already done
                     elif k['thesaurus']['title'] == "http://rdfdata.get-it.it/TELLmeGlossary/":
                         pass # NOTE: current implementation of EDIMetadata does not read gmx:Anchor!!!
                         #keywordsTellMe.extend(k['keywords'])
@@ -242,14 +250,14 @@ def iso2dict(exml):
     keywords.extend(regions_unresolved)
 
     # resolve TELLme keywords. keywordsByURI is a list of HierarchicalKeywords
-    tellme_keywords_resolved, tellme_keywords_unresolved = resolveTellmeKeywords(exml)
+    tellme_keywords_resolved, tellme_keywords_unresolved = resolveTellmeKeywords(exml, tellme_scales)
 
     tellme_keywords_unresolved.extend(keywords)
 
-    return [vals, regions, tellme_keywords_resolved, tellme_keywords_unresolved]
+    return [vals, regions, tellme_keywords_resolved, tellme_keywords_unresolved, tellme_scales]
 
 
-def resolveTellmeKeywords(exml):
+def resolveTellmeKeywords(exml, tellme_scales):
     """
     we directly filter the appropriate xml elements
     with gmx:Anchor and xlink:href with URIs.
@@ -279,12 +287,19 @@ def resolveTellmeKeywords(exml):
         splitu = u.split("/")
         # in the TellMeHub we have TELLme keyword slugs defined as the last part of the TELLme keywords uri.
         slug = splitu[len(splitu) - 1]
-        kl=getHierarchicalKeywordListBySlug(slug)
+        kl = getHierarchicalKeywordListBySlug(slug)
         if len(kl) > 0:
             keywords_resolved.extend(kl)
         else:
             xpath2 = u"//gmd:MD_Keywords//gmx:Anchor[@xlink:href='{u}']/text()".format(u=u)
             keywords_unresolved.extend(exml.xpath(xpath2, namespaces=ns))
+
+    for sca in tellme_scales:
+        hksca = getHierarchicalKeywordListBySlug("scale_{scale}".format(scale=sca))
+        if len(hksca) > 0:
+            keywords_resolved.extend(hksca)
+        else:
+            keywords_unresolved.extend(sca)
 
     return keywords_resolved, keywords_unresolved
 

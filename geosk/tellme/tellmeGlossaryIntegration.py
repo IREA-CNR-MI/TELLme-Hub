@@ -35,6 +35,7 @@ class TellMeGlossary(object):
         self.keywords = {k["id"]: TellMeKeyword(k) for k in self.jj["keywords"]}
         self.concepts = {k["id"]: TellMeConcept(k) for k in self.jj["concepts"]}
         self.protocols = {k["id"]: TellMeProtocol(k) for k in self.jj["protocols"]}
+        self.scales = {s: TellMeScale(s) for s in self.getSetOfScales()}
 
     @staticmethod
     def downloadFromTellMeGlossary():
@@ -403,6 +404,16 @@ class TellMeProtocol(TellMeEntry):
             s += self.getScaleSnippets()
         return s
 
+# note: TellMeScales are treated differently within the same TellMeGlossary class
+class TellMeScale(TellMeEntry):
+    def __init__(self, title):
+        self.title = title
+        self.entryType = u"scale"
+        #self.id=title
+
+    def slug(self):
+        return u"{type}_{id}".format(type=self.entryType, id=self.title)
+
 
 def dumpTTLGlossaryToStaticDir(g):
     """
@@ -464,6 +475,7 @@ def getHierarchicalKeywordListBySlug(slug):
     from geonode.base.models import HierarchicalKeyword
     return HierarchicalKeyword.objects.filter(slug=slug)
 
+
 def synchGlossaryWithHierarchicalKeywords(g):
     """
     Read the content of TELLme Glossary object, check the presence of corresponding
@@ -481,6 +493,7 @@ def synchGlossaryWithHierarchicalKeywords(g):
     # obtain root and other root. The getCreateHierarchicalKeywordRootByName
     # grant existence and root-ness!
     root = getOrCreateHierarchicalKeywordRootByName(u"TELLme")
+    rootScales = getOrCreateHierarchicalKeywordRootByName(u"TELLme-scales")
     other_root = getOrCreateHierarchicalKeywordRootByName(u"z_otherKeywords")
 
     # NOTE: Before each call of any processing of a HierarchicalKeyword previously obtained,
@@ -515,7 +528,7 @@ def synchGlossaryWithHierarchicalKeywords(g):
 
     # put all HierarchicalKeyword tree nodes under other_root
     map((lambda x: HierarchicalKeyword.objects.get(id=x.id).move(HierarchicalKeyword.objects.get(id=other_root.id), "sorted-child")),
-        HierarchicalKeyword.objects.filter(depth=1).exclude(id=root.id).exclude(id=other_root.id))
+        HierarchicalKeyword.objects.filter(depth=1).exclude(id=root.id).exclude(id=other_root.id).exclude(id=rootScales.id))
 
     #move all tellme glossary kewyords under "root" node
     for k in g.keywords.items():
@@ -526,6 +539,10 @@ def synchGlossaryWithHierarchicalKeywords(g):
         hgk = gk.toHierarchicalKeywordChildOf(root)
         for c in g.listConceptsByKeyword(gk):
             c.toHierarchicalKeywordChildOf(hgk)  # c is already a TELLmeConcept
+
+    for sca in g.scales.items():
+        gsca=sca[1]
+        gsca.toHierarchicalKeywordChildOf(rootScales)
 
     # # 1. go through id of keywords in glossary.
     #    a. does the corresponding slug exist?
