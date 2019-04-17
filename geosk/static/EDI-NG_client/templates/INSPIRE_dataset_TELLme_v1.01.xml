@@ -19,8 +19,9 @@
     ]]></baseDocument>
       <xsltChain>
       
-         <xslt>http://sp7.irea.cnr.it/jboss/MDService/rest/stylesheet_1.xsl?version=1.00</xslt>
-    
+         <xslt>http://sp7.irea.cnr.it/jboss/MDService/rest/removeDeletemeElements.xsl?version=1.00</xslt>
+         <!--<xslt>http://sp7.irea.cnr.it/jboss/MDService/rest/stylesheet_1.xsl?version=1.00</xslt>-->
+
       </xsltChain>
    </settings>
    <endpointTypes>
@@ -67,7 +68,7 @@
       </codelist>
       <sparql xml:id="person" endpointType="fuseki1">
          <query><![CDATA[
-        
+
           PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
             PREFIX foaf: <http://xmlns.com/foaf/0.1/>
                         SELECT DISTINCT ?c ?l
@@ -79,7 +80,7 @@
   							)
                         }
                         ORDER BY ASC(?l)
-        
+
         ]]></query>
          <url>http://fuseki1.get-it.it/directory/sparql</url>
       </sparql>
@@ -193,7 +194,7 @@
     						?b2 foaf:name ?country .
   						  }
                         }
-                        LIMIT 1                        
+                        LIMIT 1
             ]]></query>
          <url>http://fuseki1.get-it.it/directory/sparql</url>
       </singleton>
@@ -202,7 +203,7 @@
       </codelist>
       <sparql xml:id="keywordFromContrVoc" endpointType="fuseki1">
          <query><![CDATA[
-        
+
         PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX tellme: <http://rdfdata.get-it.it/TELLmeGlossary/>
@@ -644,7 +645,7 @@ BIND(?userLabel AS ?l)
                <hasValue>ISOTC211/19115</hasValue>
             </item>
             <item hasIndex="6" xml:id="keyw_cities_6" isFixed="true" hasDatatype="string">
-               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type</hasPath>
+               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type/gmd:MD_KeywordTypeCode</hasPath>
                <hasValue>place</hasValue>
             </item>
          </produces>
@@ -749,8 +750,8 @@ BIND(?userLabel AS ?l)
             TODO: valutare come estendere md get-it per reperire info in eventuale visualizzazione o chiamata WMS o filtro stili
             TODO: valutare se possa influire su scala nominale ed essere usato per autocompilarlo (penso però di no)
             -->
-         <label xml:lang="en">TELLme scale (XXL, XL, L, M, S)</label>
-         <label xml:lang="it">Scala TELLme (XXL, XL, L, M, S)</label>
+         <label xml:lang="en">TELLme scale (choose one of XXL, XL, L, M, S)</label>
+         <label xml:lang="it">Scala TELLme (scegliere tra XXL, XL, L, M, S)</label>
          <help xml:lang="en">Scale according to project TELLme theoretical and practical framework</help>
          <help xml:lang="it">Scala, secondo il quadro teorico e pratico del progetto TELLme</help>
          <hasRoot>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification</hasRoot>
@@ -760,7 +761,7 @@ BIND(?userLabel AS ?l)
             </item>
             <item hasIndex="2" xml:id="keyw_tellmescale_2" isFixed="true" hasDatatype="URI">
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type/gmd:MD_KeywordTypeCode/@codeList</hasPath>
-               <hasValue>http://rdfdata.get-it.it/tellme</hasValue>
+               <hasValue>http://rdfdata.get-it.it/TELLmeGlossary/codelists/keywordTypeCode</hasValue>
             </item>
             <item hasIndex="3" xml:id="keyw_tellmescale_3" isFixed="true" hasDatatype="string">
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type/gmd:MD_KeywordTypeCode/@codeListValue</hasPath>
@@ -768,10 +769,10 @@ BIND(?userLabel AS ?l)
             </item>
             <item hasIndex="4" xml:id="keyw_tellmescale_4" isFixed="true" hasDatatype="string">
                <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type/gmd:MD_KeywordTypeCode/@codeSpace</hasPath>
-               <hasValue>TELLme</hasValue>
+               <hasValue>http://rdfdata.get-it.it/TELLmeGlossary/</hasValue>
             </item>
             <item hasIndex="5" xml:id="keyw_tellmescale_5" isFixed="true" hasDatatype="string">
-               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type</hasPath>
+               <hasPath>/gmd:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:descriptiveKeywords/gmd:MD_Keywords/gmd:type/gmd:MD_KeywordTypeCode</hasPath>
                <hasValue>metropolitanscale</hasValue>
             </item>
          </produces>
