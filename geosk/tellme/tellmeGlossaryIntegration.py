@@ -266,6 +266,7 @@ tellme:{0.entryType}_{0.id}
             setAsChild(hk, HierarchicalKeyword.objects.get(id=hk_parent.id))
             return hk
         else:
+            # create a new HierarchicalKeyword and put it under hk_parent
             hk = HierarchicalKeyword(slug=self.slug(), name=self.title)
             HierarchicalKeyword.objects.get(id=hk_parent.id).add_child(instance=hk)
             return hk
@@ -450,8 +451,12 @@ def setAsChild(hk,targetHk):
     """
     def setAsChildBySlug(hkSlug, hkTargetSlug):
         from geonode.base.models import HierarchicalKeyword
-        HierarchicalKeyword.objects.get(slug=hkSlug).move(
-            HierarchicalKeyword.objects.get(slug=hkTargetSlug), pos="sorted-child")
+
+        if HierarchicalKeyword.objects.get(slug=hkSlug).is_child_of(hkTargetSlug):
+            pass
+        else:
+            HierarchicalKeyword.objects.get(slug=hkSlug).move(
+                HierarchicalKeyword.objects.get(slug=hkTargetSlug), pos="sorted-child")
 
     return setAsChildBySlug(hk.slug, targetHk.slug)
 
@@ -478,7 +483,7 @@ def getHierarchicalKeywordListBySlug(slug):
     return HierarchicalKeyword.objects.filter(slug=slug)
 
 
-def synchGlossaryWithHierarchicalKeywords(g):
+def synchGlossaryWithHierarchicalKeywords(g, force=True):
     """
     Read the content of TELLme Glossary object, check the presence of corresponding
     geonode HierarchicalKeywords (HK) in GET-IT instance.
@@ -488,6 +493,7 @@ def synchGlossaryWithHierarchicalKeywords(g):
     (the method creates it if this root node is not present).
     [hint: Call the method with g = TellMeGlossary()]
     :param g: TellmeGlossary object
+    :param force: (bool) True force recreation of the full tree, otherwise tries to adjust the actual tree with possibile new entries
     :return: nothing
     """
     from geonode.base.models import HierarchicalKeyword
@@ -519,19 +525,35 @@ def synchGlossaryWithHierarchicalKeywords(g):
     #         return 0
 
     # completely flatten the tree
-    # while maxdepth()>1:
-    #     map((lambda x: HierarchicalKeyword.objects.get(id=x).move(HierarchicalKeyword.get_last_root_node(), "sorted-sibling")),
-    #         [h.id for h in HierarchicalKeyword.objects.filter(depth=maxdepth())])
 
-    map((lambda x: HierarchicalKeyword.objects.get(id=x).move(HierarchicalKeyword.get_last_root_node(), "sorted-sibling")),
-        [h.id for h in HierarchicalKeyword.objects.exclude(id__in=[rid.id for rid in HierarchicalKeyword.get_root_nodes()])])
+    list_of_excluded_id = [root.id, rootScales.id, other_root.id]
+    list_of_excluded_id.extend([hk.id for hk in root.get_descendants()])
+    list_of_excluded_id.extend([hk.id for hk in rootScales.get_descendants()])
+    list_of_excluded_id.extend([hk.id for hk in other_root.get_descendants()])
 
-    HierarchicalKeyword.fix_tree()
+    if force:
+        map((lambda x: HierarchicalKeyword.objects.get(id=x).move(HierarchicalKeyword.get_last_root_node(),
+                                                                  "sorted-sibling")),
+            [h.id for h in HierarchicalKeyword.objects.exclude(id__in=[rid.id for rid in HierarchicalKeyword.get_root_nodes()])])
 
-    # put all HierarchicalKeyword tree nodes under other_root
-    map((lambda x: HierarchicalKeyword.objects.get(id=x.id).move(HierarchicalKeyword.objects.get(id=other_root.id), "sorted-child")),
-        HierarchicalKeyword.objects.filter(depth=1).exclude(id=root.id).exclude(id=other_root.id).exclude(id=rootScales.id))
+        HierarchicalKeyword.fix_tree()
+        map((lambda x: HierarchicalKeyword.objects.get(id=x.id).move(HierarchicalKeyword.objects.get(id=other_root.id),
+                                                                     "sorted-child")),
+            HierarchicalKeyword.objects.filter(depth=1).exclude(id=root.id).exclude(id=other_root.id).exclude(id=rootScales.id))
 
+    else:
+        map((lambda x: HierarchicalKeyword.objects.get(id=x).move(HierarchicalKeyword.get_last_root_node(), "sorted-sibling")),
+            [h.id for h in HierarchicalKeyword.objects.exclude(id__in=list_of_excluded_id)])
+        #[h.id for h in HierarchicalKeyword.objects.exclude(id__in=[rid.id for rid in HierarchicalKeyword.get_root_nodes()])])
+
+        HierarchicalKeyword.fix_tree()
+
+        # put all HierarchicalKeyword tree nodes under other_root
+        map((lambda x: HierarchicalKeyword.objects.get(id=x.id).move(HierarchicalKeyword.objects.get(id=other_root.id), "sorted-child")),
+            HierarchicalKeyword.objects.filter(depth=1).exclude(id__in=list_of_excluded_id))
+            #    HierarchicalKeyword.objects.filter(depth=1).exclude(id=root.id).exclude(id=other_root.id).exclude(id=rootScales.id))
+
+    # TODO: needs optimization
     #move all tellme glossary kewyords under "root" node
     for k in g.keywords.items():
         gk = k[1]  # gk is a 2-ple (id,TELLmeKeyword)
