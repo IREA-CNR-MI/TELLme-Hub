@@ -184,15 +184,16 @@ def iso2dict(exml):
         if (hasattr(mdata.identification, 'keywords') and
                 len(mdata.identification.keywords) > 0):
 
-            tellme_scales = \
-                [kl.split() for kl in k['keywords'] for k in mdata.identification.keywords if k['type'] == 'metropolitanscale'][0]
+            tellme_scales = []
+
+            #    [kl.split() for kl in k['keywords'] for k in mdata.identification.keywords if k['type'] == 'metropolitanscale'][0]
 
             for k in mdata.identification.keywords:
                 if None not in k['keywords']:
                     if k['type'] == "place":
                         regions.extend(k['keywords'])
                     elif k['type'] == "metropolitanscale":
-                        pass #already done
+                        tellme_scales.extend(k['keywords'][0].split())
                     elif k['thesaurus']['title'] == "http://rdfdata.get-it.it/TELLmeGlossary/":
                         pass # NOTE: current implementation of EDIMetadata does not read gmx:Anchor!!!
                         #keywordsTellMe.extend(k['keywords'])
@@ -300,6 +301,8 @@ def resolveTellmeKeywords(exml, tellme_scales):
             keywords_resolved.extend(hksca)
         else:
             keywords_unresolved.extend(sca)
+
+    keywords_unresolved = list(set(keywords_unresolved))
 
     return keywords_resolved, keywords_unresolved
 
