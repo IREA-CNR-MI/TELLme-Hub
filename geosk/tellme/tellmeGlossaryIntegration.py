@@ -452,7 +452,8 @@ def setAsChild(hk,targetHk):
     def setAsChildBySlug(hkSlug, hkTargetSlug):
         from geonode.base.models import HierarchicalKeyword
 
-        if HierarchicalKeyword.objects.get(slug=hkSlug).is_child_of(hkTargetSlug):
+        if HierarchicalKeyword.objects.get(slug=hkSlug).is_child_of(
+                HierarchicalKeyword.objects.get(slug=hkTargetSlug)):
             pass
         else:
             HierarchicalKeyword.objects.get(slug=hkSlug).move(
