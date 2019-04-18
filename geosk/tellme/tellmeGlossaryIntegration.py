@@ -533,7 +533,8 @@ def synchGlossaryWithHierarchicalKeywords(g, force=True):
     list_of_excluded_id.extend([hk.id for hk in other_root.get_descendants()])
 
     if force:
-        map((lambda x: HierarchicalKeyword.objects.get(id=x.id).move(HierarchicalKeyword.get_last_root_node(),
+
+        map((lambda x: HierarchicalKeyword.objects.get(id=x).move(HierarchicalKeyword.get_last_root_node(),
                                                                   "sorted-sibling")),
             [h.id for h in HierarchicalKeyword.objects.exclude(id__in=[rid.id for rid in HierarchicalKeyword.get_root_nodes()])])
 
