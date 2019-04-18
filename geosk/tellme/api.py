@@ -193,7 +193,7 @@ def iso2dict(exml):
                     if k['type'] == "place":
                         regions.extend(k['keywords'])
                     elif k['type'] == "metropolitanscale":
-                        tellme_scales.extend(k['keywords'][0].split())
+                        tellme_scales.extend(k['keywords'][0].split(" "))
                     elif k['thesaurus']['title'] == "http://rdfdata.get-it.it/TELLmeGlossary/":
                         pass # NOTE: current implementation of EDIMetadata does not read gmx:Anchor!!!
                         #keywordsTellMe.extend(k['keywords'])
@@ -295,12 +295,14 @@ def resolveTellmeKeywords(exml, tellme_scales):
             xpath2 = u"//gmd:MD_Keywords//gmx:Anchor[@xlink:href='{u}']/text()".format(u=u)
             keywords_unresolved.extend(exml.xpath(xpath2, namespaces=ns))
 
+
     for sca in tellme_scales:
         hksca = getHierarchicalKeywordListBySlug("scale_{scale}".format(scale=sca))
         if len(hksca) > 0:
             keywords_resolved.extend(hksca)
         else:
-            keywords_unresolved.extend(sca)
+            keywords_unresolved.append(sca) # NOTE: passing a string to extend makes the string
+            # interpreted as a list of characters, resulting in each character as an element.
 
     keywords_unresolved = list(set(keywords_unresolved))
 
