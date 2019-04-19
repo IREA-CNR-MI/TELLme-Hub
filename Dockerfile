@@ -22,8 +22,7 @@ MAINTAINER Starterkit development team
 #     && pip uninstall --yes kombu \
 #     && pip install git+https://github.com/celery/kombu.git#egg=kombu
 
-RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list &&
-apt-get update \
+RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list && apt-get update \
     && apt-get install -y geoip-bin
 
 #RUN echo "deb http://archive.debian.org/debian/ jessie main" >> /etc/apt/sources.list && \
