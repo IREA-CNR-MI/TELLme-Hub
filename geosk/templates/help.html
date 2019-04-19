@@ -4,15 +4,21 @@
 {% block title %} {% trans "User Guide" %} - {{ block.super }} {% endblock %}
 
 {% block body %}
-  <header class="jumbotron subhead" id="overview">
-    <h1>{% trans "GeoNode Help" %}</h1>
-    <p class="lead">{% trans "This page provides helpful information about how to use the GeoNode. You can use the sidebar links to navigate to what you want to know." %}</p>
+  <!--header class="jumbotron subhead" id="overview"-->
+  <header id="overview">
+    <h1>{% trans "TELLme Hub help page" %}</h1>
+    <p class="lead">{% trans "This page provides helpful information about how to use the TELLme Hub." %}</p>
   </header>
 
   {% blocktrans %}
-  <p>The GeoNode provides access to data sets and a map editing application allows users to browse existing maps and contribute their own.</p>
+  <p>The TELLme Hub provides access, management and visualization of layers and maps</p>
 
-  <h4 id="upload-layers">Creating Layers</h4>
+  <h4 id="upload-layers">Layer management</h4>
+  <p>The <a href="/layers/upload">Data > Upload Layer</a> page allows you to upload new layers to TELLme Hub and, after the upload, to compile metadata with the specific TELLme profile of <a href="https://www.iso.org/standard/32557.html" target="_blank">ISO metadata schema</a>, which includes terms from the <a href="http://rdfdata.get-it.it/TELLmeGlossary/keyword_1" target="_blank">TELLme Glossary</a></p>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/F0SB7NHKRts" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <p>We invite you if you need more help to consult the official <a href="https://getit.readthedocs.io/en/latest/tutorials/" target="_blank">GET-IT documentation</a>.</p>
+
+  <!--h4 id="upload-layers">Creating Layers</h4>
   <p>The "UPLOAD LAYER" tab in <a href="/layers">Layers</a> page allows you to upload new layers to this GET-IT and, after the upload, to compile metadata.</p>
   <p>We invite you if you need help to consult the official <a href="http://docs.geonode.org/en/latest/tutorials/users/layers/upload.html">Geonode Documentation</a> or the GET-IT help page for <a href="/about_upload_layers">uploading data</a>.</p>
 
@@ -63,12 +69,12 @@
     <li><strong>IMPORTANT:</strong> Update the title, abstract, contact info and tags to reflect the new map.</li>
     <li>Save the map.</li>
   </ol>
-  <p>You will be able to see your new map when you search for it from the <a href="/maps">Maps</a> tab.</p>
+  <p>You will be able to see your new map when you search for it from the <a href="/maps">Maps</a> tab.</p-->
   {% endblocktrans %}
 {% endblock %}
 
 {% block sidebar %}
-  <ul class="nav nav-list">
+  <!--ul class="nav nav-list">
     <li class="nav-header">{% trans "Sections" %}</li>
     <li><a href="#upload-layers">{% trans "Creating Layers" %}</a></li>
     <li><a href="#browsing-data">{% trans "Browsing Layers" %}</a></li>
@@ -78,5 +84,5 @@
     <li><a href="#creating-a-map">{% trans "Creating a Map" %}</a></li>
     <li><a href="#exporting-a-map">{% trans "Exporting a Map" %}</a></li>
     <li><a href="#remixing-a-map">{% trans "Remixing a Map" %}</a></li>
-  </ul>
+  </ul-->
 {% endblock %}
