@@ -45,7 +45,8 @@ from geonode.layers.utils import resolve_regions
 from django.contrib.auth.decorators import user_passes_test
 
 from geosk.tellme.tellmeGlossaryIntegration import \
-    TellMeGlossary, dumpTTLGlossaryToStaticDir, synchGlossaryWithHierarchicalKeywords
+    TellMeGlossary, dumpTTLGlossaryToStaticDir, synchGlossaryWithHierarchicalKeywords, \
+    move_genericHK_level1_under_otherkeywords_branch
 
 
 def _savelayermd(layer, rndt, ediml, version='1'):
@@ -70,8 +71,6 @@ def _savelayermd(layer, rndt, ediml, version='1'):
         layer.mdextension.fileid = fileid
 
     vals, regions, hkeywordsByURI, keywords, tellme_scales = iso2dict(etree.fromstring(rndt))
-
-
 
     errors = _post_validate(vals)
     if len(errors) > 0:
@@ -99,7 +98,7 @@ def _savelayermd(layer, rndt, ediml, version='1'):
     layer.keywords.clear()
     ''' the first keywords are generic ones. In the case of TELLme profile 
     they could not appear at all, but the call is maintained for possibile 
-    future updated of the profile and the EDI template'''
+    future updates of the profile and the EDI template'''
     layer.keywords.add(
         *keywords)  # change this in order to obtain 1-1 mapping between URI of tellme keywords (from sparql) and TELLme-HierarchicalKeywords
     layer.keywords.add(*hkeywordsByURI)  #
@@ -133,6 +132,9 @@ def _savelayermd(layer, rndt, ediml, version='1'):
     if ediml:
         layer.mdextension.elements_xml = ediml
     layer.mdextension.save()
+
+    # clean the hierarchicalKeywords tree from generic keywords, pushing them under the z_other_keywords branch
+    move_genericHK_level1_under_otherkeywords_branch(keywords)
 
     return True
 
@@ -328,8 +330,10 @@ def ediproxy_importmd(request, layername):
     except BaseException as e:
         return json_response(exception=e, status=500, body={'success': False,'answered_by': 'tellme', 'error': e, 'error raised by':'_savelayermd'})
     try:
-        g = TellMeGlossary()
-        synchGlossaryWithHierarchicalKeywords(g, force=False)
+        pass
+        # TODO: we must make this call thread safe
+        #g = TellMeGlossary()
+        #synchGlossaryWithHierarchicalKeywords(g, force=False)
     except Exception as e:
         return json_response(exception=e, status=500, body={'success': False,'answered_by': 'tellme', 'error': e, 'error raised by':'synchGlossaryWithHierarchicalKeywords'})
     return json_response(body={'success': True, 'answered_by': 'tellme'})

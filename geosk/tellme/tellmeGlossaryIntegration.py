@@ -248,8 +248,7 @@ tellme:{0.entryType}_{0.id}
 
     def toHierarchicalKeywordChildOf(self, hk_parent):
         """
-        get or create a HierarchicalKeyword under the given parent.
-        The method instantiates the HierarchicalKeyword and returns it.
+        get or create a HierarchicalKeyword under the given parent (Do nothing if already ok).
         :param hk_parent: (HierarchicalKeyword)
         :return: (HierarchicalKeyword) the obtained HK
         """
@@ -444,7 +443,8 @@ def dumpTTLGlossaryToStaticDir(g):
 def setAsChild(hk,targetHk):
     """
     move any existing HierarchicalKeyword as child of a target
-    NOTE: the passed HierarchicalKeywords slugs must be consistent with their database versions. Save them before calling this method.
+    NOTE: the passed HierarchicalKeywords slugs must be consistent with their
+    database versions. Save them before calling this method.
     :param hk:
     :param targetHk:
     :return:
@@ -467,6 +467,11 @@ def setAsChild(hk,targetHk):
 
 # the returned HierarchicalKeyword will be instantiated in the DB
 def getOrCreateHierarchicalKeywordRootByName(root_name):
+    """
+    Create or retrurn the existing HierarchicalKeyword with the given name
+    :param root_name:
+    :return: (HierarchicalKeyword)
+    """
     from geonode.base.models import HierarchicalKeyword
     if HierarchicalKeyword.objects.filter(name=root_name).exists():
         root = HierarchicalKeyword.objects.get(name=root_name)
@@ -480,10 +485,53 @@ def getOrCreateHierarchicalKeywordRootByName(root_name):
 
 
 def getHierarchicalKeywordListBySlug(slug):
+    """
+    Given a slug return the corresponding HK objects
+    :param slug:
+    :return: (list) of HierarchicalKeywords
+    """
     from geonode.base.models import HierarchicalKeyword
     return HierarchicalKeyword.objects.filter(slug=slug)
 
+def move_genericHK_level1_under_otherkeywords_branch(keywords=[]):
+    """
+    Move all the HK  at root level having their name in the passed keywords list
+    under the OtherKeywords branch
+    :param keywords: (list) names of the keywords to move if they are at root level
+    :return: (void)
+    """
+    # node.id in list if node is root, node is not one of the predefined roots, node.name is one of the
+    # names in "keywords" parameter
+    list_nodes_id_to_move = \
+        [k.id for k in HierarchicalKeyword.
+            get_root_nodes().
+            exclude(id__in=_getPredefinedHKRootNodesIdList()).
+            filter(name__in=keywords)]
 
+    map((lambda x: HierarchicalKeyword.objects.get(id=x.id).
+         move(HierarchicalKeyword.objects.get(id=_getOtherKeywordsRoot().id), "sorted-child")),
+        HierarchicalKeyword.objects.filter(id__in=list_nodes_id_to_move)
+        )
+
+def _getPredefinedHKRootNodesIdList():
+    """
+    :return: (list) id of predefined roots
+    """
+    #from geonode.base.models import HierarchicalKeyword
+    root = getOrCreateHierarchicalKeywordRootByName(u"TELLme")
+    rootScales = getOrCreateHierarchicalKeywordRootByName(u"TELLme-scales")
+    other_root = _getOtherKeywordsRoot()
+    id_list = [root.id, rootScales.id, other_root.id]
+    return id_list
+
+def _getOtherKeywordsRoot():
+    """
+    get or create the root node to host the "other keywords"
+    :return:
+    """
+    return getOrCreateHierarchicalKeywordRootByName(u"z_otherKeywords")
+
+# TODO: this method must be thread safe!!!
 def synchGlossaryWithHierarchicalKeywords(g, force=True):
     """
     Read the content of TELLme Glossary object, check the presence of corresponding
@@ -503,7 +551,7 @@ def synchGlossaryWithHierarchicalKeywords(g, force=True):
     # grant existence and root-ness!
     root = getOrCreateHierarchicalKeywordRootByName(u"TELLme")
     rootScales = getOrCreateHierarchicalKeywordRootByName(u"TELLme-scales")
-    other_root = getOrCreateHierarchicalKeywordRootByName(u"z_otherKeywords")
+    other_root = _getOtherKeywordsRoot()
 
     # NOTE: Before each call of any processing of a HierarchicalKeyword previously obtained,
     # we must refresh the HierarchicalKeyword from the db,
@@ -527,32 +575,43 @@ def synchGlossaryWithHierarchicalKeywords(g, force=True):
 
     # completely flatten the tree
 
-    list_of_excluded_id = [root.id, rootScales.id, other_root.id]
-    list_of_excluded_id.extend([hk.id for hk in root.get_descendants()])
-    list_of_excluded_id.extend([hk.id for hk in rootScales.get_descendants()])
-    list_of_excluded_id.extend([hk.id for hk in other_root.get_descendants()])
+    list_of_predefined_root_id = _getPredefinedHKRootNodesIdList()
+
+    predefined_roots_and_descendants_id = list_of_predefined_root_id
+    predefined_roots_and_descendants_id.extend([hk.id for hk in root.get_descendants()])
+    predefined_roots_and_descendants_id.extend([hk.id for hk in rootScales.get_descendants()])
+    predefined_roots_and_descendants_id.extend([hk.id for hk in other_root.get_descendants()])
 
     if force:
 
-        map((lambda x: HierarchicalKeyword.objects.get(id=x).move(HierarchicalKeyword.get_last_root_node(),
-                                                                  "sorted-sibling")),
+        # move any non-root keyword at root level
+        map((lambda x: HierarchicalKeyword.objects.get(id=x).
+             move(HierarchicalKeyword.get_last_root_node(), "sorted-sibling")),
             [h.id for h in HierarchicalKeyword.objects.exclude(id__in=[rid.id for rid in HierarchicalKeyword.get_root_nodes()])])
 
+        # fix inconsistencies
         HierarchicalKeyword.fix_tree()
-        map((lambda x: HierarchicalKeyword.objects.get(id=x.id).move(HierarchicalKeyword.objects.get(id=other_root.id),
-                                                                     "sorted-child")),
-            HierarchicalKeyword.objects.filter(depth=1).exclude(id=root.id).exclude(id=other_root.id).exclude(id=rootScales.id))
+
+        # move any root node, with the exception of the predefined roots, under the "other keywords" root
+        map((lambda x: HierarchicalKeyword.objects.get(id=x.id).
+             move(HierarchicalKeyword.objects.get(id=other_root.id), "sorted-child")),
+            HierarchicalKeyword.objects.filter(depth=1).exclude(id_in=list_of_predefined_root_id)
+        )
+        #=root.id).exclude(id=other_root.id).exclude(id=rootScales.id))
 
     else:
-        map((lambda x: HierarchicalKeyword.objects.get(id=x).move(HierarchicalKeyword.get_last_root_node(), "sorted-sibling")),
-            [h.id for h in HierarchicalKeyword.objects.exclude(id__in=list_of_excluded_id)])
+        # move non-root keyword at root level, with the exception of descendants of the predefined roots
+        map((lambda x: HierarchicalKeyword.objects.get(id=x).
+             move(HierarchicalKeyword.get_last_root_node(), "sorted-sibling")),
+            [h.id for h in HierarchicalKeyword.objects.exclude(id__in=predefined_roots_and_descendants_id)])
         #[h.id for h in HierarchicalKeyword.objects.exclude(id__in=[rid.id for rid in HierarchicalKeyword.get_root_nodes()])])
 
         HierarchicalKeyword.fix_tree()
 
         # put all HierarchicalKeyword tree nodes under other_root
-        map((lambda x: HierarchicalKeyword.objects.get(id=x.id).move(HierarchicalKeyword.objects.get(id=other_root.id), "sorted-child")),
-            HierarchicalKeyword.objects.filter(depth=1).exclude(id__in=list_of_excluded_id))
+        map((lambda x: HierarchicalKeyword.objects.get(id=x.id).
+             move(HierarchicalKeyword.objects.get(id=other_root.id), "sorted-child")),
+            HierarchicalKeyword.objects.filter(depth=1).exclude(id__in=predefined_roots_and_descendants_id))
             #    HierarchicalKeyword.objects.filter(depth=1).exclude(id=root.id).exclude(id=other_root.id).exclude(id=rootScales.id))
 
     # TODO: needs optimization
