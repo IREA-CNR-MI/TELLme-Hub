@@ -391,7 +391,7 @@ BIND(?userLabel AS ?l)
             </item>
          </produces>
       </element>
-      <element xml:id="md_resp" isMandatory="true" isMultiple="true">
+      <element xml:id="md_resp" isMandatory="true" isMultiple="false">
          <label xml:lang="en">Metadata point of contact.</label>
          <label xml:lang="it">Punto di contatto dei metadati</label>
          <help xml:lang="en">Party responsible for the metadata information. Start typing at least the first 3 letters of your e-mail address and, if you are in the TELLme database of contacts,
@@ -523,7 +523,7 @@ BIND(?userLabel AS ?l)
             </item>
          </produces>
       </element>
-      <element xml:id="resp" isMandatory="true" isMultiple="true">
+      <element xml:id="resp" isMandatory="true" isMultiple="false">
          <label xml:lang="en">Responsible party</label>
          <label xml:lang="it">Responsabile</label>
          <help xml:lang="en">Identification of, and means of communication with, person(s) and organization(s) associated with the resource(s).
@@ -569,7 +569,7 @@ BIND(?userLabel AS ?l)
    <group xml:id="keyword">
       <label xml:lang="en">Classification</label>
       <label xml:lang="it">Classificazione</label>
-      <element xml:id="tem_ins" isMandatory="true" isMultiple="true">
+      <element xml:id="tem_ins" isMandatory="true" isMultiple="false">
          <label xml:lang="en">INSPIRE theme</label>
          <label xml:lang="it">Tema di INSPIRE</label>
          <help xml:lang="en">The INSPIRE Theme that is used for describing the resource. There is already a default value; you can add
@@ -828,7 +828,7 @@ BIND(?userLabel AS ?l)
             </item>
          </produces>
       </element>
-      <element xml:id="vinc_acc" isMandatory="true" isMultiple="true">
+      <element xml:id="vinc_acc" isMandatory="true" isMultiple="false">
          <label xml:lang="en">Limitations on public access</label>
          <label xml:lang="it">Limitazioni all'accesso pubblico</label>
          <help xml:lang="en">Limitations on the access and use of a resource or metadata. The default values are the ones suggested for TELLme,
@@ -891,7 +891,7 @@ BIND(?userLabel AS ?l)
             </item>
          </produces>
       </element>
-      <element xml:id="ling" isMandatory="true" isMultiple="true">
+      <element xml:id="ling" isMandatory="true" isMultiple="false">
          <label xml:lang="en">Resource language</label>
          <label xml:lang="it">Lingua della risorsa</label>
          <help xml:lang="en">Language used for data (resources), the languages are the 23 EU official ones, as listed in the code list.</help>
@@ -913,7 +913,7 @@ BIND(?userLabel AS ?l)
             </item>
          </produces>
       </element>
-      <element xml:id="cat_tem" isMandatory="true" isMultiple="true">
+      <element xml:id="cat_tem" isMandatory="true" isMultiple="false">
          <label xml:lang="en">Topic category</label>
          <label xml:lang="it">Categoria tematica</label>
          <help xml:lang="en">Main theme(s) of the dataset.</help>
@@ -989,7 +989,7 @@ BIND(?userLabel AS ?l)
    <group xml:id="temporal">
       <label xml:lang="en">Temporal reference</label>
       <label xml:lang="it">Riferimento temporale</label>
-      <element xml:id="est_temp" isMandatory="true" isMultiple="true">
+      <element xml:id="est_temp" isMandatory="true" isMultiple="false">
          <label xml:lang="en">Temporal extent</label>
          <label xml:lang="it">Estensione temporale</label>
          <help xml:lang="en">Period to which data contained in the dataset refers to.</help>
@@ -1017,7 +1017,7 @@ BIND(?userLabel AS ?l)
             </item>
          </produces>
       </element>
-      <element xml:id="data" isMandatory="true" isMultiple="true">
+      <element xml:id="data" isMandatory="true" isMultiple="false">
          <label xml:lang="en">Date</label>
          <label xml:lang="it">Data</label>
          <help xml:lang="en">One among the date of creation, last revision, or publication of the
