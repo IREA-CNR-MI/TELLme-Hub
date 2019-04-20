@@ -595,7 +595,7 @@ def synchGlossaryWithHierarchicalKeywords(g, force=True):
         # move any root node, with the exception of the predefined roots, under the "other keywords" root
         map((lambda x: HierarchicalKeyword.objects.get(id=x.id).
              move(HierarchicalKeyword.objects.get(id=other_root.id), "sorted-child")),
-            HierarchicalKeyword.objects.filter(depth=1).exclude(id_in=list_of_predefined_root_id)
+            HierarchicalKeyword.objects.filter(depth=1).exclude(id__in=list_of_predefined_root_id)
         )
         #=root.id).exclude(id=other_root.id).exclude(id=rootScales.id))
 
