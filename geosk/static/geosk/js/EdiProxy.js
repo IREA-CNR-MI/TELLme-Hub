@@ -21,6 +21,7 @@ var EdiProxy = function(config){
 
     $('#save_metadata_btn').click(function(){
         var e = proxy.iframe[0].contentWindow;
+        //TODO: check the possibility to disable here the "register" button and show some progress icon
         e.ediml.post();
     });
 

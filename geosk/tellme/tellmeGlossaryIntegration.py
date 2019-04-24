@@ -15,7 +15,7 @@ TELLME_GLOSSARY_URL="http://tellme.test.polimi.it/tellme_apps/tellme/export"
 '''
 TELLME_GLOSSARY_PASSWORD = '889GT3[]!1'
 TELLME_GLOSSARY_USER = 'CNR'
-TELLME_GLOSSARY_URL = "http://tellme.test.polimi.it/tellme_apps/tellme/export"
+TELLME_GLOSSARY_URL = "http://www.tellme.polimi.it/tellme_apps/tellme/export"
 
 
 class TellMeGlossary(object):
