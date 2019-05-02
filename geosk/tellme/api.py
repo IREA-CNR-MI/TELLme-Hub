@@ -346,7 +346,7 @@ def refresh_glossary_rdf(request):
         dumpTTLGlossaryToStaticDir(g)
     except Exception as e:
         return json_response(exception=e, status=500)
-    return json_response(body={'success': True, 'answered_by': 'tellme'})
+    return json_response(body={'success': True, 'answered_by': 'tellme.api.refresh_glossary_rdf'})
 
 @user_passes_test(lambda u: u.is_superuser)
 def synchronizeHierarchicalKeywords_glossary_rdf(request):
@@ -355,4 +355,4 @@ def synchronizeHierarchicalKeywords_glossary_rdf(request):
         synchGlossaryWithHierarchicalKeywords(g)
     except Exception as e:
         return json_response(exception=e, status=500)
-    return json_response(body={'success': True, 'answered_by': 'tellme'})
+    return json_response(body={'success': True, 'answered_by': 'tellme.api.synchronizeHierarchicalKeywords_glossary_rdf'})
