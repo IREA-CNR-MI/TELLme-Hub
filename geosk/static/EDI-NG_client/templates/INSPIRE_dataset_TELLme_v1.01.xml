@@ -402,6 +402,7 @@ BIND(?userLabel AS ?l)
          <hasRoot>/gmd:MD_Metadata</hasRoot>
          <produces>
             <item hasIndex="1" xml:id="md_resp_1" outIndex="3" isFixed="false" hasDatatype="autoCompletion" datasource="person">
+               <!--label xml:lang="en">Email &lt;a href="http://processing.get-it.it/"&gt;(email not found? Add one here)&lt;/a&gt;</label-->
                <label xml:lang="en">Email</label>
                <label xml:lang="it">Email</label>
                <hasPath>/gmd:MD_Metadata/gmd:contact/gmd:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString</hasPath>
@@ -476,11 +477,14 @@ BIND(?userLabel AS ?l)
          <help xml:lang="it">Esprime il sistema di riferimento in cui è inquadrata la risorsa georiferita. Il valore di default è la proiezione adottata da TELLme</help>
          <hasRoot>/gmd:MD_Metadata</hasRoot>
          <produces>
-            <item hasIndex="1" xml:id="sist_rif_spa_1" queryStringParameter="referencesystem" isFixed="false" hasDatatype="codelist" datasource="referenceSystemCodes" show="combobox">
-               <hasPath>/gmd:MD_Metadata/gmd:referenceSystemInfo/gmd:MD_ReferenceSystem/gmd:referenceSystemIdentifier/gmd:RS_Identifier/gmd:code/gco:CharacterString</hasPath>
-               <defaultValue>http://www.opengis.net/def/crs/EPSG/0/4326</defaultValue>
+            <item hasIndex="1" xml:id="sist_rif_spa_1" queryStringParameter="referencesystem" isFixed="false" hasDatatype="string">
+               <hasPath>deleteme/CRS</hasPath>
             </item>
-            <item hasIndex="2" xml:id="sist_rif_spa_2" isFixed="true" hasDatatype="string">
+            <item hasIndex="2" xml:id="sist_rif_spa_2" isFixed="true" hasDatatype="function">
+               <hasPath>/gmd:MD_Metadata/gmd:referenceSystemInfo/gmd:MD_ReferenceSystem/gmd:referenceSystemIdentifier/gmd:RS_Identifier/gmd:code/gco:CharacterString</hasPath>
+               <hasValue>concat('http://www.opengis.net/def/crs/EPSG/0/', deleteme/CRS/text())</hasValue>
+            </item>
+            <item hasIndex="3" xml:id="sist_rif_spa_3" isFixed="true" hasDatatype="string">
                <hasPath>/gmd:MD_Metadata/gmd:referenceSystemInfo/gmd:MD_ReferenceSystem/gmd:referenceSystemIdentifier/gmd:RS_Identifier/gmd:codeSpace/gco:CharacterString</hasPath>
                <hasValue>http://www.epsg-registry.org/</hasValue>
             </item>
@@ -863,6 +867,7 @@ BIND(?userLabel AS ?l)
    <group xml:id="ling_d">
       <label xml:lang="en">Description</label>
       <label xml:lang="it">Descrizione</label>
+      <!--
       <element xml:id="sca_equ" isMandatory="true" isMultiple="false" alternativeTo="dist">
          <label xml:lang="en">Scale (denominator of the ratio)</label>
          <label xml:lang="it">Scala (denominatore del rapporto)</label>
@@ -893,6 +898,7 @@ BIND(?userLabel AS ?l)
             </item>
          </produces>
       </element>
+      -->
       <element xml:id="ling" isMandatory="true" isMultiple="false">
          <label xml:lang="en">Resource language</label>
          <label xml:lang="it">Lingua della risorsa</label>

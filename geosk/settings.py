@@ -310,7 +310,7 @@ if os.getenv('DOCKER_ENV'):
             'DATASTORE': os.getenv('DEFAULT_BACKEND_DATASTORE', ''),
             'PG_GEOGIG': False,
             # 'CACHE': ".cache"  # local cache file to for HTTP requests
-            'TIMEOUT': 10  # number of seconds to allow for HTTP requests
+            'TIMEOUT': 600  # number of seconds to allow for HTTP requests
         }
     }
 

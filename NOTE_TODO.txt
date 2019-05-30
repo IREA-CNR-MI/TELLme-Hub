@@ -1,0 +1,12 @@
+In
+
+container: django,
+file: /usr/local/lib/python2.7/site-packages/geonode/maps/views.py
+
+substitute line 864
+layer_params=json.dumps(config),
+with
+layer_params=json.dumps(config, cls=DjangoJSONEncoder),
+
+The following should work:
+sed -i '864s/.*/layer_params=json.dumps(config, cls=DjangoJSONEncoder),/' /usr/local/lib/python2.7/site-packages/geonode/maps/views.py
