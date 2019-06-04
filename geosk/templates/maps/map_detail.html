@@ -193,7 +193,6 @@
           <ul class="list-unstyled">
             {% for layer in resource.layer_set.all %}
             {% ifnotequal layer.group 'background' %}
-              <!--li>{% Layer.objects.get(title=layer.title).keywords.objects.all()[0] %}</li-->
               {% if layer.local %}
               <li><a href="{% url "layer_detail" layer.name %}">{{ layer.layer_title }}</a></li>
               {% else %}
