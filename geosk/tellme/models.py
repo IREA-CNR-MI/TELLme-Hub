@@ -109,14 +109,14 @@ def panel_concept_selection_html(self, ul1_tag="ul", ul2_tag="ul", li1_tag="li",
 
 def panel_concept_selection_js(self):
     """
-    Returns a <script> element with the jQuery logics to set the onclick events of the li items
+    Returns a javascript code chunk with the jQuery logics to set the onclick events of the li items
     produced by the function panel_concept_selection_html.
     The events do the following: select all the checkboxes of the map view page specifying a class
     named as the id of the clicked li (that will be the name of a tellme related concept).
     :param self:
     :return: html/javascript (string)
     """
-    outjs=u"""<script language="text/javascript">
+    outjs=u"""
     $(".conceptToggle").on("click", function() {
         if($(this).hasClass("active")){
             //disable all layers related to this concept: select the active ones and click them
@@ -129,7 +129,6 @@ def panel_concept_selection_js(self):
         //then toggle the active class on this concept toggle
         self.toggleClass("active");
     })
-    </script>
     """
     return outjs
 
