@@ -64,7 +64,7 @@ def dict_layer_title_2_tellme_concepts(self):
     # Here I am simplifying the selection, using the naming convention for tellme-related-concepts slugs.
     #  This can be changed with the commented code block below, which uses the hierarchy imposed
     #  to HierarchicalKeywords containing tellme concepts.
-    array_title_concepts = [{la.title: [k.name for k in la.keywords.filter(slug__icontains="concept_")]} for la in
+    array_title_concepts = [{la.alternate: [k.name for k in la.keywords.filter(slug__icontains="concept_")]} for la in
                 Layer.objects.filter(alternate__in={l.layer_title for l in m.layers if l.group != 'background'})]
 
     #array_title_concepts = [{la.title: [k.name for k in la.keywords.all() if (k.get_root()).name == 'TELLme']} for la in
