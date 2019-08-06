@@ -94,8 +94,8 @@ def panel_concept_selection_html(self, ul1_tag="ul", ul2_tag="ul", li1_tag="li",
 
     tellme_keywords=self.get_associated_tellme_relatedConcepts()
 
-    out=u"<{ul1}>"
-    kul=u"<{li1}>{k}</{li1}><{ul2}>{c_lis}</{ul2}>"
+    out=u"<{ul1} id='ul_tellme_semantics'>"
+    kul=u"<{li1} class='li_tellme_keyword'>{k}</{li1}><{ul2 class='ul_tellme_concepts'}>{c_lis}</{ul2}>"
     for k in tellme_keywords:
         c_lis = u""
         for c in tellme_keywords[k]:
