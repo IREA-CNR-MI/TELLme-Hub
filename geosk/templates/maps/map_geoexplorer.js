@@ -43,15 +43,33 @@ button.login {
     padding:10px;
 }
 
+/* tellme keywords (title of each sublist of concepts) */
+.li_tellme_keyword{
+    cursor:pointer;
+    font-weight:bold;
+    text-transform:uppercase;
+    margin-bottom:.1rem;
+}
 
+.li_tellme_keyword.on::after{
+    content: " <<"
+}
 
+.li_tellme_keyword::hover{
+    color:#2e89a6;
+}
 
 .conceptToggle {
     padding: 4px 0 4px 8px;
     background-color:#fff;
     color:#212529;
     display:block;
+    cursor:pointer;
+}
 
+.conceptToggle.active {
+    background-color: #8B008B;
+    color: #fff;
 }
 
 .ul_tellme_concepts{
@@ -70,16 +88,9 @@ border-bottom-left-radius:.25rem;
 border-bottom-right-radius:.25rem;
 }
 
-.conceptToggle.active {
-    background-color: #8B008B;
-    color: #fff;
-}
 
-.li_tellme_keyword{
-    font-weight:bold;
-    text-transform:uppercase;
-    margin-bottom:.1rem;
-}
+
+
 
 </style>
 
@@ -500,7 +511,7 @@ Ext.onReady(function() {
 
 
 
-    //TEST
+    /*/TEST
     Ext.namespace("tellme.plugins");
     tellme.plugins.BoxInfo = Ext.extend(gxp.plugins.Tool, {
 
@@ -519,7 +530,7 @@ Ext.onReady(function() {
 
 
 
-    ///////
+    //////*/
     //end TEST
 
 
@@ -643,11 +654,23 @@ Ext.onReady(function() {
 
     app = new Geosk.Composer(config);
 
-
+    // insert here the jquery  for enabling tellme semantics management
     app.events.portalready.addListener(function (){
 
         $( document ).ready(function() {
-            $(".li_tellme_keyword").attr("style","font-weight:bold;");
+
+            $(".li_tellme_keyword").toggleClass("on");
+
+            $(".li_tellme_keyword").on("click", function(){
+                if($(this).hasClass("on")){
+                    $(this).next().children(".active").click();
+                }
+                else{
+                    $(this).next().children().not(".active").click();
+                }
+                $(this).toggleClass("on");
+            });
+            //attr("style","font-weight:bold;");
 
             $(".conceptToggle").on("click", function() {
 
