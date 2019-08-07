@@ -55,7 +55,7 @@ button.login {
     content: " <<"
 }
 
-.li_tellme_keyword::hover{
+.li_tellme_keyword:hover{
     color:#2e89a6;
 }
 
