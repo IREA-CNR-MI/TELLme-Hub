@@ -22,7 +22,7 @@ button.login {
 
 #externalContainerSemantics{
     display: block;
-    height: inherit;
+    height: 99%;
     padding:2px;
 }
 #tellme_panelContainer{
