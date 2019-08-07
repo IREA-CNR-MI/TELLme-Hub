@@ -212,7 +212,7 @@ GeoExplorer.Composer.prototype.initPortal= function() {
                     //layout:"fit",
                     minHeight: 150,
                     maxHeight: 5000,
-                    height: 150,
+                    height: 190,
                     split: true,
                     collapsible: true,
                     collapseMode: "mini",
