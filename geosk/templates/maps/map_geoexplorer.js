@@ -43,17 +43,20 @@ button.login {
     padding:10px;
 }
 
+/* links to LOD cloud */
 #ul_tellme_semantics a{
     float:right;
 }
 
-#ul_tellme_semantics .conceptToggle a{
+#ul_tellme_semantics a{
+    color:rgb(51, 51, 51);
+}
+
+#ul_tellme_semantics .conceptToggle.active a{
     color:#fff;
 }
 
-#ul_tellme_semantics .li_tellme_keyword a{
-    color:rgb(51, 51, 51);
-}
+
 
 /* tellme keywords (title of each sublist of concepts) */
 .li_tellme_keyword{
