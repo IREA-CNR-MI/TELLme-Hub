@@ -43,6 +43,18 @@ button.login {
     padding:10px;
 }
 
+#ul_tellme_semantics a{
+    float:right;
+}
+
+#ul_tellme_semantics .conceptToggle a{
+    color:#fff;
+}
+
+#ul_tellme_semantics .li_tellme_keyword a{
+    color:rgb(51, 51, 51);
+}
+
 /* tellme keywords (title of each sublist of concepts) */
 .li_tellme_keyword{
     cursor:pointer;
@@ -87,6 +99,7 @@ border-top-right-radius:.25rem;
 border-bottom-left-radius:.25rem;
 border-bottom-right-radius:.25rem;
 }
+
 
 
 

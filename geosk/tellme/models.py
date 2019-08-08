@@ -91,49 +91,73 @@ def panel_concept_selection_html(self, ul1_tag="ul", ul2_tag="ul", li1_tag="li",
     :param li2_tag: (li)
     :return: html (string)
     """
+    from geonode.base.models import HierarchicalKeyword
 
     tellme_keywords=self.get_associated_tellme_relatedConcepts()
 
     out=u"<{ul1} id='ul_tellme_semantics'>"
     kul=u"<{li1} class='li_tellme_keyword'>{k}</{li1}><{ul2} class='ul_tellme_concepts'>{c_lis}</{ul2}>"
+
     for k in tellme_keywords:
+        kk=k+URItagfromHKName(k)
         c_lis = u""
         for c in tellme_keywords[k]:
-            c_lis += u"<{li2} class='conceptToggle active' id='{c}'>{c}</{li2}>"\
-                .format(c=c, li2=li2_tag)
-        out += kul.format(k=k, c_lis=c_lis, ul2=ul2_tag,
+            cc = c+URItagfromHKName(c)
+            c_lis += u"<{li2} class='conceptToggle active' id='{c}'>{cc}</{li2}>"\
+                .format(c=c, cc=cc, li2=li2_tag)
+        out += kul.format(k=kk, c_lis=c_lis, ul2=ul2_tag,
                           li1=li1_tag)
     out += u"</{ul1}>"
     return out.format(ul1=ul1_tag)
 
 
-def panel_concept_selection_js(self):
-    """
-    Returns a javascript code chunk with the jQuery logics to set the onclick events of the li items
-    produced by the function panel_concept_selection_html.
-    The events do the following: select all the checkboxes of the map view page specifying a class
-    named as the id of the clicked li (that will be the name of a tellme related concept).
-    :param self:
-    :return: html/javascript (string)
-    """
-    outjs=u"""
-    $(".conceptToggle").on("click", function() {
-        if($(this).hasClass("active")){
-            //disable all layers related to this concept: select the active ones and click them
-            $("."+self.id).filter(function(idx){return $(this).prop("checked")}).click();
-        }
-        else{
-            //enable all layers that are not "checked"
-            $("."+self.id).filter(function(idx){return $(this).prop("checked")===false}).click();
-        }
-        //then toggle the active class on this concept toggle
-        self.toggleClass("active");
-    })
-    """
-    return outjs
+def slugFromHKName(kname):
+    from geonode.base.models import HierarchicalKeyword
+    kslug=""
+    try:
+        kslug = [k for k in HierarchicalKeyword.objects.filter(name=kname) if (k.get_root()).name == 'TELLme'][0].slug
+    except Exception as e:
+        pass
+    return kslug
+
+
+def URItagfromHKName(kname):
+    slug=slugFromHKName(kname)
+    uripattern=u"http://rdfdata.get-it.it/TELLmeGlossary/{slug}"
+    uritag = u"<a href='{uri}' target='blank'>(^^)</a>".format(uri=uripattern)
+    if (slug == ""):
+        return ""
+    else:
+        return uritag.format(slug=slug)
+
+
+# def panel_concept_selection_js(self):
+#     """
+#     Returns a javascript code chunk with the jQuery logics to set the onclick events of the li items
+#     produced by the function panel_concept_selection_html.
+#     The events do the following: select all the checkboxes of the map view page specifying a class
+#     named as the id of the clicked li (that will be the name of a tellme related concept).
+#     :param self:
+#     :return: html/javascript (string)
+#     """
+#     outjs=u"""
+#     $(".conceptToggle").on("click", function() {
+#         if($(this).hasClass("active")){
+#             //disable all layers related to this concept: select the active ones and click them
+#             $("."+self.id).filter(function(idx){return $(this).prop("checked")}).click();
+#         }
+#         else{
+#             //enable all layers that are not "checked"
+#             $("."+self.id).filter(function(idx){return $(this).prop("checked")===false}).click();
+#         }
+#         //then toggle the active class on this concept toggle
+#         self.toggleClass("active");
+#     })
+#     """
+#     return outjs
 
 
 Map.get_associated_tellme_relatedConcepts = get_associated_tellme_relatedConcepts
 Map.dict_layer_title_2_tellme_concepts = dict_layer_title_2_tellme_concepts
 Map.panel_concept_selection_html = panel_concept_selection_html
-Map.panel_concept_selection_js = panel_concept_selection_js
+#Map.panel_concept_selection_js = panel_concept_selection_js
