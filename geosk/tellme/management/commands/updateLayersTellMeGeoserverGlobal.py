@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            # service=Service.objects.all()[1] # in questo caso è  <Service: TELLmeGeoserverGlobal>
+            # service=Service.objects.all()[1] # in questo caso  <Service: TELLmeGeoserverGlobal>
             service = Service.objects.get(title="TELLmeGeoserverGlobal")
             _register_indexed_layers(service, verbosity=True)
         except Exception as e:
