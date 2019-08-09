@@ -17,7 +17,6 @@ TELLME_GLOSSARY_PASSWORD = '889GT3[]!1'
 TELLME_GLOSSARY_USER = 'CNR'
 TELLME_GLOSSARY_URL = "http://www.tellme.polimi.it/tellme_apps/tellme/export"
 
-
 class TellMeGlossary(object):
     """
     An object representing the contents of TELLme glossary with the structure
@@ -36,6 +35,11 @@ class TellMeGlossary(object):
         self.concepts = {k["id"]: TellMeConcept(k) for k in self.jj["concepts"]}
         self.protocols = {k["id"]: TellMeProtocol(k) for k in self.jj["protocols"]}
         self.scales = {s: TellMeScale(s) for s in self.getSetOfScales()}
+
+    @staticmethod
+    def tellmeGlossarySourceURL():
+        url=os.getenv("TELLME_GLOSSARY_URL", TELLME_GLOSSARY_URL)
+        return url.replace("export", "")
 
     @staticmethod
     def downloadFromTellMeGlossary():
@@ -136,10 +140,11 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
                     skos:definition  "{scale}"@en , "{scale}"@it , "{scale}"@es ;
                     skos:inScheme    <{tellmescheme}> ;
                     skos:prefLabel   "{scale}"@en , "{scale}"@it , "{scale}"@es ;
-                    skos:historyNote     <http://tellme.test.polimi.it/tellme_apps/tellme> .
+                    skos:historyNote     <{tellmeGlossarySourceURL}> .
                 '''.format(scale=scale,
                            creator="http://tellmehub.get-it.it",
-                           tellmescheme="http://rdfdata.get-it.it/TELLmeGlossary"))
+                           tellmescheme="http://rdfdata.get-it.it/TELLmeGlossary",
+                           tellmeGlossarySourceURL=TellMeGlossary.tellmeGlossarySourceURL()))
         output.append(skosFooter[mode])
         return output
 
@@ -160,12 +165,12 @@ tellme:{0.entryType}_{0.id}
         skos:note        "{0.comment}"@en ;
         skos:prefLabel   "{0.title}"@en , "{0.title}"@it , "{0.title}"@es ;
         skos:scopeNote   "{0.context}"@en ;
-        skos:historyNote     <http://tellme.test.polimi.it/tellme_apps/tellme> .
+        skos:historyNote     <{tellmeGlossarySourceURL}> .
     ''',
         "xml": u'''
     <skos:Concept rdf:about="{tellmescheme}/{0.entryType}_{0.id}">
         <owl:versionInfo xml:lang="en">1</owl:versionInfo>
-        <skos:historyNote rdf:resource="http://tellme.test.polimi.it/tellme_apps/tellme"/>
+        <skos:historyNote rdf:resource="{tellmeGlossarySourceURL}"/>
         <skos:prefLabel xml:lang="es">{0.title255}</skos:prefLabel>
         <skos:prefLabel xml:lang="it">{0.title255}</skos:prefLabel>
         <skos:prefLabel xml:lang="en">{0.title255}</skos:prefLabel>
@@ -232,7 +237,8 @@ tellme:{0.entryType}_{0.id}
         date = datetime.datetime.utcnow().replace(microsecond=0).isoformat()
         creator = "http://tellmehub.get-it.it"
         tellmescheme = "http://rdfdata.get-it.it/TELLmeGlossary"
-        rdf = self.skosSnippet[mode].format(self, date=date, creator=creator, tellmescheme=tellmescheme)
+        rdf = self.skosSnippet[mode].format(self, date=date, creator=creator, tellmescheme=tellmescheme,
+                                            tellmeGlossarySourceURL=TellMeGlossary.tellmeGlossarySourceURL())
         return rdf
 
     def slug(self):
@@ -256,6 +262,11 @@ tellme:{0.entryType}_{0.id}
         from geonode.base.models import HierarchicalKeyword
         if HierarchicalKeyword.objects.filter(slug=self.slug()).exists():
             hk = HierarchicalKeyword.objects.get(slug=self.slug())
+            # TODO: implement the logics needed to update eventually changed title of the concept in the glossary sw
+            #  e.g.
+            # if(hk.name!=self.title):
+            #   hk.name=self.title
+            #   hk.save()
             setAsChild(hk, HierarchicalKeyword.objects.get(id=hk_parent.id))
             return hk
         elif HierarchicalKeyword.objects.filter(name=self.title).exists():
@@ -347,7 +358,7 @@ class TellMeConcept(TellMeEntry):
                    "xml": u'''
     <skos:Concept rdf:about="{tellmescheme}/{0.entryType}_{0.id}">
         <owl:versionInfo xml:lang="en">1</owl:versionInfo>
-        <skos:historyNote rdf:resource="http://tellme.test.polimi.it/tellme_apps/tellme"/>
+        <skos:historyNote rdf:resource="{tellmeGlossarySourceURL}"/>
         <skos:prefLabel xml:lang="es">{0.title255}</skos:prefLabel>
         <skos:prefLabel xml:lang="it">{0.title255}</skos:prefLabel>
         <skos:prefLabel xml:lang="en">{0.title255}</skos:prefLabel>
@@ -531,7 +542,75 @@ def _getOtherKeywordsRoot():
     """
     return getOrCreateHierarchicalKeywordRootByName(u"z_otherKeywords")
 
-# TODO: this method must be thread safe!!!
+
+# added 2019/07/29
+def delete_non_tellme_hierarchicalKeywords():
+    from geonode.base.models import HierarchicalKeyword
+    slugs=[c.slug for c in HierarchicalKeyword.objects.exclude(slug__icontains="concept_").exclude(slug__icontains="keyword_").exclude(slug__icontains="scale_").exclude(name__in=[u"TELLme", u"TELLme-scales", u"z_otherKeywords"])]
+    for slug in slugs:
+        HierarchicalKeyword.objects.get(slug=slug).delete()
+
+
+def synchNewKeywordsFromTELLmeGlossary():
+    """
+    The method reads the actual version of the glossary and adds the keywords/related concepts
+    that are not present as HK in the Hub. Older keywords/related concepts are left untouched evev
+    if some changes occured in the Glossary software
+    :param g:
+    :return: dictionary: {"added_keywords": added_keywords,
+                          "added_concepts": added_concepts,
+                          "with_issues": issues}"
+    """
+    g=TellMeGlossary()
+    from geonode.base.models import HierarchicalKeyword
+    #root = getOrCreateHierarchicalKeywordRootByName(u"TELLme")
+
+    all_current_keyword_slugs = [k[1].slug() for k in g.keywords.items()]
+    all_current_concept_slugs = [c[1].slug() for c in g.concepts.items()]
+
+    all_current_HK_keyword_slugs = [hc.slug for hc in HierarchicalKeyword.objects.filter(slug__icontains="keyword_")]
+    all_current_HK_concept_slugs = [hc.slug for hc in HierarchicalKeyword.objects.filter(slug__icontains="concept_")]
+
+    # get missing keywords and concepts from HK. We must create the corresponding HK
+    missingHK_keywords=list(set.difference(set(all_current_keyword_slugs), set(all_current_HK_keyword_slugs)))
+    missingHK_concepts = list(set.difference(set(all_current_concept_slugs), set(all_current_HK_concept_slugs)))
+
+    # [[g.concepts[i].id == i.__str__()] for i in g.concepts.keys()]
+    # [[g.keywords[i].id == i.__str__()] for i in g.keywords.keys()]
+
+    # missingKeywordsId=[TellMeKeyword.slug2glosId(slug) for slug in missingHK_keywords]
+    # missingConceptsId=[TellMeConcept.slug2glosId(slug) for slug in missingHK_concepts]
+
+    #g.keywords[missingKeywordsId]
+
+    missingGKeywords = [g.keywords[int(TellMeKeyword.slug2glosId(slug))] for slug in missingHK_keywords]
+    missingGConcepts = [g.concepts[int(TellMeConcept.slug2glosId(slug))] for slug in missingHK_concepts]
+
+    issues = []
+    added_keywords = []
+    added_concepts = []
+
+    for k in missingGKeywords:
+        try:
+            k.toHierarchicalKeywordChildOf(getOrCreateHierarchicalKeywordRootByName(u"TELLme"))
+            added_keywords.append(k)
+        except Exception as e:
+            issues.append(e)
+
+    for c in missingGConcepts:
+        its_keyword_slug=TellMeEntry.glos2slug(c.keywordId, "keyword")
+        try:
+            #hkk=HierarchicalKeyword.objects.get(slug=its_keyword_slug)
+            c.toHierarchicalKeywordChildOf(HierarchicalKeyword.objects.get(slug=its_keyword_slug))
+            added_concepts.append(c)
+        except Exception as e:
+            issues.append(e)
+    return {"added_keywords": added_keywords,
+            "added_concepts": added_concepts,
+            "with_issues": issues}
+
+
+# TODO: this method should be revised.
 def synchGlossaryWithHierarchicalKeywords(g, force=True):
     """
     Read the content of TELLme Glossary object, check the presence of corresponding
@@ -578,11 +657,28 @@ def synchGlossaryWithHierarchicalKeywords(g, force=True):
     list_of_predefined_root_id = _getPredefinedHKRootNodesIdList()
 
     predefined_roots_and_descendants_id = list_of_predefined_root_id
+    # TODO: check if get_descendants returns correct hk. An issue occurred caused by subsequent call to this function.
+    #  Probably, it would be better to use explicit calls to HK.ojects.get also for retrieving descendants...
     predefined_roots_and_descendants_id.extend([hk.id for hk in root.get_descendants()])
     predefined_roots_and_descendants_id.extend([hk.id for hk in rootScales.get_descendants()])
     predefined_roots_and_descendants_id.extend([hk.id for hk in other_root.get_descendants()])
 
     if force:
+
+        # TODO: to keep the tree cleaner, implement a routine to force deletion of all the non-tellme hierarchical
+        #  keywords that are automatically added by the base geonode when inserting layers
+        #  the code should be something like
+        #  (PLEASE CHECK IF ALL PREFIXES AND RESERVED TELLme HierarchicalKeywords are
+        #  properly excluded before deleting!):
+        # -------------
+        # slugs=[c.slug for c in HierarchicalKeyword.objects.exclude(slug__icontains="concept_").exclude(slug__icontains="keyword_").exclude(slug__icontains="scale_").exclude(name__in=[u"TELLme", u"TELLme-scales", u"z_otherKeywords"])]
+        # for slug in slugs:
+        #     HierarchicalKeyword.objects.get(slug=slug).delete()
+        #
+        # -------------
+        # Inserted in the method that can be invoked here:
+        # delete_non_tellme_hierarchicalKeywords()
+
 
         # move any non-root keyword at root level
         map((lambda x: HierarchicalKeyword.objects.get(id=x).
@@ -629,6 +725,23 @@ def synchGlossaryWithHierarchicalKeywords(g, force=True):
         gsca=sca[1]
         gsca.toHierarchicalKeywordChildOf(rootScales)
 
+    if force:
+        # NOTE: we have to obtain again the nodes because references are now obsolete
+        root = getOrCreateHierarchicalKeywordRootByName(u"TELLme")
+        rootScales = getOrCreateHierarchicalKeywordRootByName(u"TELLme-scales")
+        other_root = _getOtherKeywordsRoot()
+
+        # redo in case of force (TELLme keywords and scales are now in proper position under their roots.
+        # We can push other remaining keywords under the other_keywords_root.
+        predefined_roots_and_descendants_id = list_of_predefined_root_id
+        predefined_roots_and_descendants_id.extend([hk.id for hk in root.get_descendants()])
+        predefined_roots_and_descendants_id.extend([hk.id for hk in rootScales.get_descendants()])
+        predefined_roots_and_descendants_id.extend([hk.id for hk in other_root.get_descendants()])
+        # put all HierarchicalKeyword tree nodes under other_root
+        map((lambda x: HierarchicalKeyword.objects.get(id=x.id).
+             move(HierarchicalKeyword.objects.get(id=other_root.id), "sorted-child")),
+            HierarchicalKeyword.objects.filter(depth=1).exclude(id__in=predefined_roots_and_descendants_id))
+
     # # 1. go through id of keywords in glossary.
     #    a. does the corresponding slug exist?
     #       - no: create a corresponding HK
@@ -646,7 +759,7 @@ if __name__ == "__main__":
     from geonode.base.models import HierarchicalKeyword
     g = TellMeGlossary()
     #jj=g.jj
-    #mode="ttl"
+    mode="ttl"
     if False:
         with open('TellMeProtocols.{mode}'.format(mode=mode), 'w') as fileoutput:
             for p in jj["protocols"]:
