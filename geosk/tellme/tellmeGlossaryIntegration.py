@@ -755,6 +755,30 @@ def synchGlossaryWithHierarchicalKeywords(g, force=True):
     #    If a slug2glos id of type keyword is not present within the glossary, remove it from Tellme branch and put it under
     #    the "_other" branch of HK
 
+# def synchSparqlEndpoint(endpoint="", user="", password=""):
+#     import requests
+#     import os
+#
+#     url = "{endpoint}/update".format(endpoint=os.getenv("TELLME_SPARQL_ENDPOINT", endpoint))
+#     user = os.getenv("SPARQL_ENDPOINT_USER", user)
+#     password = os.getenv("SPARQL_ENDPOINT_PASSWORD", password)
+#
+#     glossaryTTLurl = u"http://{dns}/static/tellme/static/tellme/TELLmeGlossary.ttl".format(dns=os.getenv("GEONODE_LB_HOST_IP"))
+#
+#     data = {'update': 'DELETE \nwhere{?s ?p ?o}\n\n#'}
+# 
+#     responseDelete = requests.post('endpoint', data=data,
+#                              auth=('user', 'password'))
+#
+#
+#     data = {'update': 'LOAD <{glossaryTTLurl}>'.format(glossaryTTLurl = glossaryTTLurl)}
+#
+#     responseLoad = requests.post('endpoint', data=data,
+#                              auth=('user', 'password'))
+#
+#     return responseDelete, responseLoad
+
+
 
 if __name__ == "__main__":
     from geonode.base.models import HierarchicalKeyword
@@ -779,28 +803,6 @@ if __name__ == "__main__":
 
 
 #TODO: implement the method.
-def synchSparqlEndpoint(endpoint="", user="", password=""):
-    import requests
-    import os
-
-    url = "{endpoint}/update".format(endpoint=os.getenv("TELLME_SPARQL_ENDPOINT", endpoint))
-    user = os.getenv("SPARQL_ENDPOINT_USER", user)
-    password = os.getenv("SPARQL_ENDPOINT_PASSWORD", password)
-
-    glossaryTTLurl = u"http://{dns}/static/tellme/static/tellme/TELLmeGlossary.ttl".format(dns=os.getenv("GEONODE_LB_HOST_IP"))
-
-    data = {'update': 'DELETE \nwhere{?s ?p ?o}\n\n#'}
-
-    responseDelete = requests.post('endpoint', data=data,
-                             auth=('user', 'password'))
-
-
-    data = {'update': 'LOAD <{glossaryTTLurl}>'.format(glossaryTTLurl = glossaryTTLurl)}
-
-    responseLoad = requests.post('endpoint', data=data,
-                             auth=('user', 'password'))
-
-    return responseDelete, responseLoad
 
 # #recover state in db.
 #
