@@ -576,7 +576,7 @@ def synchNewKeywordsFromTELLmeGlossary():
             issues.append(e)
 
     for c in missingGConcepts:
-        its_keyword_slug=TellMeEntry.glos2slug(c.keywordId, "keyword")
+        its_keyword_slug = TellMeEntry.glos2slug(c.keywordId, "keyword")
         try:
             #hkk=HierarchicalKeyword.objects.get(slug=its_keyword_slug)
             c.toHierarchicalKeywordChildOf(HierarchicalKeyword.objects.get(slug=its_keyword_slug))

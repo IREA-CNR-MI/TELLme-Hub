@@ -46,9 +46,14 @@ from django.contrib.auth.decorators import user_passes_test
 
 from geosk.tellme.tellmeGlossaryIntegration import \
     TellMeGlossary, dumpTTLGlossaryToStaticDir, synchGlossaryWithHierarchicalKeywords, \
-    move_genericHK_level1_under_otherkeywords_branch
+    move_genericHK_level1_under_otherkeywords_branch, synchNewKeywordsFromTELLmeGlossary
+
+from geonode.api.api import TagResource
+TagResource.Meta.filtering.update("name", 1)
 
 
+
+from geonode.maps import urls
 def _savelayermd(layer, rndt, ediml, version='1'):
     """
     Save layer metadata from ISO/XML file.
@@ -119,6 +124,11 @@ def _savelayermd(layer, rndt, ediml, version='1'):
         elif key == 'supplemental_information' and value is None:
             value = ' '
         elif key in ['md_contact', 'citation_contact', 'identification_contact', 'distributor_contact']:
+            # TODO: issue in the following statement if:
+            #  1. email already exists for a username != the same email
+            #  2. email longer than 30 characters - the following method in geosk.mdtools.api tries to create a new
+            #     user Profile using the email in the username field (whose length is limited).
+            #  Possible solutions indicated in mdtools.api._get_or_create_profile() T.B.D.
             _set_contact_role_scope(key, value, layer.mdextension)
         setattr(layer, key, value)
 
@@ -327,15 +337,15 @@ def ediproxy_importmd(request, layername):
     edimlid = request.POST.get('edimlid')
     try:
         _savelayermd(layer, isoml, ediml, version='2')
-    except BaseException as e:
-        return json_response(exception=e, status=500, body={'success': False,'answered_by': 'tellme', 'error': e, 'error raised by':'_savelayermd'})
-    try:
-        pass
-        # TODO: we must make this call thread safe
-        #g = TellMeGlossary()
-        #synchGlossaryWithHierarchicalKeywords(g, force=False)
     except Exception as e:
-        return json_response(exception=e, status=500, body={'success': False,'answered_by': 'tellme', 'error': e, 'error raised by':'synchGlossaryWithHierarchicalKeywords'})
+        return json_response(exception=e, status=500, body={'success': False,'answered_by': 'tellme', 'error': e, 'error raised by':'_savelayermd'})
+    # try:
+    #     pass
+    #     # TODO: we must make this call thread safe
+    #     #g = TellMeGlossary()
+    #     #synchGlossaryWithHierarchicalKeywords(g, force=False)
+    # except Exception as e:
+    #     return json_response(exception=e, status=500, body={'success': False,'answered_by': 'tellme', 'error': e, 'error raised by':'synchGlossaryWithHierarchicalKeywords'})
     return json_response(body={'success': True, 'answered_by': 'tellme'})
 
 
@@ -356,3 +366,11 @@ def synchronizeHierarchicalKeywords_glossary_rdf(request):
     except Exception as e:
         return json_response(exception=e, status=500)
     return json_response(body={'success': True, 'answered_by': 'tellme.api.synchronizeHierarchicalKeywords_glossary_rdf'})
+
+@user_passes_test(lambda u: u.is_superuser)
+def synchronizeNewGlossaryEntries(request):
+    try:
+        synchNewKeywordsFromTELLmeGlossary()
+    except Exception as e:
+        return json_response(exception=e, status=500)
+    return json_response(body={'success': True, 'answered_by': 'tellme.api.synchronizeHierarchicalKeywords_newFromTELLmeGlossary'})
