@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^whoami$', 'geosk.mdtools.views.whoami', name='whoami'),
     url(r'^refresh_glossary_rdf', 'geosk.tellme.api.refresh_glossary_rdf', name='refresh_glossary_rdf'),
     url(r'^synchronizeHierarchicalKeywords_glossary_rdf', 'geosk.tellme.api.synchronizeHierarchicalKeywords_glossary_rdf', name='synchronizeHierarchicalKeywords_glossary_rdf'),
+    url(r'^synchronizeNewGlossaryEntries', 'geosk.tellme.api.synchronizeNewGlossaryEntries', name='synchronizeNewGlossaryEntries'),
 ]
