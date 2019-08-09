@@ -48,9 +48,6 @@ from geosk.tellme.tellmeGlossaryIntegration import \
     TellMeGlossary, dumpTTLGlossaryToStaticDir, synchGlossaryWithHierarchicalKeywords, \
     move_genericHK_level1_under_otherkeywords_branch, synchNewKeywordsFromTELLmeGlossary
 
-from geonode.api.api import TagResource
-TagResource.Meta.filtering.update("name", 1)
-
 
 
 from geonode.maps import urls
