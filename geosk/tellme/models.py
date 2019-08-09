@@ -77,7 +77,7 @@ def dict_layer_title_2_tellme_concepts(self):
     return dictionary_title_concepts
 
 
-def panel_concept_selection_html(self, ul1_tag="ul", ul2_tag="ul", li1_tag="li", li2_tag="li"):
+def panel_concept_selection_html(self, ul1_tag="ul", ul2_tag="ul", li1_tag="li", li2_tag="li", separate_lod_link=True):
     """
     Returns an html chunk containing a nested structure (defaults to an ul list) with
     all the tellme keywords and concepts associated to this map.
@@ -99,16 +99,21 @@ def panel_concept_selection_html(self, ul1_tag="ul", ul2_tag="ul", li1_tag="li",
     kul=u"<{li1} class='li_tellme_keyword'>{k}</{li1}><{ul2} class='ul_tellme_concepts'>{c_lis}</{ul2}>"
 
     for k in tellme_keywords:
-        kk=k+URItagfromHKName(k)
+        #kk=k+URItagfromHKName(k)
+        kk = URItagfromHKName(k, separate_lod_link)
         c_lis = u""
         for c in tellme_keywords[k]:
-            cc = c+URItagfromHKName(c)
+            #cc = c+URItagfromHKName(c)
+            cc = URItagfromHKName(c, separate_lod_link)
             c_lis += u"<{li2} class='conceptToggle active' id='{c}'>{cc}</{li2}>"\
                 .format(c=c, cc=cc, li2=li2_tag)
         out += kul.format(k=kk, c_lis=c_lis, ul2=ul2_tag,
                           li1=li1_tag)
     out += u"</{ul1}>"
     return out.format(ul1=ul1_tag)
+
+def panel_concept_selection_html_linkTheLabels(self):
+    return self.panel_concept_selection_html(separate_lod_link=False)
 
 
 def slugFromHKName(kname):
@@ -121,14 +126,18 @@ def slugFromHKName(kname):
     return kslug
 
 
-def URItagfromHKName(kname):
+def URItagfromHKName(kname, separate_lod_link=True):
     slug=slugFromHKName(kname)
     uripattern=u"http://rdfdata.get-it.it/TELLmeGlossary/{slug}"
-    uritag = u"<a href='{uri}' target='blank'>(^^)</a>".format(uri=uripattern)
-    if (slug == ""):
-        return ""
+    if(separate_lod_link):
+        uritag = u"{label}<a href='{uri}' target='blank'>(^^)</a>"
     else:
-        return uritag.format(slug=slug)
+        uritag = u"<a href='{uri}' target='blank'>{label}</a>"
+    retpattern = uritag.format(uri=uripattern, label=kname)
+    if (slug == ""):
+        return kname
+    else:
+        return retpattern.format(slug=slug)
 
 
 # def panel_concept_selection_js(self):
@@ -160,4 +169,5 @@ def URItagfromHKName(kname):
 Map.get_associated_tellme_relatedConcepts = get_associated_tellme_relatedConcepts
 Map.dict_layer_title_2_tellme_concepts = dict_layer_title_2_tellme_concepts
 Map.panel_concept_selection_html = panel_concept_selection_html
+Map.panel_concept_selection_html_linkTheLabels = panel_concept_selection_html_linkTheLabels
 #Map.panel_concept_selection_js = panel_concept_selection_js
