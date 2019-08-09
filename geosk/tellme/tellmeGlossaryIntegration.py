@@ -781,6 +781,7 @@ if __name__ == "__main__":
 #TODO: implement the method.
 def synchSparqlEndpoint(endpoint="", user="", password=""):
     import requests
+    import os
 
     url = "{endpoint}/update".format(endpoint=os.getenv("TELLME_SPARQL_ENDPOINT", endpoint)
     user=os.getenv("SPARQL_ENDPOINT_USER", user)
