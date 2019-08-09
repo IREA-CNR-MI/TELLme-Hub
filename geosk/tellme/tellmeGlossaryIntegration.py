@@ -561,35 +561,13 @@ def synchNewKeywordsFromTELLmeGlossary():
                           "added_concepts": added_concepts,
                           "with_issues": issues}"
     """
-    g=TellMeGlossary()
-    from geonode.base.models import HierarchicalKeyword
-    #root = getOrCreateHierarchicalKeywordRootByName(u"TELLme")
-
-    all_current_keyword_slugs = [k[1].slug() for k in g.keywords.items()]
-    all_current_concept_slugs = [c[1].slug() for c in g.concepts.items()]
-
-    all_current_HK_keyword_slugs = [hc.slug for hc in HierarchicalKeyword.objects.filter(slug__icontains="keyword_")]
-    all_current_HK_concept_slugs = [hc.slug for hc in HierarchicalKeyword.objects.filter(slug__icontains="concept_")]
-
-    # get missing keywords and concepts from HK. We must create the corresponding HK
-    missingHK_keywords=list(set.difference(set(all_current_keyword_slugs), set(all_current_HK_keyword_slugs)))
-    missingHK_concepts = list(set.difference(set(all_current_concept_slugs), set(all_current_HK_concept_slugs)))
-
-    # [[g.concepts[i].id == i.__str__()] for i in g.concepts.keys()]
-    # [[g.keywords[i].id == i.__str__()] for i in g.keywords.keys()]
-
-    # missingKeywordsId=[TellMeKeyword.slug2glosId(slug) for slug in missingHK_keywords]
-    # missingConceptsId=[TellMeConcept.slug2glosId(slug) for slug in missingHK_concepts]
-
-    #g.keywords[missingKeywordsId]
-
-    missingGKeywords = [g.keywords[int(TellMeKeyword.slug2glosId(slug))] for slug in missingHK_keywords]
-    missingGConcepts = [g.concepts[int(TellMeConcept.slug2glosId(slug))] for slug in missingHK_concepts]
+    missingGConcepts, missingGKeywords = list_new_entries_from_glossary()
 
     issues = []
     added_keywords = []
     added_concepts = []
 
+    # generate missing keywords as HierarchicalKeywords
     for k in missingGKeywords:
         try:
             k.toHierarchicalKeywordChildOf(getOrCreateHierarchicalKeywordRootByName(u"TELLme"))
@@ -608,6 +586,29 @@ def synchNewKeywordsFromTELLmeGlossary():
     return {"added_keywords": added_keywords,
             "added_concepts": added_concepts,
             "with_issues": issues}
+
+
+def list_new_entries_from_glossary():
+    g = TellMeGlossary()
+    from geonode.base.models import HierarchicalKeyword
+    # root = getOrCreateHierarchicalKeywordRootByName(u"TELLme")
+    all_current_keyword_slugs = [k[1].slug() for k in g.keywords.items()]
+    all_current_concept_slugs = [c[1].slug() for c in g.concepts.items()]
+    all_current_HK_keyword_slugs = [hc.slug for hc in HierarchicalKeyword.objects.filter(slug__icontains="keyword_")]
+    all_current_HK_concept_slugs = [hc.slug for hc in HierarchicalKeyword.objects.filter(slug__icontains="concept_")]
+    # get missing keywords and concepts from HK. We must create the corresponding HK
+    missingHK_keywords = list(set.difference(set(all_current_keyword_slugs), set(all_current_HK_keyword_slugs)))
+    missingHK_concepts = list(set.difference(set(all_current_concept_slugs), set(all_current_HK_concept_slugs)))
+    # [[g.concepts[i].id == i.__str__()] for i in g.concepts.keys()]
+    # [[g.keywords[i].id == i.__str__()] for i in g.keywords.keys()]
+    # missingKeywordsId=[TellMeKeyword.slug2glosId(slug) for slug in missingHK_keywords]
+    # missingConceptsId=[TellMeConcept.slug2glosId(slug) for slug in missingHK_concepts]
+    # g.keywords[missingKeywordsId]
+    missingGKeywords = [g.keywords[int(TellMeKeyword.slug2glosId(slug))] for slug in missingHK_keywords]
+    missingGConcepts = [g.concepts[int(TellMeConcept.slug2glosId(slug))] for slug in missingHK_concepts]
+    return missingGConcepts, missingGKeywords
+
+
 
 
 # TODO: this method should be revised.
