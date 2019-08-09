@@ -14,6 +14,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             g = TellMeGlossary()
-            synchGlossaryWithHierarchicalKeywords(g)
+            synchGlossaryWithHierarchicalKeywords(g, force=False)
         except Exception as e:
             log.error(e.message)
