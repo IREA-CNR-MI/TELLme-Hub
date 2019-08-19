@@ -428,7 +428,9 @@ class TellMeProtocol(TellMeEntry):
             tc = TopicCategory.objects.filter(identifier=self.slug())[0]
             return tc
         else:
-            tc = TopicCategory(identifier=self.slug(), description=self.title + " Protocol - Semantic Package")
+            tc = TopicCategory(identifier=self.slug(),
+                               description=self.title + " Protocol - Semantic Package",
+                               gn_description=self.title + " Protocol - Semantic Package")
             tc.save()
             return tc
 
