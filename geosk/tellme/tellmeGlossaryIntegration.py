@@ -430,7 +430,8 @@ class TellMeProtocol(TellMeEntry):
         else:
             tc = TopicCategory(identifier=self.slug(),
                                description=self.title + " Protocol - Semantic Package",
-                               gn_description=self.title + " Protocol - Semantic Package")
+                               gn_description=self.title + " Protocol - Semantic Package",
+                               fa_class="fa-comment")
             tc.save()
             return tc
 
