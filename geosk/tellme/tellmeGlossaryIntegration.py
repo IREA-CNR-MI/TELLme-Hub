@@ -21,6 +21,8 @@ TELLME_GLOSSARY_PASSWORD = '889GT3[]!1'
 TELLME_GLOSSARY_USER = 'CNR'
 TELLME_GLOSSARY_URL = "http://www.tellme.polimi.it/tellme_apps/tellme/export"
 
+
+
 class TellMeGlossary(object):
     """
     An object representing the contents of TELLme glossary with the structure
@@ -294,7 +296,7 @@ tellme:{0.entryType}_{0.id}
         :param type: (string) "keyword" | "concept"
         :return:
         """
-        if type not in {"keyword","concept"}:
+        if type not in {"keyword","concept","protocol"}:
             raise ValueError(type)
         return u"{type}_{id}".format(type=type ,id=id.__str__())
 
@@ -419,6 +421,16 @@ class TellMeProtocol(TellMeEntry):
         if mode=="ttl":
             s += self.getScaleSnippets()
         return s
+
+    def toTopicCategory(self):
+        from geonode.base.models import TopicCategory
+        if TopicCategory.objects.filter(identifier=self.slug()).exists():
+            tc = TopicCategory.objects.filter(identifier=self.slug())[0]
+            return tc
+        else:
+            tc = TopicCategory(identifier=self.slug(), description=self.title + " Protocol - Semantic Package")
+            tc.save()
+            return tc
 
 # note: TellMeScales are treated differently within the same TellMeGlossary class
 class TellMeScale(TellMeEntry):
