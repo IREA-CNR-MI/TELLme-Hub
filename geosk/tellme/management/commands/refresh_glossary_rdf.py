@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 #from django.utils.translation import ugettext_noop as _
 from geosk.tellme.tellmeGlossaryIntegration import dumpTTLGlossaryToStaticDir
 #from geosk.tellme.tellmeGlossaryIntegration import synchGlossaryWithHierarchicalKeywords
-from geosk.tellme.tellmeGlossaryIntegration import TellMeGlossary, synchSparqlEndpoint
+from geosk.tellme.tellmeGlossaryIntegration import TellMeGlossary, synchSparqlEndpoint, list_new_entries_from_glossary
 
 log = logging.getLogger(__name__)
 
@@ -13,8 +13,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            g = TellMeGlossary()
-            dumpTTLGlossaryToStaticDir(g)
-            synchSparqlEndpoint()
+            nc, nk = list_new_entries_from_glossary()
+            if len(nc)+len(nk) > 0:
+                g = TellMeGlossary()
+                dumpTTLGlossaryToStaticDir(g)
+                synchSparqlEndpoint()
         except Exception as e:
             log.error(e.message)
