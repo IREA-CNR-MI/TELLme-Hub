@@ -264,6 +264,8 @@ tellme:{0.entryType}_{0.id}
         :param hk_parent: (HierarchicalKeyword)
         :return: (HierarchicalKeyword) the obtained HK
         """
+        if self.entryType not in {"keyword", "concept"}:
+            raise ValueError(self.entryType)
 
         from geonode.base.models import HierarchicalKeyword
         if HierarchicalKeyword.objects.filter(slug=self.slug()).exists():
@@ -422,7 +424,7 @@ class TellMeProtocol(TellMeEntry):
             s += self.getScaleSnippets()
         return s
 
-    def toTopicCategory(self):
+    def toTopicCategory(self, icon_fa_class = "fa-comment"):
         from geonode.base.models import TopicCategory
         if TopicCategory.objects.filter(identifier=self.slug()).exists():
             tc = TopicCategory.objects.filter(identifier=self.slug())[0]
@@ -431,7 +433,7 @@ class TellMeProtocol(TellMeEntry):
             tc = TopicCategory(identifier=self.slug(),
                                description=self.title + " Protocol - Semantic Package",
                                gn_description=self.title + " Protocol - Semantic Package",
-                               fa_class="fa-comment")
+                               fa_class=icon_fa_class)
             tc.save()
             return tc
 
@@ -627,7 +629,63 @@ def list_new_entries_from_glossary():
     missingGConcepts = [g.concepts[int(TellMeConcept.slug2glosId(slug))] for slug in missingHK_concepts]
     return missingGConcepts, missingGKeywords
 
+def list_new_protocols_from_glossary():
+    from geonode.base.models import TopicCategory
+    g = TellMeGlossary()
+    pp = g.protocols
+    #check ids==identifiers of TopicCategories
+    kk = pp.keys()
+    all_current_TC_protocol_ids = \
+        [pr.identifier for pr in TopicCategory.objects.filter(identifier__icontains="protocol_")]
+    all_current_protocol_slugs = \
+        [p[1].slug() for p in g.protocols.items()]
+    missingTC_protocols = list(set.difference(set(all_current_protocol_slugs), set(all_current_TC_protocol_ids)))
 
+    missingGProtocols = [g.protocols[int(TellMeProtocol.slug2glosId(slug))] for slug in missingTC_protocols]
+    return missingGProtocols
+
+def synchGlossaryProtocolsWithTopicCategories():
+    missingProtocols = list_new_protocols_from_glossary()
+    for p in missingProtocols:
+        p.toTopicCategory()
+
+def getAllProtocol_TopicCategories():
+    from geonode.base.models import TopicCategory
+    return [pr for pr in TopicCategory.objects.filter(identifier__icontains="protocol_")]
+
+def getAllMapsWithoutAssociatedProtocol():
+    from geonode.base.models import TopicCategory
+    from geonode.maps.models import Map
+    return Map.objects.exclude(category__identifier__in=[p.identifier for p in getAllProtocol_TopicCategories()])
+
+def getAllMapsWithAssociatedProtocol():
+    from geonode.base.models import TopicCategory
+    from geonode.maps.models import Map
+    return Map.objects.filter(category__identifier__in=[p.identifier for p in getAllProtocol_TopicCategories()])
+
+def getTCByProtocolNumber(number):
+    from geonode.base.models import TopicCategory
+    identifier="protocol_"+number.__str__()
+    if TopicCategory.objects.filter(identifier=identifier).exists():
+        return TopicCategory.objects.get(identifier=identifier)
+    else:
+        return None
+
+def setProtocolForMapByProtocolNumber(mapnumber,protocolnumber):
+    from geonode.base.models import TopicCategory
+    from geonode.maps.models import Map
+    tc=getTCByProtocolNumber(protocolnumber)
+    if Map.objects.filter(id=mapnumber).exists() and tc is not None:
+        m = Map.objects.get(id=mapnumber)
+        m.category = tc
+        m.save()
+
+# find:
+#   [[m.id, m.title] for m in getAllMapsWithoutAssociatedProtocol()]
+# set protocol:
+#   setProtocolForMapByProtocolNumber(405,7)
+# check:
+#   [[m.id, m.title, m.category.identifier] for m in getAllMapsWithAssociatedProtocol()]
 
 
 # TODO: this method should be revised.
