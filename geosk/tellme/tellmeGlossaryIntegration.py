@@ -437,6 +437,20 @@ class TellMeProtocol(TellMeEntry):
             tc.save()
             return tc
 
+    def getAvailableScales(self):
+        return [s["scale"] for s in self.scales]
+
+    def getConceptSlugListAtScale(self, scale):
+        if scale in self.getAvailableScales():
+            slist = [["concept_" + str(c["id"]) for c in s["concepts"]] for s in self.scales if s["scale"] == scale][0]
+            return slist
+        else:
+            return []
+
+
+##[["concept_"+str(c["id"]) for c in s["concepts"]] for s in gp1.scales if s["scale"]=="XL"][0]
+
+
 # note: TellMeScales are treated differently within the same TellMeGlossary class
 class TellMeScale(TellMeEntry):
     def __init__(self, title):
@@ -671,6 +685,7 @@ def getTCByProtocolNumber(number):
     else:
         return None
 
+# TODO: check if saving map from here is causing thumbnail issue (thumbnails seem to disappear)
 def setProtocolForMapByProtocolNumber(mapnumber,protocolnumber):
     from geonode.base.models import TopicCategory
     from geonode.maps.models import Map
@@ -679,6 +694,15 @@ def setProtocolForMapByProtocolNumber(mapnumber,protocolnumber):
         m = Map.objects.get(id=mapnumber)
         m.category = tc
         m.save()
+
+def setScaleForMapId(mapnumber,sscale):
+    from geonode.maps.models import Map
+    from geonode.base.models import HierarchicalKeyword
+    g = TellMeGlossary()
+    Map.objects.get(id=mapnumber).keywords.add(HierarchicalKeyword.objects.get(slug=g.scales[sscale].slug()))
+
+
+
 
 # find:
 #   [[m.id, m.title] for m in getAllMapsWithoutAssociatedProtocol()]
