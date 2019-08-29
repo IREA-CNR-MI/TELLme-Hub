@@ -142,7 +142,7 @@
 
 
             <h4 class="list-group-item-heading">{% trans "TELLme semantics" %}</h4>
-          <p>{% trans "This map relates to the following concepts:" %}</p>
+          <p>{% trans "This map relates to the following concepts" %}  (in <i><a href="{{resource.semanticPackageUrl}}" target="_blank">{{resource.semanticPackageName}}</a></i>):</p>
             <div id='tellme_panelContainer'>
             {% autoescape off %}
             {{resource.panel_concept_selection_html_linkTheLabels}}
