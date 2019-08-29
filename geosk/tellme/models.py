@@ -1,5 +1,34 @@
 from geonode.layers.models import Layer
 from geonode.maps.models import Map, MapLayer
+from geonode.base.models import TopicCategory
+from tellmeGlossaryIntegration import TELLME_SCHEME
+
+def getTellMeGlossaryProtocol(self):
+    pass
+
+def isCategory_validSemanticPackage(topicCategory):
+    sp=topicCategory
+    valid_semantic_package_prefixes = ["protocol_", "package_", "dynamic_"]
+    return any([prefix in sp.identifier for prefix in valid_semantic_package_prefixes])
+
+
+def semanticPackageUrl(self):
+    m=self
+    sp=m.category
+    if isCategory_validSemanticPackage(sp):
+        return TELLME_SCHEME+sp.identifier
+    else:
+        return None
+
+def semanticPackageName(self):
+    m = self
+    sp = m.category
+    if isCategory_validSemanticPackage(sp):
+        return sp.description
+    else:
+        return None
+
+
 
 
 def get_associated_tellme_relatedConcepts(self):
@@ -171,3 +200,5 @@ Map.dict_layer_title_2_tellme_concepts = dict_layer_title_2_tellme_concepts
 Map.panel_concept_selection_html = panel_concept_selection_html
 Map.panel_concept_selection_html_linkTheLabels = panel_concept_selection_html_linkTheLabels
 #Map.panel_concept_selection_js = panel_concept_selection_js
+Map.semanticPackageUrl = semanticPackageUrl
+Map.semanticPackageName = semanticPackageName
