@@ -120,20 +120,7 @@ border-bottom-right-radius:.25rem;
 var app;
 
 
-/*
-var pannello='<li class="list-group-item">'+
-'          <h4 class="list-group-item-heading">TELLme semantics"</h4>'+
-'          <p>This map relates to the following concepts:</p>'+
-'          <ul class="list-unstyled">'+
-{% for keyword, concepts in map.get_associated_tellme_relatedConcepts.items %}
-'              <li>{{ keyword }}</li>'+
-{% for concept in concepts %}
-'              <li>- {{ concept }}</li>'+
-{% endfor %}
-{% endfor %}
-'          </ul>'+
-'       </li>';
-*/
+
 {% autoescape off %}
 var pannello="<div id='externalContainerSemantics'><div id='tellme_panelContainer'><div class='titolo'>TELLme semantics</div>{{map.panel_concept_selection_html}}</div></div>"
 {% endautoescape %}
@@ -142,14 +129,6 @@ var pannello="<div id='externalContainerSemantics'><div id='tellme_panelContaine
 //tweak Geoext.tree.LayerNodeUI in order to set some class for checkboxes
 
 GeoExt.tree.LayerNodeUI.prototype.render=function(bulkRender){
-    //Ext.override('GeoExt.tree.LayerNodeUI',{
-      //  render: function(bulkRender){
-            //this.callOverridden();
-            //a=this.node.attributes;
-            //alert("qui");
-            //console.log(a);
-            //*
-            //var l2c={{map.get_associated_tellme_relatedConcepts.items}}
 
             var l2c=function (layername){
                 var concepts=[];
@@ -236,31 +215,8 @@ GeoExplorer.Composer.prototype.initPortal= function() {
                 }
             ]
         });
-        /*//
-        var eastPanel = new Ext.Panel({
-            region: "east",
-            id: "east",
-            height: 220,
-            width:320,
-            //border: false,
-            split: true,
-            collapsible: true,
-            collapseMode: "mini",
-            collapsed: false,
-            hideCollapseTool: true,
-            header: false,
-            layout: "border",
-            items: [
-                {
-                    region: "center",
-                    id:"tellme-panel-container",
-                    title: "TELLme",
-                    header:false,
-                    layout:"fit"
-                }
-            ]
-        });
-        //*/
+
+
         var southPanel = new Ext.Panel({
             region: "south",
             id: "south",
@@ -523,36 +479,6 @@ Ext.onReady(function() {
        }
     }, {{ config }});
 
-
-
-
-
-    /*/TEST
-    Ext.namespace("tellme.plugins");
-    tellme.plugins.BoxInfo = Ext.extend(gxp.plugins.Tool, {
-
-      ptype: "tellme_boxinfo",
-
-      addOutput: function(config) {
-        return tellme.plugins.BoxInfo.superclass.addOutput.call(this, Ext.apply({
-          title: "TELLme semantics",
-          html: pannello
-        }, config));
-      }
-
-    });
-
-    Ext.preg(tellme.plugins.BoxInfo.prototype.ptype, tellme.plugins.BoxInfo);
-
-
-
-    //////*/
-    //end TEST
-
-
-
-
-
     Ext.ns("Geosk");
     Geosk.Composer = Ext.extend(GeoNode.Composer, {
 
@@ -618,51 +544,8 @@ Ext.onReady(function() {
                 }
             );
 
-
-
-            //*TELLME TEST
-
-            /*
-            var EastPanel = new Ext.Panel({
-                region:"east",
-                id:"east",
-                width:320,
-                header:true
-            })
-            //*/
-
-            /*/
-            config.tools.push({
-                ptype:"tellme_boxinfo",
-                id:"bean",
-                outputConfig: {defaults: {autoScroll: true}, width: 320}
-                ,outputTarget:"tellme-panel-container"
-                //,outputConfig:{layout:"fit",id:"tellmesem",region:"north"}
-            })
-            //eo tellme test */
-
             Geosk.Composer.superclass.loadConfig.apply(this, arguments);
         },
-
-        /*
-        initPortal: function(){
-            this.EastPanel = new Ext.Panel({
-                region:"east",
-                id:"east",
-                width:320,
-                split: true,
-                collapsible: true,
-                collapseMode: "mini",
-                hideCollapseTool: true,
-                header:false
-            });
-            this.portalItems=[{
-                region:"center",
-                layout:"fit",
-                items:[this.EastPanel]
-            }];
-            Geosk.Composer.superclass.initPortal.apply(this,arguments);
-        }//*/
 
     });
 
