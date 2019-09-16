@@ -1,6 +1,6 @@
 # -e git+https://github.com/GeoNode/geonode.git@2.7.x#egg=geonode
 django-overextends
-django-annoying
+django-annoying==0.10.4
 django-rosetta==0.7.6
 django-grappelli==2.9.1
 djproxy
