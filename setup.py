@@ -92,7 +92,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "django-overextends",
-        "django-annoying",
+        "django-annoying==0.10.4",
         "django-rosetta==0.7.6",
         "django-grappelli==2.4.10",
         "djproxy",
