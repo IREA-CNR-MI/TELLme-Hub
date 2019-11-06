@@ -280,15 +280,6 @@ def _savelayermd(layer, rndt, ediml, version='1'):
     if len(errors) > 0:
         raise Exception(errors)
 
-    # TODO: (TELLme) we could change here the information flow in
-    #  order to query the xml (rndt) and match the TELLme
-    #  keywords by ID instead of string.
-    #  Example:
-    #  we can also inspect MD_Metadata parent class of EDI_Metadata
-    #  that already contains keywords2, a list of MD_keywords objects
-    #  with several elements parsed from XML.
-    #  In alternative we can directly filter the appropriate xml elements
-    #  with gmx:Anchor and xlink:href with URIs.
     # from geosk.mdtools.api import EDI_Metadata
     # metadataToExplore=etree.fromstring(rndt)
     # mdata = EDI_Metadata(metadataToExplore)    #
@@ -365,9 +356,24 @@ def _get_or_create_profile(contact):
     # some cleaning
     fields = Profile._meta.get_all_field_names()
     _defaults= {k:v for k, v in contact.items() if k in fields}
-    del(_defaults['email']) #
+    del(_defaults['email'])
     # create profile
-    profile, is_created = Profile.objects.get_or_create(defaults=_defaults, email=_email, username=_email)
+    # TODO: the following instruction raises an error when
+    #  the email is already present in a Profile but the passed username (or the passed defaults)
+    #  is different. Is there any reason to try getting a profile for a given email (with unique constraint)
+    #  specifying also a username? There should be no more than one profile if the email is unique...
+    #  This is the case of an insertion of an EDI MD presenting a contact obtained from a sparql endpoint.
+    #  If the username was previously inserted, the code raises an error.
+
+    # TODO: ipotesi di correzione:
+    #  cerco PRIMA un profilo con la mail. Se esiste uso quello. In caso contrario lascio il flusso originale.
+    #  Per il secondo problema (mail più lunghe di 30 caratteri che si cerca di inserire come username) si potrebbe
+    #  limitare ai primi 30 caratteri della parte di nome prima del carattere @
+    if Profile.objects.filter(email=_email).exists():
+        profile = Profile.objects.get(email=_email)
+        is_created = False
+    else:
+        profile, is_created = Profile.objects.get_or_create(defaults=_defaults, email=_email, username=_email)
     return profile
 
 split_email_regexp = re.compile(r'[ .-_]')
