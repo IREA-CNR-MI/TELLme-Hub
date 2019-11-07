@@ -82,10 +82,45 @@
   module.load_h_keywords = function($http, $rootScope, $location){
     var params = typeof FILTER_TYPE == 'undefined' ? {} : {'type': FILTER_TYPE};
     $http.get(H_KEYWORDS_ENDPOINT, {params: params}).success(function(data){
+
+      //TODO: add a node.selectable = false for each node that is not a leaf
+      /*
+      //  BOC
+      var parseNode=function myself (node){
+            console.log("enter"+node.href)
+            if(node.nodes){
+                console.log("nodes:"+node.nodes)
+                node.selectable=false;
+                console.log("assigned selectable");
+                for(var i=0; i<node.nodes.length; i++){
+                    console.log("looping on node:"+node.nodes[i].href);
+                    node.nodes[i]=myself(node.nodes[i]);
+                }
+                //node.nodes=node.nodes.forEach(function(item){return myself(item)});
+            }
+            else{
+                console.log("no children for node "+ node.href)
+                node.selectable=true;
+            }
+
+            return node;
+      }
+      typeof myself === 'undefined'
+
+      node1={nodes:data}
+
+      obj1=parseNode(node1)
+      data=obj1.nodes
+      //  EOC
+      */
+
       $('#treeview').treeview({
         data: data,
         multiSelect: true,
         onNodeSelected: function($event, node) {
+          //TODO: TELLme change: disable selection of non-leaf nodes in order not to encur in selection bugs
+          //if(node.nodes) return;
+          // --> creates other bugs...
           $rootScope.$broadcast('select_h_keyword', node);
           if(node.nodes){
             for(var i=0; i<node.nodes.length;i++){
@@ -103,6 +138,9 @@
           }
         }
       });
+
+
+
     });
   };
 
@@ -381,7 +419,7 @@
     // Hyerarchical keywords listeners
     $scope.$on('select_h_keyword', function($event, element){
       // var data_filter = 'keywords__slug__in'; // NOTE: modified to exploit the actual slug instead of title as apparently overridden in geonode code.
-      var data_filter = 'keywords__slug';
+      var data_filter = 'keywords__slug';//TELLme change
 
       var query_entry = [];
       var value = (element.href ? element.href : element.text);
@@ -410,7 +448,7 @@
 
     $scope.$on('unselect_h_keyword', function($event, element){
       //var data_filter = 'keywords__slug__in'; // NOTE: modified to exploit the actual slug instead of title as apparently overridden in geonode code.
-      var data_filter = 'keywords__slug';
+      var data_filter = 'keywords__slug';//TELLme change
       var query_entry = [];
       var value = (element.href ? element.href : element.text);
       // If the query object has the record then grab it
