@@ -13,7 +13,7 @@
 # Side effect: the file "importOutputLog.txt" is written in the execution folder with some details.
 # --------
 #
-# TODO: integrate layer styling through geoserver rest api. The following should set the default style for a layer. (note: it could be one of different strategies). 
+# TODO: integrate layer styling through geoserver rest api. The following should set the default style for a layer. (note: it could be one of different strategies).
 #       Investigate which layer name should we use (is it the "name" set in the following importlayers command option or other? something like "geonode:<name>"?
 #
 # curl -v -u username:password -X PUT -H "Content-type: text/xml" -d "<layer><defaultStyle><name>islandarea</name> </defaultStyle><enabled>true</enabled></layer>" http://localhost:8080/geoserver/rest/layers/geonode:islandarea
@@ -47,7 +47,7 @@ BEGIN{
   keyword=$4;
   relatedConcept=$5;
   
-  protocolid=1; #TODO: change this for upcoming concepts. Use a lookup table like the ones for cities and concepts
+  protocolid=1; #TODO: change this for upcoming protocols in the future. Use a lookup table like the ones for cities and concepts
   
   l=split(protocol,protocolsplit,"_");
   scale=protocolsplit[l];
