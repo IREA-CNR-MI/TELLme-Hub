@@ -1,4 +1,6 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3746435.svg)](https://doi.org/10.5281/zenodo.3746435)
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3746435.svg
+   :target: https://doi.org/10.5281/zenodo.3746435
+   
 ========================================
 TELLme-HUB - Geoinformation Enabling ToolkIT starterkit® (GET-IT)
 ========================================
