@@ -221,8 +221,10 @@ tellme:{0.entryType}_{0.id}
     def remove_tags(text):
         if (text):
             text = text.replace('"', "'").replace(u"“", "'").replace(u"”", "'").replace(u"’", "'").replace(u"&nbsp;",
-                                                                                                           " ")
-            TAG_RE = re.compile(r'<[^>]+>')
+                                                                                                           " ").replace(u"\n"," ").replace(u"\r"," ").replace(u"\t"," ")
+            TAG_RE1= re.compile(r'<!--(.*?)-->')
+            text=TAG_RE1.sub('',text)
+	    TAG_RE = re.compile(r'<[^>]+>')
             # return(text)
             return TAG_RE.sub('', text)
         else:
@@ -232,7 +234,7 @@ tellme:{0.entryType}_{0.id}
     def remove_tags255(text):
         if (text):
             text = text[:250].replace('"', "'").replace(u"“", "'").replace(u"”", "'").replace(u"’", "'").replace(
-                u"&nbsp;", " ")
+                u"&nbsp;", " ").replace(u"\n"," ").replace(u"\r"," ").replace(u"\t"," ")
             TAG_RE = re.compile(r'<[^>]+>')
             # return(text)
             return TAG_RE.sub('', text)
@@ -826,7 +828,8 @@ def synchGlossaryWithHierarchicalKeywords(g, force=True):
 
     for sca in g.scales.items():
         gsca=sca[1]
-        gsca.toHierarchicalKeywordChildOf(rootScales)
+        #gsca.toHierarchicalKeywordChildOf(rootScales)
+	setAsChild(gsca,rootScales)
 
     if force:
         # NOTE: we have to obtain again the nodes because references are now obsolete

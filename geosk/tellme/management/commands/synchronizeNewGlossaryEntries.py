@@ -15,7 +15,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             delete_non_tellme_hierarchicalKeywords()
-            synchNewKeywordsFromTELLmeGlossary()
-
+            r=synchNewKeywordsFromTELLmeGlossary()
+            print(r["added_keywords"])
+            print(r["added_concepts"])
+            print(r["with_issues"])
         except Exception as e:
             log.error(e.message)

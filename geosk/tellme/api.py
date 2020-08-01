@@ -371,3 +371,33 @@ def synchronizeNewGlossaryEntries(request):
     except Exception as e:
         return json_response(exception=e, status=500)
     return json_response(body={'success': True, 'answered_by': 'tellme.api.synchronizeHierarchicalKeywords_newFromTELLmeGlossary'})
+
+# CHECK - 20200701 manually imported (paolo): uploaded this version to tellmehub, along with corresponding urls.py and test it through VLab api calls
+@user_passes_test(lambda u: u.is_superuser)
+def set_layerid_conceptid(request, layer_id, concept_id):
+    from geonode.base.models import HierarchicalKeyword
+    from geonode.layers.models import Layer
+    concept_slug=u"concept_{id}".format(id=concept_id.__str__())
+
+    if (Layer.objects.filter(id=layer_id).exists() and
+        HierarchicalKeyword.objects.filter(slug=concept_slug).exists()):
+        layer=Layer.objects.get(id=layer_id)
+        hk = HierarchicalKeyword.objects.get(slug=concept_slug)
+        layer.keywords.clear()
+        layer.keywords.add(hk)
+        return json_response(body={'success': True, layer: layer, keyword: layer.keywords})
+    else:
+        return json_response(body={'success': False, layer: layer})
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def set_layername_conceptid(request, layername, concept_id):
+    from geonode.layers.models import Layer
+    from geonode.layers.views import _resolve_layer, \
+        _PERMISSION_MSG_METADATA, layer_detail
+
+    layer = _resolve_layer(request, layername, 'layers.change_layer', _PERMISSION_MSG_METADATA)
+
+    return set_layerid_conceptid(request, layer.id, concept_id)
+
+

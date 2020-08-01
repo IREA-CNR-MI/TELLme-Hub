@@ -46,7 +46,11 @@ def get_associated_tellme_relatedConcepts(self):
     maplayers=self.layers
     m=self
 
-    l_set = set(Layer.objects.filter(alternate__in={l.layer_title for l in m.layers if l.group != 'background'}))
+    #l_set = set(Layer.objects.filter(alternate__in={l.layer_title for l in m.layers if l.group != 'background'}))
+    #---- NOT IN GIT --- Sovrascrivere questo con eventuale nuova versione dopo un revert di questo file
+    l_set = set(Layer.objects.filter(title__in={l.layer_title for l in m.layers if l.group != 'background'})).union(
+        set(Layer.objects.filter(alternate__in={l.layer_title for l in m.layers if l.group != 'background'})))
+    #----
     lista = []
 
     for l in l_set:
@@ -59,7 +63,7 @@ def get_associated_tellme_relatedConcepts(self):
 
     #[(k.get_parent().name, k.name) for k in k_set if (k.get_root()).name == 'TELLme']
     tellme_keywords = {}
-    for kc in [(k.get_parent().name, k.name) for k in k_set if (k.get_root()).name == 'TELLme']:
+    for kc in [(k.get_parent().name, k.name) for k in k_set if k.get_parent() and (k.get_root()).name == 'TELLme']:
         if kc[0] not in tellme_keywords.keys():
             tellme_keywords[kc[0]] = []
         tellme_keywords[kc[0]].append(kc[1])
@@ -90,11 +94,19 @@ def dict_layer_title_2_tellme_concepts(self):
     m = self
     dictionary_title_concepts={}
 
+    #---- NOT IN GIT --- Sovrascrivere questo con eventuale nuova versione dopo un revert di questo file
+    l_set = set(Layer.objects.filter(title__in={l.layer_title for l in m.layers if l.group != 'background'})).union(
+        set(Layer.objects.filter(alternate__in={l.layer_title for l in m.layers if l.group != 'background'})))
+    #-----
     # Here I am simplifying the selection, using the naming convention for tellme-related-concepts slugs.
     #  This can be changed with the commented code block below, which uses the hierarchy imposed
     #  to HierarchicalKeywords containing tellme concepts.
-    array_title_concepts = [{la.alternate: [k.name for k in la.keywords.filter(slug__icontains="concept_")]} for la in
-                Layer.objects.filter(alternate__in={l.layer_title for l in m.layers if l.group != 'background'})]
+    #array_title_concepts = [{la.alternate: [k.name for k in la.keywords.filter(slug__icontains="concept_")]} for la in
+    #            Layer.objects.filter(alternate__in={l.layer_title for l in m.layers if l.group != 'background'})]
+
+    array_title_concepts = [{la.alternate: [k.name for k in la.keywords.filter(slug__icontains="concept_")]} for la in l_set]
+
+
 
     #array_title_concepts = [{la.title: [k.name for k in la.keywords.all() if (k.get_root()).name == 'TELLme']} for la in
     #                        Layer.objects.filter(
