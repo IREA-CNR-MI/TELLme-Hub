@@ -414,9 +414,26 @@ def set_mapid_scale(request, map_id, sscale):
         hk = HierarchicalKeyword.objects.get(slug=slug)
         m.keywords.clear()
         m.keywords.add(hk)
-        return json_response(body={'success': True, 'layer_id': map_id, 'map_title ': m.title, 'keyword': slug})
+        return json_response(body={'success': True, 'map_id': map_id, 'map_title ': m.title, 'keyword': slug})
 
     else:
         return json_response(body={'success': False, 'map_id': map_id})
 
+
+@user_passes_test(lambda u: u.is_superuser)
+def set_mapid_protocolid(request, map_id, protocol_id):
+    from geonode.maps.models import Map
+    from geonode.base.models import TopicCategory
+    identifier = u"protocol_{protocol_id}".format(protocol_id=protocol_id.__str__())
+
+    if (Map.objects.filter(id=map_id).exists() and
+        TopicCategory.objects.filter(identifier=identifier).exists()):
+
+        m = Map.objects.get(id=map_id)
+        c = TopicCategory.objects.get(identifier=identifier)
+        m.category = c
+        return json_response(body={'success': True, 'map_id': map_id, 'map_title ': m.title, 'scale': c.identifier})
+
+    else:
+        return json_response(body={'success': False, 'map_id': map_id})
 

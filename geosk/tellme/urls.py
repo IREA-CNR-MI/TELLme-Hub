@@ -12,4 +12,6 @@ urlpatterns = [
     url(r'^set_layerid_conceptid/(?P<layer_id>[^/]*)/(?P<concept_id>[^/]*)','geosk.tellme.api.set_layerid_conceptid',name="set_layerid_conceptid"),
     url(r'^layers/(?P<layername>[^/]*)/set_conceptid/(?P<concept_id>[^/]*)','geosk.tellme.api.set_layername_conceptid',name="set_layername_conceptid"),
     url(r'^maps/(?P<map_id>[^/]*)/set_scale/(?P<sscale>[^/]*)','geosk.tellme.api.set_mapid_scale',name="set_mapid_scale"),
+    url(r'^maps/(?P<map_id>[^/]*)/set_protocolid/(?P<protocol_id>[^/]*)','geosk.tellme.api.set_mapid_protocolid',name="set_mapid_protocolid"),
+
 ]
