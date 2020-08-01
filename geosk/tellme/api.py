@@ -385,7 +385,7 @@ def set_layerid_conceptid(request, layer_id, concept_id):
         hk = HierarchicalKeyword.objects.get(slug=concept_slug)
         layer.keywords.clear()
         layer.keywords.add(hk)
-        return json_response(body={'success': True, 'layer_id': layer_id, 'layername ': layer.name, 'keyword': layer.keywords})
+        return json_response(body={'success': True, 'layer_id': layer_id, 'layername ': layer.name, 'keyword': concept_slug})
     else:
         return json_response(body={'success': False, 'layer_id': layer_id})
 
