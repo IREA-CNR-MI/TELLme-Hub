@@ -401,3 +401,22 @@ def set_layername_conceptid(request, layername, concept_id):
     return set_layerid_conceptid(request, layer.id, concept_id)
 
 
+@user_passes_test(lambda u: u.is_superuser)
+def set_mapid_scale(request, map_id, sscale):
+    from geonode.maps.models import Map
+    from geonode.base.models import HierarchicalKeyword
+    slug = u"scale_{sscale}".format(sscale=sscale.__str__())
+
+    if (Map.objects.filter(id=map_id).exists() and
+        HierarchicalKeyword.objects.filter(slug=slug).exists()):
+
+        m = Map.objects.get(id=map_id)
+        hk = HierarchicalKeyword.objects.get(slug=slug)
+        m.keywords.clear()
+        m.keywords.add(hk)
+        return json_response(body={'success': True, 'layer_id': map_id, 'map_title ': m.title, 'keyword': slug})
+
+    else:
+        return json_response(body={'success': False, 'map_id': map_id})
+
+
