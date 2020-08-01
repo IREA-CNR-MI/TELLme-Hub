@@ -378,14 +378,16 @@ def set_layerid_conceptid(request, layer_id, concept_id):
     from geonode.base.models import HierarchicalKeyword
     from geonode.layers.models import Layer
     concept_slug=u"concept_{id}".format(id=concept_id.__str__())
+    add = request.GET.get("add") == "TRUE"
 
     if (Layer.objects.filter(id=layer_id).exists() and
         HierarchicalKeyword.objects.filter(slug=concept_slug).exists()):
         layer=Layer.objects.get(id=layer_id)
         hk = HierarchicalKeyword.objects.get(slug=concept_slug)
-        layer.keywords.clear()
+        if not add:
+            layer.keywords.clear()
         layer.keywords.add(hk)
-        return json_response(body={'success': True, 'layer_id': layer_id, 'layername ': layer.name, 'keyword': concept_slug})
+        return json_response(body={'success': True, 'layer_id': layer_id, 'layername ': layer.name, 'keyword_slug': concept_slug, "hkeyword_id": hk.id})
     else:
         return json_response(body={'success': False, 'layer_id': layer_id})
 
