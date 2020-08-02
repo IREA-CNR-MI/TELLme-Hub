@@ -416,7 +416,7 @@ def set_mapid_scale(request, map_id, sscale):
         hk = HierarchicalKeyword.objects.get(slug=slug)
         m.keywords.clear()
         m.keywords.add(hk)
-        return json_response(body={'success': True, 'map_id': map_id, 'map_title ': m.title, 'keyword': slug})
+        return json_response(body={'success': True, 'map_id': map_id, 'map_title ': m.title, 'hkeyword_slug': hk.slug, 'hkeyword_id': hk.id})
 
     else:
         return json_response(body={'success': False, 'map_id': map_id})
