@@ -9,7 +9,10 @@ def getTellMeGlossaryProtocol(self):
 def isCategory_validSemanticPackage(topicCategory):
     sp=topicCategory
     valid_semantic_package_prefixes = ["protocol_", "package_", "dynamic_"]
-    return any([prefix in sp.identifier for prefix in valid_semantic_package_prefixes])
+    if(sp):
+        return any([prefix in sp.identifier for prefix in valid_semantic_package_prefixes])
+    else:
+        return False
 
 
 def semanticPackageUrl(self):
