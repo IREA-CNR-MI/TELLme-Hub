@@ -140,16 +140,16 @@
       <div class="tab-content">
         <article id="info" class="tab-pane{% if tab == 'info' or not tab %} active{% endif %}">
 
-
+{% if resource.semanticPackageUrl%}
             <h4 class="list-group-item-heading">{% trans "TELLme semantics" %}</h4>
-          <p>{% trans "This map relates to the following concepts" %}  (in <i><a href="{{resource.semanticPackageUrl}}" target="_blank">{{resource.semanticPackageName}}</a></i>):</p>
+          <p>{% trans "This map relates to the following concepts" %} (in <i><a href="{{resource.semanticPackageUrl}}" target="_blank">{{resource.semanticPackageName}}</a></i>):</p>
             <div id='tellme_panelContainer'>
             {% autoescape off %}
             {{resource.panel_concept_selection_html_linkTheLabels}}
             {% endautoescape %}
 
                 </div>
-
+{% endif %}
           {% include "base/resourcebase_info_panel.html" %}
 
           {% if USE_GEOSERVER and DISPLAY_WMS_LINKS %}
