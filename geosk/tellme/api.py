@@ -21,7 +21,7 @@ from geonode.base.models import SpatialRepresentationType, TopicCategory
 from geonode.layers.metadata import set_metadata, sniff_date
 from geonode.layers.models import Layer
 from geonode.layers.views import _resolve_layer, \
-    _PERMISSION_MSG_METADATA, _PERMISSION_MSG_MODIFY, layer_detail
+    _PERMISSION_MSG_METADATA, layer_detail
 from geonode.utils import http_client, _get_basic_auth_info, json_response
 from geonode.people.enumerations import ROLE_VALUES
 from geonode.people.models import Profile #, Role
@@ -396,12 +396,25 @@ def set_layerid_conceptid(request, layer_id, concept_id):
 @login_required
 def set_layername_conceptid(request, layername, concept_id):
     from geonode.layers.models import Layer
+    from geonode.base.models import HierarchicalKeyword
     from geonode.layers.views import _resolve_layer, \
         _PERMISSION_MSG_METADATA, layer_detail
 
-    layer = _resolve_layer(request, layername, 'layers.change_layer', _PERMISSION_MSG_METADATA)
+    layer = _resolve_layer(request, layername, 'base.change_resourcebase', _PERMISSION_MSG_METADATA)
 
-    return set_layerid_conceptid(request, layer.id, concept_id)
+    concept_slug = u"concept_{id}".format(id=concept_id.__str__())
+    add = request.GET.get("add") == "TRUE"
+
+    if (HierarchicalKeyword.objects.filter(slug=concept_slug).exists()):
+        hk = HierarchicalKeyword.objects.get(slug=concept_slug)
+        if not add:
+            layer.keywords.clear()
+        layer.keywords.add(hk)
+        return json_response(
+            body={'success': True, 'layer_id': layer_id, 'layername ': layer.name, 'keyword_slug': concept_slug,
+                  "hkeyword_id": hk.id})
+    else:
+        return json_response(body={'success': False, 'layer_id': layer_id})
 
 
 @user_passes_test(lambda u: u.is_superuser)
