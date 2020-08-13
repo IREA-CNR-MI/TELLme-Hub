@@ -411,7 +411,7 @@ def set_layername_conceptid(request, layername, concept_id):
             layer.keywords.clear()
         layer.keywords.add(hk)
         return json_response(
-            body={'success': True, 'layer_id': layer_id, 'layername ': layer.name, 'keyword_slug': concept_slug,
+            body={'success': True, 'layer_id': layer.id, 'layername ': layer.name, 'keyword_slug': concept_slug,
                   "hkeyword_id": hk.id})
     else:
         return json_response(body={'success': False, 'layer_id': layer_id})
