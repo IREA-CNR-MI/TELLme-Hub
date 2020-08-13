@@ -399,7 +399,7 @@ def set_layername_conceptid(request, layername, concept_id):
     from geonode.layers.views import _resolve_layer, \
         _PERMISSION_MSG_METADATA, layer_detail
 
-    layer = _resolve_layer(request, layername, 'base.change_resourcebase', _PERMISSION_MSG_MODIFY)
+    layer = _resolve_layer(request, layername, 'layers.change_layer', _PERMISSION_MSG_METADATA)
 
     return set_layerid_conceptid(request, layer.id, concept_id)
 
