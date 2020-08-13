@@ -21,7 +21,7 @@ from geonode.base.models import SpatialRepresentationType, TopicCategory
 from geonode.layers.metadata import set_metadata, sniff_date
 from geonode.layers.models import Layer
 from geonode.layers.views import _resolve_layer, \
-    _PERMISSION_MSG_METADATA, layer_detail
+    _PERMISSION_MSG_METADATA, _PERMISSION_MSG_MODIFY, layer_detail
 from geonode.utils import http_client, _get_basic_auth_info, json_response
 from geonode.people.enumerations import ROLE_VALUES
 from geonode.people.models import Profile #, Role
@@ -392,13 +392,14 @@ def set_layerid_conceptid(request, layer_id, concept_id):
         return json_response(body={'success': False, 'layer_id': layer_id})
 
 
-@user_passes_test(lambda u: u.is_superuser)
+#@user_passes_test(lambda u: u.is_superuser)
+@login_required
 def set_layername_conceptid(request, layername, concept_id):
     from geonode.layers.models import Layer
     from geonode.layers.views import _resolve_layer, \
         _PERMISSION_MSG_METADATA, layer_detail
 
-    layer = _resolve_layer(request, layername, 'layers.change_layer', _PERMISSION_MSG_METADATA)
+    layer = _resolve_layer(request, layername, 'base.change_resourcebase', _PERMISSION_MSG_MODIFY)
 
     return set_layerid_conceptid(request, layer.id, concept_id)
 
