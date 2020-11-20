@@ -48,6 +48,8 @@ from geosk.tellme.tellmeGlossaryIntegration import \
     TellMeGlossary, dumpTTLGlossaryToStaticDir, synchGlossaryWithHierarchicalKeywords, \
     move_genericHK_level1_under_otherkeywords_branch, synchNewKeywordsFromTELLmeGlossary
 
+from geonode.api import resourcebase_api
+
 
 
 from geonode.maps import urls
@@ -345,6 +347,15 @@ def ediproxy_importmd(request, layername):
     #     return json_response(exception=e, status=500, body={'success': False,'answered_by': 'tellme', 'error': e, 'error raised by':'synchGlossaryWithHierarchicalKeywords'})
     return json_response(body={'success': True, 'answered_by': 'tellme'})
 
+@user_passes_test(lambda u: u.is_superuser)
+def delete_non_tellme_hierarchicalKeywords(request):
+    from tellmeGlossaryIntegration import delete_non_tellme_hierarchicalKeywords
+    try:
+        delete_non_tellme_hierarchicalKeywords()
+    except Exception as e:
+        return json_response(exception=e, status=500)
+    return json_response(body={'success': True, 'answered_by': 'tellme.api.delete_non_tellme_hierarchicalKeywords'})
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def refresh_glossary_rdf(request):
@@ -453,3 +464,27 @@ def set_mapid_protocolid(request, map_id, protocol_id):
     else:
         return json_response(body={'success': False, 'map_id': map_id})
 
+# # Added 20200904 - deprecated: it is not working properly.
+# # cf. http://osgeo-org.1560.x6.nabble.com/Programmatically-create-layers-and-maps-from-own-Django-App-td5415638.html
+# # and http://osgeo-org.1560.x6.nabble.com/Programmatically-create-a-map-td5393280.html
+# @user_passes_test(lambda u: u.is_superuser)
+# def createMapFromLayerAlternates(request, layers, map_title="title", map_abstract="abstract"):
+#     from geonode.maps.models import Map
+#     from geonode.layers.models import Layer
+#     from django.contrib.auth import get_user_model
+#     from geonode.layers.views import _resolve_layer, \
+#         _PERMISSION_MSG_METADATA
+#
+#     try:
+#         m = Map()
+#         admin_user = get_user_model().objects.get(username='admin')
+#         layer_alternate_list=[]
+#         for(layername in layers):
+#             l = _resolve_layer(request, layername, 'base.change_resourcebase', _PERMISSION_MSG_METADATA)
+#             if(l):
+#                 layer_alternate_list.append(l.alternate)
+#         m.create_from_layer_list(admin_user, layer_alternate_list, map_title, map_abstract)
+#         map_id = m.id
+#         return json_response(body={'success': True, 'map_id': map_id, 'map_title ': m.title})
+#     except Exception as e:
+#         return json_response(exception=e, status=500)
