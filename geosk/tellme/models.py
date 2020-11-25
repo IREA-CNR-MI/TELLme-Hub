@@ -209,7 +209,32 @@ def URItagfromHKName(kname, separate_lod_link=True):
 #     """
 #     return outjs
 
+# override method calling messages causing issues TODO: check cause of issue
+def view_count_up(self, user, do_local=True):
+    """ increase view counter, if user is not owner and not super
+    hacking omonimous Layer method
+    :param self:
+    :param user:
+    :param do_local:
+    :return:
 
+    @param user which views layer
+    @type User model
+
+    @param do_local - do local counter update even if pubsub is enabled
+    @type bool
+    """
+    if user == self.owner or user.is_superuser:
+        return
+    if False:
+        from geonode.messaging import producer
+        producer.viewing_layer(str(user), str(self.owner), self.id)
+
+    else:
+        Layer.objects.filter(id=self.id) \
+            .update(popular_count=models.F('popular_count') + 1)
+
+Layer.view_count_up =view_count_up
 Map.get_associated_tellme_relatedConcepts = get_associated_tellme_relatedConcepts
 Map.dict_layer_title_2_tellme_concepts = dict_layer_title_2_tellme_concepts
 Map.panel_concept_selection_html = panel_concept_selection_html
