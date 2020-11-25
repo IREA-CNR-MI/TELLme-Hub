@@ -459,6 +459,7 @@ def set_mapid_protocolid(request, map_id, protocol_id):
         m = Map.objects.get(id=map_id)
         c = TopicCategory.objects.get(identifier=identifier)
         m.category = c
+	m.save()
         return json_response(body={'success': True, 'map_id': map_id, 'map_title ': m.title, 'category_identifier': c.identifier})
 
     else:
