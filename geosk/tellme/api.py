@@ -470,14 +470,25 @@ def set_mapid_protocolid(request, map_id, protocol_id):
 
 def clean_missing_style_title():
     from geonode.layers.models import Style
-    for s in Style.objects.filter(sld_title__isnull=True):
-        s.sld_title = s.name
-        s.save()
+
+    try:
+        for s in Style.objects.filter(sld_title__isnull=True):
+            s.sld_title = s.name
+            s.save()
+            return True
+    except Exception as e:
+        return False
+
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def cleanMissingStyleTitle(request):
-    clean_missing_style_title()
-    pass
+
+    if clean_missing_style_title():
+        return json_response(body={'success': True})
+    else:
+        return json_response(body={'success': False})
+
 
 # # Added 20200904 - deprecated: it is not working properly.
 # # cf. http://osgeo-org.1560.x6.nabble.com/Programmatically-create-layers-and-maps-from-own-Django-App-td5415638.html
