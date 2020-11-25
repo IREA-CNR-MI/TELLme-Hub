@@ -144,6 +144,7 @@ def _savelayermd(layer, rndt, ediml, version='1'):
 
     from tellmeGlossaryIntegration import delete_non_tellme_hierarchicalKeywords as delnontellmekeywords
     delnontellmekeywords()
+    clean_missing_style_title()
     # clean the hierarchicalKeywords tree from generic keywords, pushing them under the z_other_keywords branch
     move_genericHK_level1_under_otherkeywords_branch(keywords)
 
@@ -466,6 +467,17 @@ def set_mapid_protocolid(request, map_id, protocol_id):
 
     else:
         return json_response(body={'success': False, 'map_id': map_id})
+
+def clean_missing_style_title():
+    from geonode.layers.models import Style
+    for s in Style.objects.filter(sld_title__isnull=True):
+        s.sld_title = s.name
+        s.save()
+
+@user_passes_test(lambda u: u.is_superuser)
+def cleanMissingStyleTitle(request):
+    clean_missing_style_title()
+    pass
 
 # # Added 20200904 - deprecated: it is not working properly.
 # # cf. http://osgeo-org.1560.x6.nabble.com/Programmatically-create-layers-and-maps-from-own-Django-App-td5415638.html

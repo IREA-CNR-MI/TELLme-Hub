@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^refresh_glossary_rdf', 'geosk.tellme.api.refresh_glossary_rdf', name='refresh_glossary_rdf'),
     url(r'^synchronizeHierarchicalKeywords_glossary_rdf', 'geosk.tellme.api.synchronizeHierarchicalKeywords_glossary_rdf', name='synchronizeHierarchicalKeywords_glossary_rdf'),
     url(r'^synchronizeNewGlossaryEntries', 'geosk.tellme.api.synchronizeNewGlossaryEntries', name='synchronizeNewGlossaryEntries'),
+    url(r'^cleanMissingStyleTitle', 'geosk.tellme.api.cleanMissingStyleTitle', name='cleanMissingStyleTitle'),
     url(r'^delete_non_tellme_hierarchicalKeywords', 'geosk.tellme.api.delete_non_tellme_hierarchicalKeywords',
         name='delete_non_tellme_hierarchicalKeywords'),
     url(r'^set_layerid_conceptid/(?P<layer_id>[^/]*)/(?P<concept_id>[^/]*)','geosk.tellme.api.set_layerid_conceptid',name="set_layerid_conceptid"),
