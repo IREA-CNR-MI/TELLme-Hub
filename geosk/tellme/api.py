@@ -142,6 +142,8 @@ def _savelayermd(layer, rndt, ediml, version='1'):
         layer.mdextension.elements_xml = ediml
     layer.mdextension.save()
 
+    from tellmeGlossaryIntegration import delete_non_tellme_hierarchicalKeywords as delnontellmekeywords
+    delnontellmekeywords()
     # clean the hierarchicalKeywords tree from generic keywords, pushing them under the z_other_keywords branch
     move_genericHK_level1_under_otherkeywords_branch(keywords)
 
@@ -459,7 +461,7 @@ def set_mapid_protocolid(request, map_id, protocol_id):
         m = Map.objects.get(id=map_id)
         c = TopicCategory.objects.get(identifier=identifier)
         m.category = c
-	m.save()
+        m.save()
         return json_response(body={'success': True, 'map_id': map_id, 'map_title ': m.title, 'category_identifier': c.identifier})
 
     else:
