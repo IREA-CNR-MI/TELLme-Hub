@@ -235,6 +235,7 @@ def view_count_up(self, user, do_local=True):
         Layer.objects.filter(id=self.id) \
             .update(popular_count=models.F('popular_count') + 1)
 
+
 Layer.view_count_up = view_count_up
 Map.get_associated_tellme_relatedConcepts = get_associated_tellme_relatedConcepts
 Map.dict_layer_title_2_tellme_concepts = dict_layer_title_2_tellme_concepts
