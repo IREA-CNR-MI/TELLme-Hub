@@ -475,7 +475,7 @@ def clean_missing_style_title():
         for s in Style.objects.filter(sld_title__isnull=True):
             s.sld_title = s.name
             s.save()
-            return True
+        return True
     except Exception as e:
         return False
 
